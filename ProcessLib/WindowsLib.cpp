@@ -1,8 +1,9 @@
 #include "MemLib.h"
 #include <TlHelp32.h>
+using namespace std;
 namespace ProcessLib
 {
-	using namespace std;
+	
 #ifdef _WIN32
 	HANDLE  Process::process=NULL;
 	HWND Process::window=NULL;
@@ -51,11 +52,34 @@ namespace ProcessLib
 
 		if (!ReadProcessMemory(process,(void*)address,&result,4,&byte_read))
 		{
-			int k=GetLastError();
 			return 0;
 		}
 
 		return result;
+	}
+	char Process::ReadByte(unsigned address)
+	{
+		char result;
+		DWORD byte_read; 
+
+		if (!ReadProcessMemory(process,(void*)address,&result,1,&byte_read))
+		{
+			return 0;
+		}
+		return result;
+	}
+	bool Process::ReadRaw(unsigned address, void * buffer,unsigned long length)
+	{
+		DWORD byte_read;
+		if (!ReadProcessMemory(process,(void*)address,buffer,length,&byte_read))
+		{
+			return false;
+		}
+		return true;
+	}
+	unsigned Process::ReadRel(unsigned offset)
+	{
+		return ReadUInt(base_address+offset);
 	}
 	bool Process::Init()
 	{
@@ -90,7 +114,8 @@ namespace ProcessLib
 		base_address=(unsigned)me32.modBaseAddr;
 		CloseHandle( hModuleSnap );
 		return 1;
-
 	}
+	    
 #endif
+
 }
