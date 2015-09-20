@@ -16,9 +16,9 @@ namespace Wow
 	}
 	wchar_t * GameObject::GetName(bool refresh)
 	{
-		if (!name)
+		if (!name || refresh)
 		{
-			name= Process::ReadString_UTF8(Process::ReadUInt(Process::ReadUInt(base+WowOffsets::GameObject::NamePtr)+WowOffsets::GameObject::NameOffset),0);
+			name= Process::ReadString_UTF8(Process::ReadUInt(Process::ReadUInt(base+WowOffsets::GameObject::GameObjectNameCache)+WowOffsets::GameObject::GameObjectNameOffset),0);
 		}
 		return name;
 	}

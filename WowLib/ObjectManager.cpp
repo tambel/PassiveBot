@@ -10,6 +10,8 @@ namespace Wow
 	unsigned ObjectManager::base;
 	vector<GameObject*> ObjectManager::game_objects=vector<GameObject*>();
 	vector<Item*> ObjectManager::items=vector<Item*>();
+	vector<Unit*> ObjectManager::units= vector<Unit*>();
+	vector<Player*> ObjectManager::players= vector<Player*>();
 	void ObjectManager::EnumAllVisibleObjects()
 	{
 		ClearAllLists();
@@ -22,13 +24,21 @@ namespace Wow
 			case ObjectType::GAMEOBJECT:
 				{
 					game_objects.push_back(new GameObject(curobject));
-					GameObject gj=GameObject(curobject);
-					wchar_t * name=gj.GetName();
 					break;
 				}
 			case ObjectType::ITEM:
 				{
 					items.push_back(new Item(curobject));
+					break;
+				}
+			case ObjectType::UNIT:
+				{
+					units.push_back(new Unit(curobject));
+					break;
+				}
+			case ObjectType::PLAYER:
+				{
+					players.push_back(new Player(curobject));
 					break;
 				}
 			}
@@ -40,7 +50,7 @@ namespace Wow
 	void ObjectManager::Initialize()
 	{
 
-		base=Process::ReadUInt(Process::ReadUInt(Process::GetProcessBase()+WowOffsets::ObjectManager::ObjectPanagerPtr)+WowOffsets::ObjectManager::ObjectManagerOffset);
+		base=Process::ReadUInt(Process::ReadRel(WowOffsets::ObjectManager::ObjectPanagerPtr)+WowOffsets::ObjectManager::ObjectManagerOffset);
 	}
 	
 	vector<GameObject*> *ObjectManager::GetGameObjectsList()
@@ -51,7 +61,14 @@ namespace Wow
 	{
 			return &items;
 	}
-
+	vector<Unit*> *ObjectManager::GetUnitsList()
+	{
+		return &units;
+	}
+	vector<Player*> *ObjectManager::GetPlayersList()
+	{
+		return &players;
+	}
 	void ObjectManager::ClearAllLists()
 	{
 		for(auto game_object: game_objects)
@@ -62,8 +79,18 @@ namespace Wow
 		{
 			delete item;
 		}
+		for (auto unit:units)
+		{
+			delete unit;
+		}
+		for (auto player:players)
+		{
+			delete player;
+		}
+		players.clear();
 		game_objects.clear();
 		items.clear();
+		units.clear();
 	}
 }
  

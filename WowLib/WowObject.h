@@ -4,8 +4,8 @@ namespace Wow
 {
 	struct Guid128
 	{
-		unsigned low;
-		unsigned high;
+		unsigned long long low;
+		unsigned long long high;
 		Guid128()
 		{
 			low=0;
@@ -22,15 +22,26 @@ namespace Wow
 				return false;
 			}
 		}
+		friend bool operator!=(const Guid128& left, const Guid128& right)
+		{
+			if (left.high!=right.high || left.low!=right.low)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 		friend bool operator!(const Guid128& guid)
 		{
 			if (guid.high==0 && guid.low==0)
 			{
-				return false;
+				return true;
 			}
 			else
 			{
-				return true;
+				return false;
 			}
 		}
 	};
@@ -54,6 +65,7 @@ protected:
 	wchar_t * name;
 	Guid128 guid;
 	char type;
+	unsigned id;
 
 
 public:

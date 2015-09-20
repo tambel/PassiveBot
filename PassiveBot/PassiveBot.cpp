@@ -24,6 +24,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		wcout<<item->GetName()<<endl;
 	}
+	cout<<"Units"<<endl;
+	for (auto unit:*ObjectManager::GetUnitsList())
+	{
+		wcout<<unit->GetName()<<endl;
+	}
+	cout<<"Players"<<endl;
+	for (auto player:*ObjectManager::GetPlayersList())
+	{
+		//player->GetName();
+		wcout<<player->GetName()<<endl;
+	}
 	int i;
 	cin>>i;
 	return 0;

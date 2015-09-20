@@ -7,6 +7,7 @@ namespace Wow
 	public:
 		Unit(unsigned base);
 		~Unit(void);
+		wchar_t * GetName(bool refresh=false);
 	};
 }
 

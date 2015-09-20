@@ -10,6 +10,7 @@ namespace Wow
 		SetBase(base);
 		name=0;
 		type=0;
+		id=0;
 		guid=Guid128();
 	}
 
@@ -27,7 +28,7 @@ namespace Wow
 	}
 	char WowObject::GetType(bool refresh)
 	{
-		if (!type)
+		if (!type || refresh)
 		{
 			type=Process::ReadUInt(base+WowOffsets::Object::Type);
 		}
@@ -43,11 +44,15 @@ namespace Wow
 	}
 	unsigned WowObject::GetID(bool refresh)
 	{
-		return Process::ReadUInt(Process::ReadUInt(base+WowOffsets::Descriptors)+WowOffsets::Object::EntityID);
+		if (!id || refresh)
+		{
+			id= Process::ReadUInt(Process::ReadUInt(base+WowOffsets::Descriptors)+WowOffsets::Object::EntityID);
+		}
+		return id;
 	}
 	Guid128 * WowObject::GetGuid(bool refresh)
 	{
-		if (!guid)
+		if (!guid || refresh)
 		{
 			Process::ReadRaw(Process::ReadUInt(base+WowOffsets::Descriptors),&guid,16);
 		}

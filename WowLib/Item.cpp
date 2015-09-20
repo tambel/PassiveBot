@@ -14,9 +14,9 @@ namespace Wow
 	}
 	wchar_t * Item::GetName(bool refresh)
 	{
-		if (!name)
+		if (!name || refresh)
 		{
-			name = Process::ReadString_UTF8(Process::ReadUInt(Process::ReadRel(WowOffsets::Item::CachePtr+0x28)+4*(GetID()-Process::ReadRel(WowOffsets::Item::CachePtr+0x14)))+0x198,0);
+			name = Process::ReadString_UTF8(Process::ReadUInt(Process::ReadRel(WowOffsets::Item::CachePtr+0x28)+4*(GetID()-Process::ReadRel(WowOffsets::Item::CachePtr+0x14)))+WowOffsets::Item::ItemNameoffset,0);
 		}
 		return name;
 	}

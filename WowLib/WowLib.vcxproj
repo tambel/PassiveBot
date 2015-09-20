@@ -75,6 +75,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="offsets.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="WowObject.h" />
@@ -83,6 +84,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="WowObject.cpp" />
   </ItemGroup>
