@@ -50,16 +50,16 @@ namespace Wow
 	void ObjectManager::Initialize()
 	{
 
-		base=Process::ReadUInt(Process::ReadRel(WowOffsets::ObjectManager::ObjectPanagerPtr)+WowOffsets::ObjectManager::ObjectManagerOffset);
+		base=Process::ReadUInt(Process::ReadRelUInt(WowOffsets::ObjectManager::ObjectPanagerPtr)+WowOffsets::ObjectManager::ObjectManagerOffset);
 	}
-	
+
 	vector<GameObject*> *ObjectManager::GetGameObjectsList()
 	{
-			return &game_objects;
+		return &game_objects;
 	}
 	vector<Item*> *ObjectManager::GetItemsList()
 	{
-			return &items;
+		return &items;
 	}
 	vector<Unit*> *ObjectManager::GetUnitsList()
 	{
@@ -92,5 +92,28 @@ namespace Wow
 		items.clear();
 		units.clear();
 	}
+	void ObjectManager::DumpAllObjectNames()
+	{
+		cout<<"Game Objects"<<endl;
+		for (auto game_object:game_objects)
+		{
+			wcout<<game_object->GetName()<<endl;
+		}
+		cout<<"Items"<<endl;
+		for (auto item:items)
+		{
+			wcout<<item->GetName()<<endl;
+		}
+		cout<<"Units"<<endl;
+		for (auto unit:units)
+		{
+			wcout<<unit->GetName()<<endl;
+		}
+		cout<<"Players"<<endl;
+		for (auto player:players)
+		{
+			//player->GetName();
+			wcout<<player->GetName()<<endl;
+		}
+	}
 }
- 

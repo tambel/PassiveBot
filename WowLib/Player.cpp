@@ -17,7 +17,7 @@ namespace Wow
 		if (!name || refresh)
 		{
 			Guid128 tmp_guid=Guid128();
-			unsigned current=Process::ReadRel(WowOffsets::Player::PlayerNameCache);
+			unsigned current=Process::ReadRelUInt(WowOffsets::Player::PlayerNameCache);
 			Process::ReadRaw(current+WowOffsets::PlayerNameCacheGuid,&tmp_guid,16);
 			name=Process::ReadString_UTF8(current+WowOffsets::PlayerNameCacheName,0);
 			while(*GetGuid()!=tmp_guid)

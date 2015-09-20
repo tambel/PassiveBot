@@ -24,7 +24,10 @@ namespace ProcessLib
 		static unsigned ReadUInt(unsigned address);
 		static char ReadByte(unsigned address);
 		static bool ReadRaw(unsigned address, void * buffer, unsigned long length);
-		static unsigned ReadRel(unsigned offset);
-	
+		static unsigned ReadRelUInt(unsigned offset);
+		static char * ReadASCII(unsigned address,unsigned long length);
+		static float ReadFloat(unsigned address);
+		static float ReadRelFloat(unsigned offset);
+		static void MoveMouse(int x,int y);
 	};
 }

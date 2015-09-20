@@ -23,6 +23,7 @@ namespace Wow
 		static vector<Item*> *GetItemsList();
 		static vector<Unit*> *GetUnitsList();
 		static vector<Player*> *GetPlayersList();
+		static void DumpAllObjectNames();
 	};
 }
 

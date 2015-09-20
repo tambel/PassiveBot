@@ -3,8 +3,10 @@
 #pragma once
 #include "stdafx.h"
 #include <ObjectManager.h>
+#include <FrameManager.h>
 #include <MemLib.h>
 #include <iostream>
+
 using namespace ProcessLib;
 using namespace Wow;
 using namespace std;
@@ -17,24 +19,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout<<"Game Objects"<<endl;
 	for (auto game_object:*ObjectManager::GetGameObjectsList())
 	{
-		wcout<<game_object->GetName()<<endl;
+		//wcout<<((WowObject *)game_object)->GetName()<<endl;
 	}
-	cout<<"Items"<<endl;
-	for (auto item:*ObjectManager::GetItemsList())
-	{
-		wcout<<item->GetName()<<endl;
-	}
-	cout<<"Units"<<endl;
-	for (auto unit:*ObjectManager::GetUnitsList())
-	{
-		wcout<<unit->GetName()<<endl;
-	}
-	cout<<"Players"<<endl;
-	for (auto player:*ObjectManager::GetPlayersList())
-	{
-		//player->GetName();
-		wcout<<player->GetName()<<endl;
-	}
+	FrameManager::EnumAllFrames();
+	cout<<FrameManager::GetScreenWidth()<<endl<<FrameManager::GetScreenHeigth()<<endl;
+	//Process::MoveMouse(683,384);
+	Frame * f=FrameManager::FindFrameByName("ContainerFrame1");
+	Frame*  p=f->GetParent();
 	int i;
 	cin>>i;
 	return 0;
