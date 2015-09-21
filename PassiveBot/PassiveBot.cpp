@@ -5,6 +5,7 @@
 #include <ObjectManager.h>
 #include <FrameManager.h>
 #include <MemLib.h>
+#include <GameInteractor.h>
 #include <iostream>
 
 using namespace ProcessLib;
@@ -22,11 +23,19 @@ int _tmain(int argc, _TCHAR* argv[])
 		//wcout<<((WowObject *)game_object)->GetName()<<endl;
 	}
 	FrameManager::EnumAllFrames();
-	cout<<FrameManager::GetScreenWidth()<<endl<<FrameManager::GetScreenHeigth()<<endl;
+	//cout<<FrameManager::GetScreenWidth()<<endl<<FrameManager::GetScreenHeigth()<<endl;
 	//Process::MoveMouse(683,384);
-	Frame * f=FrameManager::FindFrameByName("ContainerFrame1");
-	Frame*  p=f->GetParent();
+	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1");
+	//Frame * f=FrameManager::FindFrameByName("AuctionFrame");
+	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1Item1");
+	//Frame * f=FrameManager::FindFrameByName("AccountLoginAccountEdit");
 	int i;
+	//cin>>i;
+	Sleep(5000);
+	GameInteractor::Login("lissek7@ya.ru","lebmat2762066");
+	//Process::MoveMouse(65000,65535);
+
+
 	cin>>i;
 	return 0;
 }

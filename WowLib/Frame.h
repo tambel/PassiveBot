@@ -21,6 +21,7 @@ namespace Wow
 		float GetLeft(bool refresh=false);
 		float GetRight(bool refresh=false);
 		Frame * GetParent();
+		void MoveMoseToFrame();
 	};
 }
 

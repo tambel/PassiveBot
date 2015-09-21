@@ -3,11 +3,14 @@
 using namespace std;
 namespace ProcessLib
 {
-	
+
 #ifdef _WIN32
 	HANDLE  Process::process=NULL;
+	DWORD Process::thread_id=NULL;
 	HWND Process::window=NULL;
 	unsigned Process::base_address=0;
+	unsigned Process::mouse_x=0;
+	unsigned Process::mouse_y=0;
 	WCHAR * Process::ReadString_UTF8(unsigned address, unsigned long length)
 	{
 		wchar_t * tmpWCResult;
@@ -128,6 +131,7 @@ namespace ProcessLib
 		}
 
 		GetWindowThreadProcessId(window,&id);
+
 		process=OpenProcess(PROCESS_ALL_ACCESS ,NULL,id);
 		if (process==NULL)
 		{
@@ -147,6 +151,48 @@ namespace ProcessLib
 			return false;
 		}
 		base_address=(unsigned)me32.modBaseAddr;
+		HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+		if (h != INVALID_HANDLE_VALUE) {
+			THREADENTRY32 te;
+			FILETIME time={0};
+			#define _WIN32_WINNT
+			bool first=true;
+			te.dwSize = sizeof(te);
+			if (!Thread32First(h, &te))
+			{
+					return 0;
+			} 
+			
+			do
+			{
+				if (te.th32OwnerProcessID==id)
+				{
+					HANDLE thread=OpenThread(  THREAD_ALL_ACCESS ,FALSE,te.th32ThreadID);
+					int error=GetLastError();
+					FILETIME ct={0};
+					FILETIME et={0};
+					FILETIME kt={0};
+					FILETIME ut={0};
+					GetThreadTimes(thread,&ct,&et,&kt,&ut);
+					if (first)
+					{
+						time=ct;
+						thread_id=te.th32ThreadID;
+						first=false;
+						continue;
+					}
+					if (CompareFileTime(&time,&ct)>0)
+					{
+						time=ct;
+						thread_id=te.th32ThreadID;
+
+					}
+				}
+			}
+			while (Thread32Next(h, &te));
+		}
+		CloseHandle(h);
+		//thread=me32.th32ModuleID;
 		CloseHandle( hModuleSnap );
 		return 1;
 	}
@@ -160,20 +206,133 @@ namespace ProcessLib
 		}
 		return result;
 	}
-	void Process::MoveMouse(int x, int y)
+	void Process::MoveMouse(unsigned x, unsigned y)
 	{
 		INPUT input={0};
-		input.mi.dx=x*(65536/GetSystemMetrics(SM_CXSCREEN));;
-		input.mi.dy=y*(65536/GetSystemMetrics(SM_CYSCREEN));;
+		input.mi.dx=x;
+		input.mi.dy=y;
 		input.mi.mouseData=0;
 		input.mi.dwFlags= MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
 		input.type=INPUT_MOUSE;
 		SendInput(1,&input,sizeof(input));
+		mouse_x=x;
+		mouse_y=y;
 	}
 	float Process::ReadRelFloat(unsigned offset)
 	{
 		return ReadFloat(base_address+offset);
 	}
+	Language Process::GetCurrentLanguage()
+	{
+		HKL l=GetKeyboardLayout(thread_id);
+		Language lang;
+		WORD low=(DWORD)l>>0;
+		char low2=low>>0;
+		switch (low2>>0)
+		{
+		case LANG_RUSSIAN:
+			lang=Language::RUSSIAN;
+			break;
+		case LANG_ENGLISH:
+			lang=Language::ENGLISH;
+			break;
+		}
+		return lang;
+	}
+	void Process::MouseClick()
+	{
+		INPUT input={0};
+		input.mi.dx=mouse_x;
+		input.mi.dy=mouse_y;
+		input.mi.mouseData=0;
+		input.mi.dwFlags= MOUSEEVENTF_LEFTDOWN;
+		input.type=INPUT_MOUSE;
+		SendInput(1,&input,sizeof(input));
+		Sleep(50);
+		input.mi.dwFlags= MOUSEEVENTF_LEFTUP;
+		SendInput(1,&input,sizeof(input));
+	}
+	unsigned short Process::ReinterpretKeybardKey(unsigned short button)
+	{
+		WORD key;
+		if (button>=0x41 && button<=0x5A)
+		{
+			key=button;
+		}
+		else if (button>=0x30 && button<=0x39)
+		{
+			key=button;
+		}
+		switch (button)
+		{
+		case KeyboardButton::ARROW_RIGHT:
+			key=VK_RIGHT;
+			break;
+		case KeyboardButton::ARROW_LEFT:
+			key=VK_LEFT;
+			break;
+		case KeyboardButton::BACKSPACE:
+			key=VK_BACK;
+			break;
+		case KeyboardButton::AT:
+			key=VK_ATTN;
+			break;
+		case KeyboardButton::PERIOD:
+			key=VK_OEM_PERIOD;
+			break;
+		case KeyboardButton::ALT:
+			key=VK_MENU;
+			break;
+		case KeyboardButton::CONTROL:
+			key=VK_CONTROL;
+			break;
+		case KeyboardButton::LSHIFT:
+			key=VK_LSHIFT;
+			break;
+		case KeyboardButton::ENTER:
+			key=VK_RETURN;
+			break;
+		}
+		return key;
+	}
+	void Process::PushKeyboardButton(unsigned short button)
+	{
+		INPUT input={0};
+		input.type=INPUT_KEYBOARD;
+		input.ki.wVk=ReinterpretKeybardKey(button);
+		SendInput(1,&input,sizeof(input));
+	}
+	void Process::ReleaseKeyboardButton(unsigned short button)
+	{
+		INPUT input={0};
+		input.type=INPUT_KEYBOARD;
+		input.ki.wVk=ReinterpretKeybardKey(button);
+		input.ki.dwFlags=KEYEVENTF_KEYUP;
+		SendInput(1,&input,sizeof(input));
+	}
+	void Process::PressKeyboardButton(unsigned short button,unsigned long delay,unsigned short add_button)
+	{
+		INPUT input={0};
+		input.type=INPUT_KEYBOARD;
+		input.ki.wVk=ReinterpretKeybardKey(button);
+		if (add_button)
+		{
+			PushKeyboardButton(add_button);
+			SendInput(1,&input,sizeof(input));
+			input.ki.dwFlags=KEYEVENTF_KEYUP;
+			SendInput(1,&input,sizeof(input));
+			ReleaseKeyboardButton(add_button);
+		}
+		else
+		{
+			SendInput(1,&input,sizeof(input));
+			input.ki.dwFlags=KEYEVENTF_KEYUP;
+			SendInput(1,&input,sizeof(input));
+		}
+		delay?Sleep(delay):delay;
+	}
+
+
 #endif
 
 }

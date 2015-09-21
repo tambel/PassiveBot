@@ -5,7 +5,7 @@
 using namespace std;
 namespace Wow
 {
-	static class FrameManager
+	class FrameManager
 	{
 		static vector <Frame*> frames; 
 		static float screen_width;

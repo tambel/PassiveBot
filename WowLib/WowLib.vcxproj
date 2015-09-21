@@ -73,6 +73,7 @@
   <ItemGroup>
     <ClInclude Include="Frame.h" />
     <ClInclude Include="FrameManager.h" />
+    <ClInclude Include="GameInteractor.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectManager.h" />
@@ -85,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="FrameManager.cpp" />
+    <ClCompile Include="GameInteractor.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ObjectManager.cpp" />

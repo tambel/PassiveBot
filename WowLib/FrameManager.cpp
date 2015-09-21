@@ -90,6 +90,7 @@ namespace Wow
 				return frame;
 			}
 		}
+		return 0;
 	}
 	Frame * FrameManager::FindFrameByAddress(unsigned address)
 	{
@@ -100,5 +101,6 @@ namespace Wow
 				return frame;
 			}
 		}
+		return 0;
 	}
 }
