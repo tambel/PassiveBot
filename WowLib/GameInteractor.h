@@ -7,6 +7,7 @@ namespace Wow
 		GameInteractor(void);
 		~GameInteractor(void);
 		static bool Login(char * login, char * password);
+		static bool Start();
 	};
 }
 

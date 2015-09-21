@@ -14,15 +14,10 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale( LC_ALL,"Russian" );
-	Process::Init();
-	ObjectManager::Initialize();
-	ObjectManager::EnumAllVisibleObjects();
-	cout<<"Game Objects"<<endl;
-	for (auto game_object:*ObjectManager::GetGameObjectsList())
-	{
-		//wcout<<((WowObject *)game_object)->GetName()<<endl;
-	}
-	FrameManager::EnumAllFrames();
+	//Process::Init();
+	GameInteractor::Start();
+	//ObjectManager::Initialize();
+	//ObjectManager::EnumAllVisibleObjects();
 	//cout<<FrameManager::GetScreenWidth()<<endl<<FrameManager::GetScreenHeigth()<<endl;
 	//Process::MoveMouse(683,384);
 	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1");
@@ -31,8 +26,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Frame * f=FrameManager::FindFrameByName("AccountLoginAccountEdit");
 	int i;
 	//cin>>i;
-	Sleep(5000);
-	GameInteractor::Login("lissek7@ya.ru","lebmat2762066");
+	GameInteractor::Login("arttambel@gmail.com","archi911");
 	//Process::MoveMouse(65000,65535);
 
 
