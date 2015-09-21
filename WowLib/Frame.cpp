@@ -105,5 +105,18 @@ namespace Wow
 		//cout<<"x "<<x<<endl<<"y "<<y<<endl;
 		Process::MoveMouse((unsigned)x,(unsigned)y);
 	}
+	bool Frame::IsVisible()
+	{
+		char result;
+		result= Process::ReadByte(base+WowOffsets::FrameManager::Visible);
+		if (result==1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 }

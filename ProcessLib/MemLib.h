@@ -35,6 +35,7 @@ namespace ProcessLib
 		static unsigned mouse_x;
 		static unsigned mouse_y;
 		static DWORD thread_id;
+		static DWORD process_id;
 #endif
 
 		static unsigned base_address;
@@ -43,7 +44,8 @@ namespace ProcessLib
 		static bool IsButtonPressed(unsigned short button);
 	public:
 		
-		static bool Init();
+		static bool Initialize(bool cont);
+		static bool LaunchGame();
 		static unsigned GetProcessBase();
 		static wchar_t * ReadString_UTF8(unsigned address, unsigned long  length);
 		static unsigned ReadUInt(unsigned address);
@@ -62,6 +64,7 @@ namespace ProcessLib
 		static void TypeByKeyboard(char * string);
 		static Language GetCurrentLanguage();
 		static void SetLanguage(Language lang);
+		static bool FindOpenProcess();
 
 		
 	};

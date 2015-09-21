@@ -20,9 +20,14 @@ namespace Wow
 	{
 		return &frames;
 	}
-	void FrameManager::EnumAllFrames()
+	bool FrameManager::EnumAllFrames()
 	{
+		ClearFrames();
 		unsigned base_frame=Process::ReadRelUInt(WowOffsets::FrameManager::FrameBase);
+		if (!base_frame)
+		{
+			return 0;
+		}
 		unsigned current=Process::ReadUInt(base_frame+WowOffsets::FrameManager::FirstFrame);
 		while (current)
 		{

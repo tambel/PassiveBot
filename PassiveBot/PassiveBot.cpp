@@ -14,7 +14,8 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale( LC_ALL,"Russian" );
-	Process::Init();
+	//Process::Initialize();
+	GameInteractor::StartGame();
 	ObjectManager::Initialize();
 	ObjectManager::EnumAllVisibleObjects();
 	cout<<"Game Objects"<<endl;
@@ -30,10 +31,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1Item1");
 	//Frame * f=FrameManager::FindFrameByName("AccountLoginAccountEdit");
 	int i;
-	//cin>>i;
-	Sleep(5000);
-	GameInteractor::Login("lissek7@ya.ru","lebmat2762066");
-	//Process::MoveMouse(65000,65535);
+
 
 
 	cin>>i;

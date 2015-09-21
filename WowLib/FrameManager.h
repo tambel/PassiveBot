@@ -14,7 +14,7 @@ namespace Wow
 		FrameManager(void);
 		~FrameManager(void);
 		static vector <Frame*> * GetFrames();
-		static void EnumAllFrames();
+		static bool EnumAllFrames();
 		static void FindParents();
 		static void DumpAllFramesNames();
 		static void ClearFrames();
@@ -22,6 +22,7 @@ namespace Wow
 		static float GetScreenHeigth(bool refresh=false);
 		static Frame * FindFrameByName(const char * name);
 		static Frame * FindFrameByAddress(unsigned address);
+		
 	};
 }
 

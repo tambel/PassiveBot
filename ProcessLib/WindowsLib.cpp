@@ -5,7 +5,9 @@ namespace ProcessLib
 {
 
 #ifdef _WIN32
+#define WOW_EXECUTABLE_PATH "C:\\Users\\laptop\\Desktop\\World of Warcraft\\Wow.exe"
 	HANDLE  Process::process=NULL;
+	DWORD Process::process_id=NULL;
 	DWORD Process::thread_id=NULL;
 	HWND Process::window=NULL;
 	unsigned Process::base_address=0;
@@ -119,9 +121,8 @@ namespace ProcessLib
 		return result;
 
 	}
-	bool Process::Init()
+	bool Process::Initialize(bool cont)
 	{
-		DWORD id;
 		HANDLE hModuleSnap = INVALID_HANDLE_VALUE;
 		MODULEENTRY32 me32;
 		window=FindWindow("GXWindowClass","World of Warcraft");
@@ -130,15 +131,17 @@ namespace ProcessLib
 			return false;
 		}
 
-		GetWindowThreadProcessId(window,&id);
-
-		process=OpenProcess(PROCESS_ALL_ACCESS ,NULL,id);
-		if (process==NULL)
+		//GetWindowThreadProcessId(window,&id);
+		if (!cont)
 		{
-			return false;
+			process=OpenProcess(PROCESS_ALL_ACCESS ,NULL,process_id);
+			if (process==NULL)
+			{
+				return false;
+			}
 		}
 
-		hModuleSnap = CreateToolhelp32Snapshot( TH32CS_SNAPMODULE, id);
+		hModuleSnap = CreateToolhelp32Snapshot( TH32CS_SNAPMODULE, process_id);
 		if( hModuleSnap == INVALID_HANDLE_VALUE )
 		{
 			return false;
@@ -151,50 +154,64 @@ namespace ProcessLib
 			return false;
 		}
 		base_address=(unsigned)me32.modBaseAddr;
-		HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
-		if (h != INVALID_HANDLE_VALUE) {
-			THREADENTRY32 te;
-			FILETIME time={0};
-			#define _WIN32_WINNT
-			bool first=true;
-			te.dwSize = sizeof(te);
-			if (!Thread32First(h, &te))
-			{
-					return 0;
-			} 
-			
-			do
-			{
-				if (te.th32OwnerProcessID==id)
+		if (cont)
+		{
+			hModuleSnap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+			if (hModuleSnap != INVALID_HANDLE_VALUE) {
+				THREADENTRY32 te;
+				FILETIME time={0};
+				bool first=true;
+				te.dwSize = sizeof(te);
+				if (!Thread32First(hModuleSnap, &te))
 				{
-					HANDLE thread=OpenThread(  THREAD_ALL_ACCESS ,FALSE,te.th32ThreadID);
-					int error=GetLastError();
-					FILETIME ct={0};
-					FILETIME et={0};
-					FILETIME kt={0};
-					FILETIME ut={0};
-					GetThreadTimes(thread,&ct,&et,&kt,&ut);
-					if (first)
+					return 0;
+				} 
+				do
+				{
+					if (te.th32OwnerProcessID==process_id)
 					{
-						time=ct;
-						thread_id=te.th32ThreadID;
-						first=false;
-						continue;
-					}
-					if (CompareFileTime(&time,&ct)>0)
-					{
-						time=ct;
-						thread_id=te.th32ThreadID;
+						HANDLE thread=OpenThread(  THREAD_ALL_ACCESS ,FALSE,te.th32ThreadID);
+						FILETIME ct={0};
+						FILETIME et={0};
+						FILETIME kt={0};
+						FILETIME ut={0};
+						GetThreadTimes(thread,&ct,&et,&kt,&ut);
+						if (first)
+						{
+							time=ct;
+							thread_id=te.th32ThreadID;
+							first=false;
+							continue;
+						}
+						if (CompareFileTime(&time,&ct)>0)
+						{
+							time=ct;
+							thread_id=te.th32ThreadID;
 
+						}
 					}
 				}
+				while (Thread32Next(hModuleSnap, &te));
 			}
-			while (Thread32Next(h, &te));
+			CloseHandle( hModuleSnap );
 		}
-		CloseHandle(h);
-		//thread=me32.th32ModuleID;
-		CloseHandle( hModuleSnap );
 		return 1;
+	}
+	bool Process::LaunchGame()
+	{
+
+		PROCESS_INFORMATION pi = {0};
+		STARTUPINFO si = {0};
+		HANDLE hModuleSnap = INVALID_HANDLE_VALUE;
+		MODULEENTRY32 me32={0};
+		me32.dwSize = sizeof( MODULEENTRY32 );
+		if (!CreateProcess(WOW_EXECUTABLE_PATH,NULL,NULL,NULL,FALSE,0,NULL,NULL,&si,&pi))
+		{
+			return 0;
+		}
+		process=pi.hProcess;
+		process_id=pi.dwProcessId;
+		thread_id=pi.dwThreadId;
 	}
 	float Process::ReadFloat(unsigned address)
 	{
@@ -331,7 +348,34 @@ namespace ProcessLib
 		}
 		delay?Sleep(delay):delay;
 	}
+	bool Process::FindOpenProcess()
+	{
+		PROCESSENTRY32 entry;
+		entry.dwSize = sizeof(PROCESSENTRY32);
 
+		HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
+		bool success=true;
+		if (Process32First(snapshot, &entry) == TRUE)
+		{
+			while (Process32Next(snapshot, &entry) == TRUE)
+			{
+				if (stricmp(entry.szExeFile, "Wow.exe") == 0)
+				{  
+					process=OpenProcess(PROCESS_ALL_ACCESS, FALSE, entry.th32ProcessID);
+					process_id=entry.th32ProcessID;
+					window=FindWindow("GXWindowClass","World of Warcraft");
+					if (window==NULL)
+					{
+						success= false;
+					}
+					return 1;
+				}
+			}
+		}
+		CloseHandle(snapshot);
+
+		return 0;
+	}
 
 #endif
 
