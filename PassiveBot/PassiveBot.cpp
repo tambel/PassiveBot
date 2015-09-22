@@ -14,22 +14,27 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale( LC_ALL,"Russian" );
-	//Process::Init();
-	GameInteractor::Start();
-	//ObjectManager::Initialize();
-	//ObjectManager::EnumAllVisibleObjects();
-	//cout<<FrameManager::GetScreenWidth()<<endl<<FrameManager::GetScreenHeigth()<<endl;
-	//Process::MoveMouse(683,384);
+	GameInteractor::StartClient();
 	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1");
 	//Frame * f=FrameManager::FindFrameByName("AuctionFrame");
 	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1Item1");
 	//Frame * f=FrameManager::FindFrameByName("AccountLoginAccountEdit");
-	int i;
-	//cin>>i;
+
+	//GameInteractor::Test();
+
+
+
 	GameInteractor::Login("arttambel@gmail.com","archi911");
-	//Process::MoveMouse(65000,65535);
-
-
+	GameInteractor::WaitForAuthentification();
+	GameInteractor::CheckForPromoFrames();
+	Sleep(10000);
+	FrameManager::EnumAllFrames();
+	vector<Frame*> * frames=FrameManager::GetFrames();
+	Frame *frame1=FrameManager::FindFrameByName("CharSelectCharacterButton1");
+	frame1->MoveMoseToFrame();
+	Process::MouseClick();
+	Process::MouseClick();
+	int i;
 	cin>>i;
 	return 0;
 }

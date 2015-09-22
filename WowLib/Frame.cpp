@@ -10,6 +10,7 @@ namespace Wow
 		this->base=base;
 		parent=0;
 		name=0;
+		label_text=0;
 		bottom=-0xFFFF;
 		top=-0xFFFF;
 		left=-0xFFFF;
@@ -23,6 +24,10 @@ namespace Wow
 		{
 			delete name;
 		}
+		if (label_text)
+		{
+			delete label_text;
+		}
 	}
 	char * Frame::GetName(bool refresh)
 	{
@@ -34,6 +39,22 @@ namespace Wow
 		if (name)
 		{
 			return name;
+		}
+		else
+		{
+			return "NONE";
+		}
+	}
+	char * Frame::GetLabelText(bool refresh)
+	{
+		if (!label_text || refresh)
+		{
+			label_text?label_text:delete label_text;
+			label_text=Process::ReadASCII(Process::ReadUInt(base+WowOffsets::FrameManager::LabelText),0);
+		}
+		if (label_text)
+		{
+			return label_text;
 		}
 		else
 		{
@@ -104,6 +125,36 @@ namespace Wow
 		//cout<<"bottom "<<b<<endl<<"top "<<t<<endl<<"left "<<l<<endl<<"right"<<r<<endl;
 		//cout<<"x "<<x<<endl<<"y "<<y<<endl;
 		Process::MoveMouse((unsigned)x,(unsigned)y);
+	}
+	bool Frame::IsVisible()
+	{
+		char result=Process::ReadByte(base+WowOffsets::FrameManager::Visible);
+		if (result==1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool Frame::WaitForFrameVisibility(unsigned long time)
+	{
+		unsigned attempts=0;
+		while ((!IsVisible() && attempts<1000))
+		{
+			if (time!=0 && attempts*10>time)
+			{
+				break;
+			}
+			Sleep(10);
+			attempts++;
+		}
+		if (IsVisible())
+		{
+			return true;
+		}
+		return false;
 	}
 
 }

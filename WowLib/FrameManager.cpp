@@ -29,6 +29,7 @@ namespace Wow
 			frames.push_back(new Frame(current));
 			current=Process::ReadUInt(current+Process::ReadUInt(base_frame+WowOffsets::FrameManager::NextFrame)+4);
 			frames[frames.size()-1]->GetName();
+			frames[frames.size()-1]->GetLabelText();
 		}
 		//FindParents();
 	}

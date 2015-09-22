@@ -30,7 +30,7 @@ namespace ProcessLib
 	}
 	void Process::MultipleKeyboardButtonPush(unsigned short button,unsigned quantity,unsigned long interval)
 	{
-		for (int i=0;i<quantity;i++)
+		for (unsigned i=0;i<quantity;i++)
 		{
 			PressKeyboardButton(button,interval);
 		}
@@ -57,7 +57,6 @@ namespace ProcessLib
 			}
 			else
 			{
-				KeyboardButton button;
 				switch(*string)
 				{
 				case '@':

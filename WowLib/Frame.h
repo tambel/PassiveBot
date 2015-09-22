@@ -5,6 +5,7 @@ namespace Wow
 	{
 		unsigned base;
 		char * name;
+		char * label_text;
 		Frame * parent;
 		float bottom;
 		float top;
@@ -14,6 +15,7 @@ namespace Wow
 		Frame(unsigned base);
 		~Frame(void);
 		char * GetName(bool refresh=false);
+		char * GetLabelText(bool refresh=false);
 		void SetParent(Frame * parent);
 		unsigned GetBase();
 		float GetBottom(bool refresh=false);
@@ -22,6 +24,8 @@ namespace Wow
 		float GetRight(bool refresh=false);
 		Frame * GetParent();
 		void MoveMoseToFrame();
+		bool IsVisible();
+		bool WaitForFrameVisibility(unsigned long time=0);
 	};
 }
 

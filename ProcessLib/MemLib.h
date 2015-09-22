@@ -65,6 +65,9 @@ namespace ProcessLib
 		static void SetLanguage(Language lang);
 		static bool FindExistingProcess();
 		static bool LaunchProcess();
+		static char ReadRelByte(unsigned offset);
+		static bool ReadRelBool(unsigned offset);
+		static bool ReadBool(unsigned address);
 
 		
 	};

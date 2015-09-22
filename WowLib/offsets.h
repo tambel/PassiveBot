@@ -1,5 +1,10 @@
 namespace WowOffsets
 {
+	enum Client
+	{
+		Loaded=0xD8825C,
+		Unavalible=0xd87120
+	};
 	enum FrameManager
 	{
 		ScrWidth = 0xC5ADC8, // + 0xB000

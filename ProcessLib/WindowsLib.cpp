@@ -1,5 +1,7 @@
 #include "MemLib.h"
 #include <TlHelp32.h>
+#include <iostream>
+using namespace std;
 using namespace std;
 namespace ProcessLib
 {
@@ -13,12 +15,15 @@ namespace ProcessLib
 	unsigned Process::mouse_y=0;
 	bool Process::Init()
 	{
+		cout<<"Process initialization"<<endl;
+		CloseHandle(process);
 		DWORD id;
 		HANDLE hModuleSnap = INVALID_HANDLE_VALUE;
 		MODULEENTRY32 me32;
 		window=FindWindow("GXWindowClass","World of Warcraft");
 		if (window==NULL)
 		{
+			cout<<"   Window not found"<<endl;
 			return false;
 		}
 
@@ -27,6 +32,7 @@ namespace ProcessLib
 		process=OpenProcess(PROCESS_ALL_ACCESS ,NULL,id);
 		if (process==NULL)
 		{
+			cout<<"   OpenProcess failed"<<endl;
 			return false;
 		}
 
@@ -36,8 +42,6 @@ namespace ProcessLib
 			return false;
 		}
 		me32.dwSize = sizeof( MODULEENTRY32 );
-		// Retrieve information about the first module,
-		// and exit if unsuccessful
 		if( !Module32First( hModuleSnap, &me32 ) )
 		{
 			return false;
@@ -97,7 +101,7 @@ namespace ProcessLib
 		{
 			while (Process32Next(snapshot, &entry) == TRUE)
 			{
-				if (stricmp(entry.szExeFile, "Wow.exe") == 0)
+				if (strcmp(entry.szExeFile, "Wow.exe") == 0)
 				{  
 					CloseHandle(snapshot);
 					return true;
@@ -228,7 +232,6 @@ namespace ProcessLib
 		return result;
 
 	}
-
 	float Process::ReadFloat(unsigned address)
 	{
 		float result=0;
@@ -259,7 +262,7 @@ namespace ProcessLib
 	{
 		HKL l=GetKeyboardLayout(thread_id);
 		Language lang;
-		WORD low=(DWORD)l>>0;
+		WORD low=(WORD)l>>0;
 		char low2=low>>0;
 		switch (low2>>0)
 		{
@@ -364,7 +367,25 @@ namespace ProcessLib
 		}
 		delay?Sleep(delay):delay;
 	}
-
+	char Process::ReadRelByte(unsigned offset)	
+	{
+		return ReadByte(base_address+offset);
+	}
+	bool Process::ReadBool(unsigned address)
+	{
+		if (Process::ReadByte(address))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool Process::ReadRelBool(unsigned offset)
+	{
+		return ReadBool(base_address+offset);
+	}
 
 #endif
 
