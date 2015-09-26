@@ -14,26 +14,23 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale( LC_ALL,"Russian" );
-	GameInteractor::StartClient();
+	//GameInteractor::StartClient();
 	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1");
 	//Frame * f=FrameManager::FindFrameByName("AuctionFrame");
 	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1Item1");
 	//Frame * f=FrameManager::FindFrameByName("AccountLoginAccountEdit");
 
 	//GameInteractor::Test();
+	Sleep(5000);
+	GameStartParam * param=new GameStartParam();
+	param->char_name=L"Василующий";
+	param->login="arttambel@gmail.com";
+	param->password="archi911";
+	bool y=GameInteractor::Start(param);
+	
 
-
-
-	GameInteractor::Login("arttambel@gmail.com","archi911");
-	GameInteractor::WaitForAuthentification();
-	GameInteractor::CheckForPromoFrames();
-	Sleep(10000);
-	FrameManager::EnumAllFrames();
-	vector<Frame*> * frames=FrameManager::GetFrames();
-	Frame *frame1=FrameManager::FindFrameByName("CharSelectCharacterButton1");
-	frame1->MoveMoseToFrame();
-	Process::MouseClick();
-	Process::MouseClick();
+	//GameInteractor::Login("arttambel@gmail.com","archi911");
+	//GameInteractor::SelectCharacter(L"Василующий");
 	int i;
 	cin>>i;
 	return 0;

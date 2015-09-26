@@ -54,8 +54,9 @@ namespace ProcessLib
 		static char * ReadASCII(unsigned address,unsigned long length);
 		static float ReadFloat(unsigned address);
 		static float ReadRelFloat(unsigned offset);
-		static void MoveMouse(unsigned x,unsigned y);
-		static void MouseClick();
+		static void MoveMouse(unsigned x,unsigned y,unsigned long time=50);
+		static void MouseClick(unsigned long delay=50);
+		static void DoubleClick(unsigned long interval=20);
 		static void PushKeyboardButton(unsigned short button);
 		static void ReleaseKeyboardButton(unsigned short button);
 		static void PressKeyboardButton(unsigned short button,unsigned long delay=50,unsigned short add_button=0);

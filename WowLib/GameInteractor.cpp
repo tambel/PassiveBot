@@ -5,6 +5,7 @@
 using namespace ProcessLib;
 namespace Wow
 {
+
 	GameInteractor::GameInteractor(void)
 	{
 	}
@@ -14,11 +15,6 @@ namespace Wow
 	bool GameInteractor::Login(char * login, char * password)
 	{
 		cout<<"Logging in"<<endl;
-		if (!WaitUntilClientLoad())
-		{
-			return false;
-		}
-		
 		FrameManager::EnumAllFrames();
 		Frame * email_frame= FrameManager::FindFrameByName("AccountLoginAccountEdit");
 		if (!email_frame)
@@ -43,6 +39,8 @@ namespace Wow
 		Process::MouseClick();
 		Process::TypeByKeyboard(password);
 		Process::PressKeyboardButton(KeyboardButton::ENTER);
+		WaitForAuthentification();
+		
 		return true;
 	}
 	bool GameInteractor::StartClient()
@@ -50,17 +48,24 @@ namespace Wow
 		unsigned attempts_count=10;
 		if (!Process::FindExistingProcess())
 		{
+			cout<<"Launching new game process"<<endl;
 			Process::LaunchProcess();
 			Sleep(20000);
 		}
+		cout<<"Game process found"<<endl;
 		unsigned attempts=0;
 		while(!Process::Init() && attempts<attempts_count)
 		{
-			cout<<"   Retry"<<endl;
+			cout<<"Retry"<<endl;
 			Sleep(5000);
 			attempts++;
 		}
 		if (attempts==attempts_count)
+		{
+			cout<<"Attempts limit is reached"<<endl;
+			return false;
+		}
+		if (!WaitUntilClientLoad())
 		{
 			return false;
 		}
@@ -70,6 +75,30 @@ namespace Wow
 	bool GameInteractor::IsLoaded()
 	{
 		return Process::ReadRelBool(WowOffsets::Client::Loaded); 
+	}
+	bool GameInteractor::IsCharacterSelecting()
+	{
+		FrameManager::EnumAllFrames();
+		vector <Frame*> * frames=FrameManager::GetFrames();
+		Frame * char_select=FrameManager::FindFrameByName("CharSelectCharacterButton1");
+		if (!char_select)
+		{
+			return false;
+		}
+		if (!char_select->IsVisible())
+		{
+			return false;
+		}
+		return true;
+
+	}
+	bool GameInteractor::IsLoggingIn()
+	{
+		if (!IsCharacterSelecting() && ! IsInWorld() && IsLoaded())
+		{
+			return true;
+		}
+		return false;
 	}
 	bool GameInteractor::WaitUntilClientLoad()
 	{
@@ -96,11 +125,12 @@ namespace Wow
 	{
 		cout<<"Waiting for client authentification..."<<endl;
 		unsigned attempts=0;
-		while(Process::ReadRelBool(WowOffsets::Client::Unavalible) && attempts<6000)
+		while(Process::ReadRelBool(WowOffsets::Client::Unavalible) && attempts<6000 )
 		{
 			Sleep(10);
 			attempts++;
 		}
+		Sleep(10000);
 		if (!Process::ReadRelBool(WowOffsets::Client::Unavalible))
 		{
 			cout<<"Done"<<endl;
@@ -125,7 +155,12 @@ namespace Wow
 		if (starter->IsVisible())
 		{
 			starter->MoveMoseToFrame();
-			Process::MouseClick();
+			Sleep(5000);
+			Process::MouseClick(100);
+		}
+		if (starter->IsVisible())
+		{
+			return;
 		}
 	}
 	void GameInteractor::Test()
@@ -153,5 +188,63 @@ namespace Wow
 		frame1->MoveMoseToFrame();
 		bool y=frame5->IsVisible();
 
+	}
+	bool GameInteractor::SelectCharacter(wchar_t * name)
+	{
+		CheckForPromoFrames();
+		cout<<"Selecting character"<<endl;
+		__int64 v1=0;
+		unsigned long characters_number=Process::ReadRelUInt(WowOffsets::Client::CharactersNumber);
+		for (int i=0;i<characters_number;i++)
+		{
+			*((int*)&v1+1)=Process::ReadRelUInt(WowOffsets::Client::CharactersOffset)+464*i;
+			wchar_t * nm=Process::ReadString_UTF8((v1 + 0x1000000000i64) >> 32,0);
+			if (wcscmp(name,nm)==0)
+			{
+				string frame_name="CharSelectCharacterButton"+to_string(i+1);
+				Frame * frame =FrameManager::FindFrameByName(frame_name.c_str());
+				frame->MoveMoseToFrame();
+				Process::DoubleClick();
+				return true;
+			}
+
+		}
+		cout<<"Character selecting failed"<<endl;
+		return false;
+
+
+	}
+	bool GameInteractor::IsInWorld()
+	{
+		return Process::ReadRelBool(WowOffsets::Client::InWorld);
+	}
+	bool GameInteractor::Start(GameStartParam * param)
+	{
+		cout<<"Starting game"<<endl;
+		StartClient();
+		while (1)
+		{
+			if (IsInWorld())
+			{
+				cout<<"Already in world"<<endl;
+				return true;
+			}
+			if (IsCharacterSelecting())
+			{
+				if (!SelectCharacter(param->char_name))
+				{
+					return false;
+				}
+				continue;
+			}
+			if (IsLoggingIn())
+			{
+				if (!Login(param->login,param->password))
+				{
+					return false;
+				}
+				continue;
+			}
+		}
 	}
 }

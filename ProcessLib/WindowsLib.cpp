@@ -242,7 +242,7 @@ namespace ProcessLib
 		}
 		return result;
 	}
-	void Process::MoveMouse(unsigned x, unsigned y)
+	void Process::MoveMouse(unsigned x, unsigned y,unsigned long time)
 	{
 		INPUT input={0};
 		input.mi.dx=x;
@@ -250,6 +250,7 @@ namespace ProcessLib
 		input.mi.mouseData=0;
 		input.mi.dwFlags= MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
 		input.type=INPUT_MOUSE;
+		Sleep(time);
 		SendInput(1,&input,sizeof(input));
 		mouse_x=x;
 		mouse_y=y;
@@ -275,7 +276,7 @@ namespace ProcessLib
 		}
 		return lang;
 	}
-	void Process::MouseClick()
+	void Process::MouseClick(unsigned long delay)
 	{
 		INPUT input={0};
 		input.mi.dx=mouse_x;
@@ -284,10 +285,17 @@ namespace ProcessLib
 		input.mi.dwFlags= MOUSEEVENTF_LEFTDOWN;
 		input.type=INPUT_MOUSE;
 		SendInput(1,&input,sizeof(input));
-		Sleep(50);
+		Sleep(delay);
 		input.mi.dwFlags= MOUSEEVENTF_LEFTUP;
 		SendInput(1,&input,sizeof(input));
 	}
+	void Process::DoubleClick(unsigned long interval)
+	{
+		MouseClick();
+		Sleep(interval);
+		MouseClick();
+	}
+
 	unsigned short Process::ReinterpretKeybardKey(unsigned short button)
 	{
 		WORD key;

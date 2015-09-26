@@ -3,7 +3,11 @@ namespace WowOffsets
 	enum Client
 	{
 		Loaded=0xD8825C,
-		Unavalible=0xd87120
+		Unavalible=0xd87120,
+		CharactersNumber=0xD87908,
+		CharactersOffset=0xD8790C,
+		InWorld=0xEAEA4A
+
 	};
 	enum FrameManager
 	{
