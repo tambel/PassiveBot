@@ -39,6 +39,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Unit * tak=ObjectManager::FindUnitByName(L"Так");
 	//GameManager::WorldToScreen(tak->GetPosition());
 	GameManager::WorldToScreen(pos);
+	int at=0;
 	while (1)
 	{
 		/*
