@@ -7,6 +7,11 @@
 
 namespace ProcessLib
 {
+	struct Rect
+	{
+		unsigned width;
+		unsigned heigth;
+	};
 	enum Language
 	{
 		ENGLISH=0,
@@ -43,13 +48,16 @@ namespace ProcessLib
 		static unsigned short ReinterpretKeybardKey(unsigned short button);
 		static bool IsButtonPressed(unsigned short button);
 	public:
-		
+#ifdef _WIN32
+		static HWND GetWindow();
+#endif
 		static bool Init();
 		static unsigned GetProcessBase();
 		static wchar_t * ReadString_UTF8(unsigned address, unsigned long  length);
 		static unsigned ReadUInt(unsigned address);
 		static char ReadByte(unsigned address);
 		static bool ReadRaw(unsigned address, void * buffer, unsigned long length);
+		static bool ReadRelRaw(unsigned offest,void * buffer, unsigned long length);
 		static unsigned ReadRelUInt(unsigned offset);
 		static char * ReadASCII(unsigned address,unsigned long length);
 		static float ReadFloat(unsigned address);
@@ -69,6 +77,7 @@ namespace ProcessLib
 		static char ReadRelByte(unsigned offset);
 		static bool ReadRelBool(unsigned offset);
 		static bool ReadBool(unsigned address);
+		static Rect GetClientSize();
 
 		
 	};

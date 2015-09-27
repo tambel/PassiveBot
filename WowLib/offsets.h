@@ -6,8 +6,19 @@ namespace WowOffsets
 		Unavalible=0xd87120,
 		CharactersNumber=0xD87908,
 		CharactersOffset=0xD8790C,
-		InWorld=0xEAEA4A
+		InWorld=0xEAEA4A,
 
+
+	};
+	enum Camera
+	{
+		CameraPointer=0xEAF1F0,
+		CameraOffset=0x7610,
+		CameraPosition=0x8,
+		CameraMatrix=0x14,
+		CameraFOV=0x38,
+		FarClip=0xF84A0C,
+		NearClip=0xCD35C8
 	};
 	enum FrameManager
 	{
@@ -43,7 +54,8 @@ namespace WowOffsets
 		ObjectPanagerPtr=0xFF0248,
 		ObjectManagerOffset=0x62C,
 		FirstObject=0xD8,
-		NextObject=0x3C
+		NextObject=0x3C,
+		LocalPlayer=0xE37930
 
 
 	};
@@ -68,7 +80,9 @@ namespace WowOffsets
 	enum Unit
 	{
 		UnitNameCache	= 0xC38,
-		UnitNameOffset	= 0x7C
+		UnitNameOffset	= 0x7C,
+		UnitPosition=0xAC0,
+		UnitRotation=0xAD0
 	};
 	enum Player
 	{

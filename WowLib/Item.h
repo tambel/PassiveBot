@@ -1,5 +1,6 @@
 #pragma once
 #include "WowObject.h"
+
 namespace Wow
 {
 	class Item: public WowObject
@@ -8,6 +9,7 @@ namespace Wow
 		Item(unsigned base);
 		~Item(void);
 		wchar_t * GetName(bool refresh=false);
+		
 	};
 }
 

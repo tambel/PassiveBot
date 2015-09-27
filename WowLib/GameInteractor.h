@@ -24,7 +24,6 @@ namespace Wow
 		static void CheckForPromoFrames();
 		static void Test();
 		static bool SelectCharacter(wchar_t * name);
-		
 		static bool Start(GameStartParam * param);
 	};
 }

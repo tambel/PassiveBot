@@ -10,6 +10,7 @@ namespace Wow
 {
 	class ObjectManager
 	{
+		
 		static unsigned base;
 		static vector<GameObject*> game_objects;
 		static vector<Item*> items;
@@ -24,6 +25,8 @@ namespace Wow
 		static vector<Unit*> *GetUnitsList();
 		static vector<Player*> *GetPlayersList();
 		static void DumpAllObjectNames();
+		static Player * GetPlayer();
+		static Unit * FindUnitByName(wchar_t * name);
 	};
 }
 

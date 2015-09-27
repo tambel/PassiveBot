@@ -72,6 +72,7 @@ public:
 	WowObject(unsigned base);
 	virtual ~WowObject(void);
 	void SetBase(unsigned base);
+	unsigned GetBase();
 	char GetType(bool refresh=false);
 	unsigned GetID(bool refresh=false);
 	Guid128 * GetGuid(bool refresh=false);

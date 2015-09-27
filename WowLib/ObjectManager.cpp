@@ -116,4 +116,29 @@ namespace Wow
 			wcout<<player->GetName()<<endl;
 		}
 	}
+	Player * ObjectManager::GetPlayer()
+	{
+		for (auto player:players)
+		{
+			Guid128 tmp;
+			Guid128 pl=*player->GetGuid();
+			unsigned a;
+			if(player->GetBase()==Process::ReadRelUInt(WowOffsets::ObjectManager::LocalPlayer))
+			{
+				return player;
+			}
+		}
+		return 0;
+	}
+	Unit * ObjectManager::FindUnitByName(wchar_t * name)
+	{
+		for (auto unit:units)
+		{
+			if (wcscmp(name,unit->GetName())==0)
+			{
+				return unit;
+			}
+		}
+		return 0;
+	}
 }

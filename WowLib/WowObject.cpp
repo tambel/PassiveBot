@@ -26,6 +26,10 @@ namespace Wow
 		this->base=base;
 
 	}
+	unsigned WowObject::GetBase()
+	{
+		return base;
+	}
 	char WowObject::GetType(bool refresh)
 	{
 		if (!type || refresh)

@@ -193,6 +193,10 @@ namespace ProcessLib
 		}
 		return true;
 	}
+	bool Process::ReadRelRaw(unsigned offest,void * buffer, unsigned long length)
+	{
+		return ReadRaw(Process::GetProcessBase()+offest,buffer,length);
+	}
 	unsigned Process::ReadRelUInt(unsigned offset)
 	{
 		return ReadUInt(base_address+offset);
@@ -295,7 +299,6 @@ namespace ProcessLib
 		Sleep(interval);
 		MouseClick();
 	}
-
 	unsigned short Process::ReinterpretKeybardKey(unsigned short button)
 	{
 		WORD key;
@@ -394,7 +397,20 @@ namespace ProcessLib
 	{
 		return ReadBool(base_address+offset);
 	}
-
+	HWND Process::GetWindow()
+	{
+		return window;
+	}
+	Rect Process::GetClientSize()
+	{
+		RECT rc={0};
+		Rect result={0};
+		GetClientRect(window,&rc);
+		int e =GetLastError();
+		result.heigth=rc.bottom-rc.top;
+		result.width=rc.right-rc.left;
+		return result;
+	}
 #endif
 
 }

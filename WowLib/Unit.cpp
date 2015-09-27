@@ -20,4 +20,11 @@ namespace Wow
 		}
 		return name;
 	}
+	Position Unit::GetPosition()
+	{
+		Position pos={0};
+		Process::ReadRaw(base+WowOffsets::Unit::UnitPosition,&pos,12);
+		pos.rotation=Process::ReadFloat(base+WowOffsets::Unit::UnitRotation);
+		return pos;
+	}
 }
