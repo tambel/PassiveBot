@@ -13,6 +13,7 @@ namespace Wow
 	public:
 		GameInteractor(void);
 		~GameInteractor(void);
+		static bool isWorldLoading();
 		static bool Login(char * login, char * password);
 		static bool StartClient();
 		static bool IsLoaded();
@@ -25,6 +26,7 @@ namespace Wow
 		static void Test();
 		static bool SelectCharacter(wchar_t * name);
 		static bool Start(GameStartParam * param);
+		static void Close();
 	};
 }
 

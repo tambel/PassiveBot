@@ -7,7 +7,7 @@ namespace Wow
 {
 	class FrameManager
 	{
-		static vector <Frame*> frames; 
+		static vector <Frame*> * frames; 
 		static float screen_width;
 		static float screen_heigth;
 	public:

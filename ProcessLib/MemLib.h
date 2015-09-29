@@ -30,6 +30,12 @@ namespace ProcessLib
 		ENTER=160
 		
 	};
+	enum MouseButton
+	{
+		LEFT=1,
+		RIGHT=2,
+		WHEEL=3
+	};
 	using namespace std;
 	class  Process
 	{
@@ -47,6 +53,8 @@ namespace ProcessLib
 		static vector<unsigned short>pressed_buttons;
 		static unsigned short ReinterpretKeybardKey(unsigned short button);
 		static bool IsButtonPressed(unsigned short button);
+		static void MouseUp(MouseButton button);
+		static void MouseDown(MouseButton button);
 	public:
 #ifdef _WIN32
 		static HWND GetWindow();
@@ -63,8 +71,9 @@ namespace ProcessLib
 		static float ReadFloat(unsigned address);
 		static float ReadRelFloat(unsigned offset);
 		static void MoveMouse(unsigned x,unsigned y,unsigned long time=50);
-		static void MouseClick(unsigned long delay=50);
-		static void DoubleClick(unsigned long interval=20);
+		static void MouseClick(MouseButton button,unsigned long delay=50);
+		
+		static void DoubleClick(MouseButton button,unsigned long interval=20);
 		static void PushKeyboardButton(unsigned short button);
 		static void ReleaseKeyboardButton(unsigned short button);
 		static void PressKeyboardButton(unsigned short button,unsigned long delay=50,unsigned short add_button=0);
@@ -78,6 +87,7 @@ namespace ProcessLib
 		static bool ReadRelBool(unsigned offset);
 		static bool ReadBool(unsigned address);
 		static Rect GetClientSize();
+		
 
 		
 	};

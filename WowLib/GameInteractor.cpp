@@ -29,14 +29,14 @@ namespace Wow
 			return false;
 		}
 		email_frame->MoveMoseToFrame();
-		Process::MouseClick();
+		Process::MouseClick(MouseButton::LEFT);
 		Process::MultipleKeyboardButtonPush(KeyboardButton::ARROW_RIGHT,20,50);
 		Process::MultipleKeyboardButtonPush(KeyboardButton::BACKSPACE,40,40);
 		Process::SetLanguage(Language::ENGLISH);
 		Process::TypeByKeyboard(login);
 		Frame * password_frame= FrameManager::FindFrameByName("AccountLoginPasswordEdit");
 		password_frame->MoveMoseToFrame();
-		Process::MouseClick();
+		Process::MouseClick(MouseButton::LEFT);
 		Process::TypeByKeyboard(password);
 		Process::PressKeyboardButton(KeyboardButton::ENTER);
 		WaitForAuthentification();
@@ -79,8 +79,8 @@ namespace Wow
 	bool GameInteractor::IsCharacterSelecting()
 	{
 		FrameManager::EnumAllFrames();
-		vector <Frame*> * frames=FrameManager::GetFrames();
 		Frame * char_select=FrameManager::FindFrameByName("CharSelectCharacterButton1");
+		
 		if (!char_select)
 		{
 			return false;
@@ -94,7 +94,17 @@ namespace Wow
 	}
 	bool GameInteractor::IsLoggingIn()
 	{
-		if (!IsCharacterSelecting() && ! IsInWorld() && IsLoaded())
+		FrameManager::EnumAllFrames();
+		Frame * email_frame= FrameManager::FindFrameByName("AccountLoginAccountEdit");
+		if (!email_frame)
+		{
+			return false;
+		}
+		if (!email_frame->IsVisible())
+		{
+			return false;
+		}
+		if (!IsCharacterSelecting() && !IsInWorld() && IsLoaded())
 		{
 			return true;
 		}
@@ -144,9 +154,14 @@ namespace Wow
 	}
 	void GameInteractor::CheckForPromoFrames()
 	{
+		cout<<"Checking for promo frames"<<endl;
 		FrameManager::EnumAllFrames();
 		Frame *starter=FrameManager::FindFrameByName("StarterEditionPopUpExitButton");
 		unsigned attempts=0;
+		if (!starter)
+		{
+			return;
+		}
 		while (!starter->IsVisible() && attempts<1000)
 		{
 			Sleep(10);
@@ -154,9 +169,11 @@ namespace Wow
 		}
 		if (starter->IsVisible())
 		{
+			
 			starter->MoveMoseToFrame();
 			Sleep(5000);
-			Process::MouseClick(100);
+			Process::MouseClick(MouseButton::LEFT,100);
+			cout<<"\"StarterEditionPopUpExitButton\" frame found and closed"<<endl;
 		}
 		if (starter->IsVisible())
 		{
@@ -192,6 +209,7 @@ namespace Wow
 	bool GameInteractor::SelectCharacter(wchar_t * name)
 	{
 		CheckForPromoFrames();
+		FrameManager::EnumAllFrames();
 		cout<<"Selecting character"<<endl;
 		__int64 v1=0;
 		unsigned long characters_number=Process::ReadRelUInt(WowOffsets::Client::CharactersNumber);
@@ -204,9 +222,11 @@ namespace Wow
 				string frame_name="CharSelectCharacterButton"+to_string(i+1);
 				Frame * frame =FrameManager::FindFrameByName(frame_name.c_str());
 				frame->MoveMoseToFrame();
-				Process::DoubleClick();
+				Process::DoubleClick(MouseButton::LEFT);
+				delete [] nm;
 				return true;
 			}
+			delete [] nm;
 
 		}
 		cout<<"Character selecting failed"<<endl;
@@ -216,16 +236,36 @@ namespace Wow
 	}
 	bool GameInteractor::IsInWorld()
 	{
-		return Process::ReadRelBool(WowOffsets::Client::InWorld);
+		unsigned result;
+		result= Process::ReadRelUInt(WowOffsets::Client::InWorld);
+		if (result==1)
+		{
+			return true;
+		}
+		return false;
+	}
+	bool GameInteractor::isWorldLoading()
+	{
+		unsigned result=Process::ReadRelUInt(WowOffsets::Client::InWorld);
+		if (result==256)
+		{
+			return true;
+		}
+		return false;
 	}
 	bool GameInteractor::Start(GameStartParam * param)
 	{
 		cout<<"Starting game"<<endl;
 		StartClient();
+		int c=0;
 		while (1)
 		{
 			if (IsInWorld())
 			{
+				while (isWorldLoading())
+				{
+					Sleep(10);
+				}
 				cout<<"Already in world"<<endl;
 				return true;
 			}
@@ -245,6 +285,11 @@ namespace Wow
 				}
 				continue;
 			}
+			Sleep(100);
 		}
+	}
+	void GameInteractor::Close()
+	{
+
 	}
 }

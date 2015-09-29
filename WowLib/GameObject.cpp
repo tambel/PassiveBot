@@ -18,6 +18,7 @@ namespace Wow
 	{
 		if (!name || refresh)
 		{
+			delete [] name;
 			name= Process::ReadString_UTF8(Process::ReadUInt(Process::ReadUInt(base+WowOffsets::GameObject::GameObjectNameCache)+WowOffsets::GameObject::GameObjectNameOffset),0);
 		}
 		return name;

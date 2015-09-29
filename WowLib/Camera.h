@@ -10,6 +10,7 @@ namespace Wow
 		float FOV;
 		float near_clip;
 		float far_clip;
+		float aspect;
 	public:
 		Camera(unsigned base);
 		~Camera(void);
@@ -19,6 +20,7 @@ namespace Wow
 		float GetFOV(bool refresh=false);
 		float GetNearClip(bool refresh=false);
 		float GetFarClip(bool refresh=false);
+		float GetAspect(bool refresh=false);
 	};
 }
 

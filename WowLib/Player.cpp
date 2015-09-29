@@ -19,13 +19,12 @@ namespace Wow
 			Guid128 tmp_guid=Guid128();
 			unsigned current=Process::ReadRelUInt(WowOffsets::Player::PlayerNameCache);
 			Process::ReadRaw(current+WowOffsets::PlayerNameCacheGuid,&tmp_guid,16);
-			name=Process::ReadString_UTF8(current+WowOffsets::PlayerNameCacheName,0);
 			while(*GetGuid()!=tmp_guid)
 			{
 				current=Process::ReadUInt(current+WowOffsets::Player::PlayerNameCacheNext);
 				Process::ReadRaw(current+WowOffsets::PlayerNameCacheGuid,&tmp_guid,16);
-				name=Process::ReadString_UTF8(Process::ReadUInt(current+WowOffsets::PlayerNameCacheName),0);
 			}
+			delete [] name;
 			name=Process::ReadString_UTF8(current+WowOffsets::PlayerNameCacheName,0);
 
 		}

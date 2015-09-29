@@ -17,8 +17,8 @@ namespace Wow
 
 	WowObject::~WowObject(void)
 	{
-		if (name)
-			delete name;
+		delete [] name;
+		name=0;
 	}
 
 	void WowObject::SetBase(unsigned base)
@@ -38,10 +38,7 @@ namespace Wow
 		}
 		return type;
 	}
-	wchar_t * WowObject::GetName(bool refresh)
-	{
-		return 0;
-	}
+
 	char WowObject::GetType_Static(unsigned base)
 	{
 		return Process::ReadUInt(base+WowOffsets::Object::Type);

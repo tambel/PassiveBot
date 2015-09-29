@@ -150,14 +150,16 @@ namespace ProcessLib
 		tmpResult=new wchar_t[length];
 		if(!ReadProcessMemory(process,(void*)address,tmpWCResult,real_length*2,NULL))
 		{
+			delete [] tmpWCResult;
+			delete [] tmpResult;
 			return NULL;
 		}
 		MultiByteToWideChar(65001,0,(LPCCH)tmpWCResult,-1,tmpResult,real_length);
 		resLength=wcslen(tmpResult)+1;
 		result=new wchar_t[resLength];
 		memcpy(result,tmpResult,resLength*2);
-		delete tmpWCResult;
-		delete tmpResult;
+		delete [] tmpWCResult;
+		delete [] tmpResult;
 		return result;
 
 	}
@@ -226,12 +228,13 @@ namespace ProcessLib
 		tmp_result=new char[real_length];
 		if (!ReadProcessMemory(process,(void*)address,tmp_result,real_length,&byte_read))
 		{
+			delete [] tmp_result;
 			return 0;
 		}
 		res_length=strlen(tmp_result);
 		result=new char[res_length+1];
 		strcpy(result,tmp_result);
-		delete tmp_result;
+		delete [] tmp_result;
 
 		return result;
 
@@ -280,8 +283,56 @@ namespace ProcessLib
 		}
 		return lang;
 	}
-	void Process::MouseClick(unsigned long delay)
+	void Process::MouseUp(MouseButton button)
 	{
+		INPUT input={0};
+		input.mi.dx=mouse_x;
+		input.mi.dy=mouse_y;
+		input.mi.mouseData=0;
+		switch (button)
+		{
+		case MouseButton::LEFT:
+			input.mi.dwFlags= MOUSEEVENTF_LEFTUP;
+			break;
+		case MouseButton::RIGHT:
+			input.mi.dwFlags= MOUSEEVENTF_RIGHTUP;
+			break;
+		case MouseButton::WHEEL:
+			break;
+		default:
+			break;
+		}
+		input.type=INPUT_MOUSE;
+		SendInput(1,&input,sizeof(input));
+	}
+	void Process::MouseDown(MouseButton button)
+	{
+		INPUT input={0};
+		input.mi.dx=mouse_x;
+		input.mi.dy=mouse_y;
+		input.mi.mouseData=0;
+		switch (button)
+		{
+		case MouseButton::LEFT:
+			input.mi.dwFlags= MOUSEEVENTF_LEFTDOWN;
+			break;
+		case MouseButton::RIGHT:
+			input.mi.dwFlags= MOUSEEVENTF_RIGHTDOWN;
+			break;
+		case MouseButton::WHEEL:
+			break;
+		default:
+			break;
+		}
+		input.type=INPUT_MOUSE;
+		SendInput(1,&input,sizeof(input));
+	}
+	void Process::MouseClick( MouseButton button, unsigned long delay)
+	{
+		MouseDown(button);
+		Sleep(delay);
+		MouseUp(button);
+		/*
 		INPUT input={0};
 		input.mi.dx=mouse_x;
 		input.mi.dy=mouse_y;
@@ -292,12 +343,13 @@ namespace ProcessLib
 		Sleep(delay);
 		input.mi.dwFlags= MOUSEEVENTF_LEFTUP;
 		SendInput(1,&input,sizeof(input));
+		*/
 	}
-	void Process::DoubleClick(unsigned long interval)
+	void Process::DoubleClick(MouseButton button, unsigned long interval)
 	{
-		MouseClick();
+		MouseClick(button);
 		Sleep(interval);
-		MouseClick();
+		MouseClick(button);
 	}
 	unsigned short Process::ReinterpretKeybardKey(unsigned short button)
 	{

@@ -12,6 +12,7 @@ namespace Wow
 		~GameManager(void);
 		static Camera * GetCamera();
 		static bool WorldToScreen(Position pos);
+		static void ClickToMove(Position pos);
 		
 	};
 }

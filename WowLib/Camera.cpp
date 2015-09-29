@@ -13,7 +13,8 @@ namespace Wow
 
 	Camera::~Camera(void)
 	{
-		delete matrix;
+		delete [] matrix;
+		matrix=0;
 	}
 	unsigned Camera::GetBase()
 	{
@@ -24,7 +25,6 @@ namespace Wow
 		if (refresh)
 		{
 			Process::ReadRaw(base+WowOffsets::Camera::CameraPosition,&position.coords,16);
-			//position.rotation=Process::ReadFloat(base+WowOffsets::Camera::
 		}
 		return position;
 	}
@@ -57,6 +57,14 @@ namespace Wow
 		if (refresh)
 		{
 			far_clip=Process::ReadRelFloat(WowOffsets::Camera::FarClip);
+		}
+		return far_clip;
+	}
+	float Camera::GetAspect(bool refresh)
+	{
+		if (refresh)
+		{
+			aspect=Process::ReadRelFloat(WowOffsets::Camera::FarClip);
 		}
 		return far_clip;
 	}

@@ -22,18 +22,18 @@ namespace Wow
 	{
 		if (name)
 		{
-			delete name;
+			delete [] name;
 		}
 		if (label_text)
 		{
-			delete label_text;
+			delete [] label_text;
 		}
 	}
 	char * Frame::GetName(bool refresh)
 	{
 		if (!name || refresh)
 		{
-			name?name:delete name;
+			delete [] name;
 			name=Process::ReadASCII(Process::ReadUInt(base+WowOffsets::FrameManager::Name),0);
 		}
 		if (name)
@@ -49,7 +49,7 @@ namespace Wow
 	{
 		if (!label_text || refresh)
 		{
-			label_text?label_text:delete label_text;
+			delete [] label_text;
 			label_text=Process::ReadASCII(Process::ReadUInt(base+WowOffsets::FrameManager::LabelText),0);
 		}
 		if (label_text)
@@ -122,8 +122,6 @@ namespace Wow
 		float h=t-b;
 		float x=l+w/2;
 		float y=sh-t+h/2;
-		//cout<<"bottom "<<b<<endl<<"top "<<t<<endl<<"left "<<l<<endl<<"right"<<r<<endl;
-		//cout<<"x "<<x<<endl<<"y "<<y<<endl;
 		Process::MoveMouse((unsigned)x,(unsigned)y);
 	}
 	bool Frame::IsVisible()

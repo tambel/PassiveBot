@@ -16,6 +16,7 @@ namespace Wow
 	{
 		if (!name || refresh)
 		{
+			delete [] name;
 			name = Process::ReadString_UTF8(Process::ReadUInt(Process::ReadRelUInt(WowOffsets::Item::CachePtr+0x28)+4*(GetID()-Process::ReadRelUInt(WowOffsets::Item::CachePtr+0x14)))+WowOffsets::Item::ItemNameoffset,0);
 		}
 		return name;
