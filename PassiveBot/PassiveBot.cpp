@@ -1,7 +1,9 @@
 // PassiveBot.cpp: определяет точку входа для консольного приложения.
 //
 #pragma once
+
 #include "stdafx.h"
+#include <GameView.h>
 #include <ObjectManager.h>
 #include <FrameManager.h>
 #include <MemLib.h>
@@ -11,6 +13,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <crtdbg.h> 
+
 #define _CRTDBG_MAP_ALLOC
 //using namespace ProcessLib;
 using namespace Wow;
@@ -19,11 +22,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	
 	setlocale( LC_ALL,"Russian" );
-	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1");
-	//Frame * f=FrameManager::FindFrameByName("AuctionFrame");
-	//Frame * f=FrameManager::FindFrameByName("ContainerFrame1Item1");
-	//Frame * f=FrameManager::FindFrameByName("AccountLoginAccountEdit");
-
+	
+	/*
 	Sleep(5000);
 	GameStartParam  param= GameStartParam();
 	param.char_name=L"Люблюдашу";
@@ -33,10 +33,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	bool y=GameInteractor::Start(&param);
 	ObjectManager::Initialize();
 	ObjectManager::EnumAllVisibleObjects();
-	Unit * tak=ObjectManager::FindUnitByName(L"Так");
-	while(1)
+	Unit * tak=ObjectManager::FindUnitByName(L"Огромный серый кодо");
+	//while(1)
 	{
-		GameManager::WorldToScreen(tak->GetPosition());
+		//GameManager::WorldToScreen(tak->GetPosition());
+		GameManager::ClickToMove(tak->GetPosition());
 	}
 
 
@@ -50,6 +51,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete ObjectManager::GetPlayersList();
 	delete ObjectManager::GetUnitsList();
 	_CrtDumpMemoryLeaks();
+	*/
+	
+	GameView view=GameView();
+	view.go();
 	return 0;
 }
 

@@ -50,6 +50,7 @@ namespace Wow
 	void GameManager::ClickToMove(Position pos)
 	{
 		WorldToScreen(pos);
+		Process::MouseClick(MouseButton::RIGHT);
 
 	}
 }
