@@ -3,7 +3,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include <GameView.h>
+#include <MapView.h>
 #include <ObjectManager.h>
 #include <FrameManager.h>
 #include <MemLib.h>
@@ -13,11 +13,16 @@
 #include <iostream>
 #include <stdlib.h>
 #include <crtdbg.h> 
+#include <boost\thread\thread.hpp>
 
 #define _CRTDBG_MAP_ALLOC
 //using namespace ProcessLib;
 using namespace Wow;
 using namespace std;
+void workerFunc()  
+{  
+	
+}
 int _tmain(int argc, _TCHAR* argv[])
 {
 	
@@ -52,9 +57,19 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete ObjectManager::GetUnitsList();
 	_CrtDumpMemoryLeaks();
 	*/
-	
-	GameView view=GameView();
+	// boost::thread workerThread(workerFunc);
+	/// workerThread.detach();
+	// workerThread.join();
+	 MapView view=MapView();
 	view.go();
+	 int i;
+	 while (1)
+	 {
+		 cin>>i;
+		 cout<<i<<endl;
+	 }
+
+	
 	return 0;
 }
 
