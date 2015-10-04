@@ -4,6 +4,7 @@
 #include "Renderable.h"
 #include <OgreManualObject.h>
 #include "MapRenderable.h"
+#include "OgreRenderable.h"
 MapView::MapView(void)
 {
 
@@ -13,8 +14,10 @@ MapView::~MapView(void)
 }
 void MapView::InitMap()
 {
+	OgreRenderable::ClearCouner();
 	map=new WowMap(Vector3(0,0,0));
 	((MapRenderable*)map)->CreateScene(mSceneMgr->getRootSceneNode());
+
 	//mSceneMgr->getRootSceneNode()->addChild(((MapRenderable*)map)->CreateScene(mSceneMgr))
 	/*
 			string n="name"+to_string(b);
@@ -49,7 +52,7 @@ void MapView::InitMap()
 		
 	
 
-	mCamera->setPosition(-9600,-1066.66602,72.7356796);
+	mCamera->setPosition(-9600.0f,-1066.66602f,72.7356796f);
 }
 void MapView::createScene(void)
 {

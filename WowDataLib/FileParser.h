@@ -5,7 +5,7 @@ class FileParser
 public:
 	FileParser(void);
 	~FileParser(void);
-	static unsigned long Parse(const wchar_t * path, char ** buff);
+	static unsigned long Parse(const char * path, char ** buff);
 
 };
 

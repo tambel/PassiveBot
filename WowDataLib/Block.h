@@ -15,7 +15,7 @@ protected:
 	
 public:
 	Point2D coords;
-	Block(MCNK * mcnk);
+	Block(MCNK * mcnk, bool exist =true);
 	Block(void);
 	~Block(void);
 	//virtual void CreateEntity();

@@ -1,8 +1,8 @@
 #pragma once
 struct Point2D
 {
-	unsigned X;
-	unsigned Y;
+	int X;
+	int Y;
 };
 struct Color
 {
@@ -25,6 +25,10 @@ struct Vector3
 		z=0;
 	}
 	Vector3(float x,float y,float z):x(x),y(y),z(z){}
+	Vector3 operator+(const Vector3 &right)
+	{
+		return Vector3(this->x+ right.x,this->y+right.y,this->z+right.z);
+	}
 
 };
 struct Vertice

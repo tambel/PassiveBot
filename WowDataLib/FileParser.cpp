@@ -12,7 +12,7 @@ FileParser::FileParser(void)
 FileParser::~FileParser(void)
 {
 }
-unsigned long FileParser::Parse(const wchar_t * path, char ** buff)
+unsigned long FileParser::Parse(const char * path, char ** buff)
 {
 	ifstream file(path, ios::binary | ios::ate);
 	if (file) {

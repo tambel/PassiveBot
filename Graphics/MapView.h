@@ -1,6 +1,6 @@
 #pragma once
 #include "Window.h"
-#include <Map.h>
+#include <WowMap.h>
 class MapView: public Window
 {
 	WowMap * map;

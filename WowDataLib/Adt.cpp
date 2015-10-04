@@ -2,33 +2,31 @@
 #include "Adt.h"
 #include "FileParser.h"
 
+
 using namespace std;
-float f[313480/4];
-Adt::Adt(wstring path)
+Adt::Adt(string path)
 {
-	char * root;
+
+	char * root=0;
 	unsigned long root_length;
-	char *obj;
+	char *obj=0;
 	unsigned long obj_length;
-	char * tex;
+	char * tex=0;
 	unsigned long tex_length;
 	char *tmp;
-	root_length=FileParser::Parse((path+L".adt").c_str(),&root);
-	obj_length=FileParser::Parse((path+L"_obj0.adt").c_str(),&obj);
-	tex_length=FileParser::Parse((path+L"_tex0.adt").c_str(),&tex);
+	root_length=FileParser::Parse((path+".adt").c_str(),&root);
+	obj_length=FileParser::Parse((path+"_obj0.adt").c_str(),&obj);
+	tex_length=FileParser::Parse((path+"_tex0.adt").c_str(),&tex);
 	if (!root_length)
 	{
 		is_file_exists=false;
+		return;
 	}
 	else
 	{
 		is_file_exists=true;
 	}
-	//root_length=FileParser::Parse(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_34_50.adt",&root);
-	//obj_length=FileParser::Parse(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_19_13_obj0.adt",&obj);
-	//tex_length=FileParser::Parse(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_0_0.adt",&tex);
 	MCNK * mcnk;
-	mcvt_list=vector<MCVT>(); 
 	for (unsigned long i=0;i<root_length;i++)
 	{
 		tmp=root+i;
@@ -46,12 +44,52 @@ Adt::Adt(wstring path)
 			mcnk->coords.X=*(unsigned*)(tmp+0x10);
 			mcnk_list.push_back(mcnk);
 		}
-		/*
-		if (memcmp(tmp,"TVCM",4)==0)
+	}
+	for (unsigned long i=0;i<obj_length;i++)
+	{
+		tmp=obj+i;
+		if (memcmp(tmp,"OMWM",4)==0)
 		{
-			mcvt=*(MCVT*)(tmp+8);
-			mcvt_list.push_back(mcvt);
-		}*/
+			mwmo=new MWMO;
+			*mwmo=*(MWMO*)(tmp+4);
+			mwmo->names=new char[mwmo->length];
+			memcpy(mwmo->names,tmp+8,mwmo->length);
+		}
+		if (memcmp(tmp,"DIWM",4)==0)
+		{
+			mwid=new MWID;
+			*mwid=*(MWID*)(tmp+4);
+			mwid->offsets=new unsigned long[mwid->length/4];
+			memcpy(mwid->offsets,tmp+8,mwid->length);
+		}
+		if (memcmp(tmp,"FDOM",4)==0)
+		{
+			unsigned long length=*(unsigned long *)(tmp+4);
+			MODF * m=new MODF[length/sizeof(MODF)];
+			memcpy(m,tmp+8,length);
+			for (unsigned i=0;i<length/sizeof(MODF);i++)
+			{
+				WmoInfo info;
+				m[i].position.x-=17066;
+				m[i].position.z-=17066;
+				info.position=m[i].position;
+				info.name=mwmo->names+mwid->offsets[m[i].mwidEntry];
+				wmo_infos.push_back(info);
+			}
+	
+			
+		}
+	}
+	if (mwmo && mwid)
+	{
+		for (int i=0;i<mwid->length/4;i++)
+		{
+			//WmoInfo info;
+			//info.name=mwmo->names+mwid->offsets[i];
+			//info.position=modf
+			//wmo_infos.push_back(mwmo->names+mwid->offsets[i]);
+
+		}
 	}
 	
 
@@ -63,6 +101,15 @@ bool Adt::IsExist()
 
 Adt::~Adt(void)
 {
+	delete [] mwmo->names;
+	delete [] mwmo;
+	delete [] mwid->offsets;
+	delete [] mwid;
+	for (auto mcnk:mcnk_list)
+	{
+		delete mcnk;
+	}
+	mcnk_list.clear();
 }
 unsigned Adt::GetVersion()
 {

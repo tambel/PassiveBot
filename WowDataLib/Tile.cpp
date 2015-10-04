@@ -1,39 +1,47 @@
 #include "Tile.h"
+#include "MapObject.h"
 #include <string>
+#include <algorithm>
 using namespace std;
 Tile::Tile(int x,int y)
 {
 
-	wstring path=TERRAIN_PATH;
-	path+=L"Kalimdor\\Kalimdor_"+to_wstring(x)+L"_"+to_wstring(y);
-
+	string path=PATH+ string(TERRAIN_PATH);
+	path+="Kalimdor\\Kalimdor_"+to_string(x)+"_"+to_string(y);
+	map_objects=vector<MapObject*>();
 	//Adt * adt=new Adt(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_36_51");
 	coords.X=x;
 	coords.Y=y;
 	Adt * adt=new Adt(path);
-	if (adt->IsExist())
+
+	for (unsigned i=0;i<16;i++)
 	{
-		for (unsigned i=0;i<16;i++)
+		for (unsigned j=0;j<16;j++)
 		{
-			for (unsigned j=0;j<16;j++)
+			for (auto mcnk:adt->mcnk_list)
 			{
-				//for (unsigned i=0;i<adt->mcnk_list.size();i++)
-				for (auto mcnk:adt->mcnk_list)
+				if (mcnk->coords.X==i && mcnk->coords.Y==j)
 				{
-					if (mcnk->coords.X==i && mcnk->coords.Y==j)
-					{
-						blocks[i][j]=new Block(mcnk);
-					}
+					blocks[i][j]=new Block(mcnk,adt->IsExist());
 				}
 			}
 		}
 
 	}
-
-
-
-	int k;
-	k=0;
+	if (adt->IsExist())
+	{
+		MapObject * map_object;
+		for (auto info:adt->wmo_infos)
+		{
+			map_object=new MapObject(PATH+info.name,info);
+			map_objects.push_back(map_object);
+		}
+		exists=true;
+	}
+	else
+	{
+		exists=false;
+	}
 }
 Tile::Tile(void)
 {

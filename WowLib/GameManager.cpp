@@ -1,3 +1,4 @@
+#pragma once
 #include "GameManager.h"
 #include "MemLib.h"
 #include "offsets.h"

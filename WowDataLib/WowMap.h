@@ -4,8 +4,6 @@
 #include "Utils.h"
 
 
-
-
 class WowMap
 {
 protected:

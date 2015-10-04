@@ -1,11 +1,12 @@
 #pragma once
-#include <Map.h>
+#include <WowMap.h>
 #include "Renderable.h"
 #include <OgreSceneManager.h>
-class BlockRenderable:public Block
+#include "OgreRenderable.h"
+class BlockRenderable:public Block, OgreRenderable
 {
 public:
-	void CreateEntity(Ogre::SceneNode * parent_scene);
+	void CreateEntity(Ogre::SceneNode * parent_scene,bool flat=false);
 
 };
 class TileRenderable:public Tile

@@ -2,17 +2,10 @@
 #include <stdint.h>
 #include <vector>
 #include "Utils.h"
+#include "WMO.h"
 using namespace std;
 struct MVER {
 	unsigned  version;
-};
-struct MCIN {
-	struct MCINEntry {
-		MVER* mcnk;                   // absolute offset.
-		uint32_t size;                // the size of the MCNK chunk, this is refering to.
-		uint32_t flags;               // these two are always 0. only set in the client.
-		uint32_t asyncId;	
-	} entries[16*16];
 };
 struct MCVT 
 {
@@ -21,10 +14,30 @@ struct MCVT
 struct MCNK
 {
 	unsigned offset;
-
 	Vector3 position;
 	MCVT mcvt;
 	Point2D coords;
+};
+struct MWMO
+{
+	unsigned long length;
+	//string * names;
+	char * names;
+};
+struct MWID
+{
+	unsigned long length;
+	unsigned long * offsets;
+};
+struct MODF
+{
+	unsigned mwidEntry;           // references an entry in the MWID chunk, specifying the model to use.
+    unsigned uniqueId;            // this ID should be unique for all ADTs currently loaded. Best, they are unique for the whole map.
+	Vector3 position;
+	Vector3 rotation;            // same as in MDDF.
+    float lowerBounds[3];         // these two are position plus the wmo bounding box.
+    float upperBounds[3];
+	unsigned wtf[2];
 };
 
 class Adt
@@ -32,11 +45,12 @@ class Adt
 	bool is_file_exists;
 public:
 	MVER mver;
-	vector<MCVT> mcvt_list;
 	vector<MCNK*> mcnk_list;
-	
-
-	Adt(wstring  path);
+	MWMO * mwmo;
+	MWID * mwid;
+	MODF * modf;
+	vector<WmoInfo> wmo_infos;
+	Adt(string  path);
 	~Adt(void);
 	unsigned GetVersion();
 	bool IsExist();
