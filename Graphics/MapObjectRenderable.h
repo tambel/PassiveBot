@@ -3,6 +3,7 @@
 #include <OgreSceneManager.h>
 #include "OgreRenderable.h"
 #include <Mesh.h>
+/*
 class MeshRenderable: public Mesh,OgreRenderable
 {
 public:
@@ -13,4 +14,5 @@ class MapObjectRenderable: public MapObject, OgreRenderable
 public:
 	void CreateScene(Ogre::SceneNode * parent_scene);
 };
+*/
 

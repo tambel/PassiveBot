@@ -53,3 +53,13 @@ void Tile::SetPosition(Vector3 position)
 {
 	this->position=position;
 }
+void Tile::Draw()
+{
+	for (unsigned i=0;i<16;i++)
+	{
+		for (unsigned j=0;j<16;j++)
+		{
+			blocks[i][j];
+		}
+	}
+}

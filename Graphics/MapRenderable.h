@@ -3,7 +3,8 @@
 #include "Renderable.h"
 #include <OgreSceneManager.h>
 #include "OgreRenderable.h"
-class BlockRenderable:public Block, OgreRenderable
+/*
+class BlockRenderable:public Block
 {
 public:
 	void CreateEntity(Ogre::SceneNode * parent_scene,bool flat=false);
@@ -19,4 +20,5 @@ class MapRenderable:public WowMap
 public:
 	void CreateScene(Ogre::SceneNode * parent_scene);
 };
+*/
 

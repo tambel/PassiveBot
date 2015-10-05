@@ -13,8 +13,9 @@
 class Tile
 {
 protected:
-	Point2D coords;
+
 public:
+	Point2D coords;
 	vector<MapObject*> map_objects; 
 	Block * blocks[16][16];
 	Vector3 position;
@@ -24,4 +25,5 @@ public:
 	~Tile(void);
 
 	void SetPosition(Vector3 position);
+	void Draw();
 };

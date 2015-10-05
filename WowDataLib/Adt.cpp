@@ -70,9 +70,11 @@ Adt::Adt(string path)
 			for (unsigned i=0;i<length/sizeof(MODF);i++)
 			{
 				WmoInfo info;
-				m[i].position.x-=17066;
-				m[i].position.z-=17066;
+				m[i].position.x-=17066.6656;
+				m[i].position.z-=17066.6656;
 				info.position=m[i].position;
+				info.rotation=m[i].rotation;
+				info.id=m[i].uniqueId;
 				info.name=mwmo->names+mwid->offsets[m[i].mwidEntry];
 				wmo_infos.push_back(info);
 			}

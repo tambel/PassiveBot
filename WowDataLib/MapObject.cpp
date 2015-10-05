@@ -21,11 +21,15 @@ MapObject::MapObject(string path,  WmoInfo wmo_info)
 		mesh->indices=new unsigned short[mesh->index_count];
 		for (unsigned long i=0;i<mesh->vertice_count;i++)
 		{
-			mesh->vertices[i]=Vertice(wmo->movt->vetices[i],Color(1.0f,1.0f,1.0f,1.0f));
+			if (i%2==0)
+				mesh->vertices[i]=Vertice(wmo->movt->vetices[i],Color(1.0f,1.0f,0.0f,1.0f));
+			else 
+				mesh->vertices[i]=Vertice(wmo->movt->vetices[i],Color(0.0f,0.0f,0.0f,1.0f));
 		}
 		//memcpy(mesh->vertices,wmo->movt->vetices,wmo->movt->length);
 		memcpy(mesh->indices,wmo->movi->indices,wmo->movi->length);
 		mesh->position=wmo_info.position;
+		mesh->rotation=wmo_info.rotation;
 		meshes.push_back(mesh);
 		/*
 		old_vertices=new Vertice[vertice_count];

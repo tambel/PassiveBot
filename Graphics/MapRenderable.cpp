@@ -8,7 +8,7 @@ using namespace std;
 
 
 
-
+/*
 void BlockRenderable::CreateEntity(Ogre::SceneNode * parent_scene,bool flat)
 {
 	string parent_name=parent_scene->getName();
@@ -42,9 +42,11 @@ void TileRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 				((BlockRenderable*)blocks[i][j])->CreateEntity(scene_node,!exists);
 			}
 		}
+		
 }
 void MapRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 {
+	
 	Ogre::SceneNode *scene_node=parent_scene->getCreator()->getRootSceneNode()->createChildSceneNode("map");
 //	((TileRenderable*)tiles[0][0])->CreateScene(scene_node);
 	//((TileRenderable*)tiles[0][1])->CreateScene(scene_node);
@@ -61,4 +63,6 @@ void MapRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 		((MapObjectRenderable*)map_object)->CreateScene(scene_node);
 
 	}
+	
 }
+*/

@@ -39,7 +39,8 @@ struct WmoInfo
 {
 	string name;
 	Vector3 position;
-	Vector3 orientation;
+	Vector3 rotation;
+	unsigned long id;
 };
 class WMO
 {

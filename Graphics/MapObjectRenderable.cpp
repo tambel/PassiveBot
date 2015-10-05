@@ -1,7 +1,7 @@
 #include "MapObjectRenderable.h"
 #include "OgreManualObject.h"
 #include "Utils.h"
-
+/*
 void MeshRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 {
 	string maual_name=to_string(GetUIDAndIncrement())+"_"+name;
@@ -82,8 +82,9 @@ void MapObjectRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 	position.z=tmp;
 	position.y=-position.y;
 	scene->setPosition(Vector3ToOgreVector(position));
-	*/
+	
 
 
 
 }
+*/

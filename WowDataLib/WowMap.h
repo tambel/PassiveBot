@@ -6,15 +6,18 @@
 
 class WowMap
 {
+	
 protected:
 	Vector3 position;
-	Tile * tiles[3][3];
+	
 	
 public:
+	Tile * tiles[3][3];
 	WowMap(Vector3 position);
 	~WowMap(void);
 	void SetPosition(Vector3 position);
 	void GoToPlace(Vector3 coords);
+	void Draw();
 
 };
 

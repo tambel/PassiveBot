@@ -10,13 +10,13 @@ Block::Block(MCNK * mcnk,bool exist):mcnk(mcnk)
 	float sx;
 	int xc=0;
 	int yc=0;
-	for (float x=position.x;x<position.x+BLOCK_LENGTH+1;x+=CHUNK_LENGTH)
+	for (float x=0;x<BLOCK_LENGTH+1;x+=CHUNK_LENGTH)
 	{
-		for (float y=position.y;y<position.y+BLOCK_LENGTH+1;y+=CHUNK_LENGTH) 
+		for (float y=0;y<BLOCK_LENGTH+1;y+=CHUNK_LENGTH) 
 		{
 			if (exist)
 			{
-				vertices[count]=Vertice(Vector3(x,y,position.z+mcnk->mcvt.height[145-count-1]),Color(1.0f,1.0f,1.0f,1.0f));
+				vertices[count]=Vertice(Vector3(x,y,position.z+mcnk->mcvt.height[count]),Color(1.0f,1.0f,1.0f,1.0f));
 			}
 			else
 			{
@@ -28,11 +28,11 @@ Block::Block(MCNK * mcnk,bool exist):mcnk(mcnk)
 		if (count<145)
 		{
 
-			for (float sy=position.y+(HALF_CHUNK_LENGTH);sy<position.y+BLOCK_LENGTH-(HALF_CHUNK_LENGTH)+1;sy+=CHUNK_LENGTH)
+			for (float sy=(HALF_CHUNK_LENGTH);sy<BLOCK_LENGTH-(HALF_CHUNK_LENGTH)+1;sy+=CHUNK_LENGTH)
 			{
 				if (exist)
 				{
-					vertices[count]=Vertice(Vector3(sx,sy,position.z+mcnk->mcvt.height[145-count-1]),Color(0.0f,0.0f,0.0f,1.0f));
+					vertices[count]=Vertice(Vector3(sx,sy,position.z+mcnk->mcvt.height[count]),Color(0.0f,0.0f,0.0f,1.0f));
 				}
 				else
 				{
