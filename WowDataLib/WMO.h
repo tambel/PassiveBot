@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Utils.h"
+using namespace DataUtils;
 using namespace std;
 struct MOGN
 {
@@ -9,6 +10,11 @@ struct MOGN
 	short length;
 	unsigned wtf;
 	char * group_names;
+	MOGN():group_names(0){}
+	~MOGN()
+	{
+		delete  [] group_names;
+	}
 };
 struct MOGI
 {
@@ -28,12 +34,11 @@ struct MOGP
 struct MOVI
 {
 	unsigned long length;
-	unsigned short * indices;
+	
 };
 struct MOVT
 {
 	unsigned long length;
-	Vector3 * vetices;
 }; 
 struct WmoInfo
 {
@@ -46,9 +51,11 @@ class WMO
 {
 public: 
 	string name;
-	MOGP * mogp;
-	MOVI * movi;
-	MOVT * movt;
+	MOGP  mogp;
+	Vector3 * vertices;
+	unsigned long vertice_count;
+	unsigned short * indices;
+	unsigned long index_count;
 	bool exist;
 	WMO(string path);
 	~WMO();
@@ -57,10 +64,10 @@ class RootWMO
 {
 public:
 	string name;
-	MOGN  * mogn;
-	MOGI * mogi;
-	vector <WMO*> groups;
-	vector<MOGP*> mogp_list;
+	//MOGN  * mogn;
+	//MOGI * mogi;
+	vector <WMO*> group;
+	//vector<MOGP*> mogp_list;
 	RootWMO(string path);
 	~RootWMO(void);
 };

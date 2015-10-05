@@ -1,8 +1,7 @@
 #include "FileParser.h"
 //#include <iostream>
 #include<fstream>
-#include <string>
-using  namespace std;
+
 
 FileParser::FileParser(void)
 {
@@ -12,7 +11,7 @@ FileParser::FileParser(void)
 FileParser::~FileParser(void)
 {
 }
-unsigned long FileParser::Parse(const char * path, char ** buff)
+unsigned long FileParser::Parse(string path, char ** buff)
 {
 	ifstream file(path, ios::binary | ios::ate);
 	if (file) {
@@ -26,4 +25,19 @@ unsigned long FileParser::Parse(const char * path, char ** buff)
 		return length;
 	}
 	return 0;
+}
+bool FileParser::FileExist(string path)
+{
+	ifstream file(path, ios::binary | ios::ate);
+	if (file) 
+	{
+		file.close();
+		return true;
+	}
+	else
+	{
+		file.close();
+		return false;
+	}
+
 }

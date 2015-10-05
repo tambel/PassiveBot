@@ -1,6 +1,6 @@
 #include "Block.h"
 
-Block::Block(MCNK * mcnk,bool exist):mcnk(mcnk)
+Block::Block(MCNK * mcnk,bool exist)
 {
 
 	vertices=new Vertice[145];

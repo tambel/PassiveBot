@@ -2,7 +2,7 @@
 #include "Tile.h"
 #include "Adt.h"
 #include "Utils.h"
-
+using namespace DataUtils;
 
 class WowMap
 {

@@ -20,6 +20,13 @@ WowMap::WowMap(Vector3 position)
 }
 WowMap::~WowMap(void)
 {
+	for (int i=0;i<3;i++)
+	{
+		for (int j=0;j<3;j++)
+		{
+			delete tiles[i][j];
+		}
+	}
 }
 void WowMap::SetPosition(Vector3 position)
 {

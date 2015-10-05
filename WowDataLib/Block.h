@@ -3,6 +3,7 @@
 #include "FileParser.h"
 #include "Utils.h"
 #include "Adt.h"
+using namespace DataUtils;
 #define TILE_LENGTH 533.33333f
 #define BLOCK_LENGTH 33.33333f
 #define CHUNK_LENGTH 4.16666f
@@ -11,7 +12,7 @@ class Block:public Renderable
 {
 
 protected:
-	MCNK * mcnk;
+
 	
 public:
 	Point2D coords;

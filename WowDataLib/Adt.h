@@ -3,6 +3,7 @@
 #include <vector>
 #include "Utils.h"
 #include "WMO.h"
+using namespace DataUtils;
 using namespace std;
 struct MVER {
 	unsigned  version;
@@ -44,6 +45,12 @@ class Adt
 {
 	bool is_file_exists;
 public:
+	char * root;
+	unsigned long root_length;
+	char * obj;
+	unsigned long obj_length;
+	char * tex;
+	unsigned long tex_length;
 	MVER mver;
 	vector<MCNK*> mcnk_list;
 	MWMO * mwmo;

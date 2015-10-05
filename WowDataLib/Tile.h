@@ -5,6 +5,7 @@
 #include "Block.h"
 #include "WMO.h"
 #include "MapObject.h"
+using namespace DataUtils;
 #define PATH "E:\\Extracted\\"
 #define TERRAIN_PATH "World\\Maps\\"
 //#define TERRAIN_PATH "C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\"

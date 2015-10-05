@@ -1,7 +1,7 @@
 // PassiveBot.cpp: определяет точку входа для консольного приложения.
 //
 #pragma once
-
+ 
 #include "stdafx.h"
 #include <MapView.h>
 #include <ObjectManager.h>
@@ -11,11 +11,12 @@
 #include <GameManager.h>
 #include <Utils.h>
 #include <iostream>
-#include <stdlib.h>
-#include <crtdbg.h> 
-#include <boost\thread\thread.hpp>
-
 #define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#include <boost\thread\thread.hpp>
+using namespace DataUtils;
+
 //using namespace ProcessLib;
 using namespace Wow;
 using namespace std;
@@ -23,10 +24,20 @@ void workerFunc()
 {  
 	MapView view=MapView();
 	view.go();
+	/*
+	WowMap map(DataUtils::Vector3(0,0,0));
+	WowMap map2(DataUtils::Vector3(0,0,0));
+	WowMap map3(DataUtils::Vector3(0,0,0));
+	WowMap map4(DataUtils::Vector3(0,0,0));
+	WowMap map5(DataUtils::Vector3(0,0,0));
+	WowMap map6(DataUtils::Vector3(0,0,0));
+	WowMap map7(DataUtils::Vector3(0,0,0));
+	*/
+
 }
 int _tmain(int argc, _TCHAR* argv[])
 {
-	
+	/*
 	setlocale( LC_ALL,"Russian" );
 	
 	
@@ -35,37 +46,30 @@ int _tmain(int argc, _TCHAR* argv[])
 	param.char_name=L"Люблюдашу";
 	param.login="lissek7@ya.ru";
 	param.password="lebmat2762066";
-	/*
+
 	bool y=GameInteractor::Start(&param);
 	ObjectManager::Initialize();
 	ObjectManager::EnumAllVisibleObjects();
 	Unit * tak=ObjectManager::FindUnitByName(L"Огромный серый кодо");
 	Player * player = ObjectManager::GetPlayer();
-	*/
 
-
-
-	
-	//_CrtDumpMemoryLeaks();
-	 boost::thread workerThread(workerFunc);
-	 //workerThread.detach();
-	 workerThread.join();
-
-	 int i;
-	 while (1)
-	 {
-		 
-		// cout<<"X "<<player->GetPosition().coords.x<<"Y "<<player->GetPosition().coords.y<<"Z "<<player->GetPosition().coords.z<<endl;
-		// cout<<"X "<<floor((32 - (player->GetPosition().coords.x / 533.33333)))<<"Y "<< floor((32 - (player->GetPosition().coords.y / 533.33333)))<<endl;
-	 }
-	 ObjectManager::ClearAllLists();
+	ObjectManager::ClearAllLists();
 	FrameManager::ClearFrames();
 	delete FrameManager::GetFrames();
 	delete ObjectManager::GetGameObjectsList();
 	delete ObjectManager::GetItemsList();
 	delete ObjectManager::GetPlayersList();
 	delete ObjectManager::GetUnitsList();
+	*/
+
 	
+	//_CrtDumpMemoryLeaks();
+	
+	 boost::thread workerThread(workerFunc);
+	 //workerThread.detach();
+	 workerThread.join();
+	 
+
 	return 0;
 }
 

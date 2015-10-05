@@ -6,28 +6,23 @@ MapObject::MapObject(string path,  WmoInfo wmo_info)
 	name=path;
 	position=wmo_info.position;
 	root_wmo=new RootWMO(path);
-	Vertice * old_vertices=new Vertice[vertice_count];
-	unsigned short * old_indices=new unsigned short[index_count];
-	unsigned long old_ind_count=index_count;
-	unsigned long old_vert_count=vertice_count;
-	unsigned long vert_ind=0;
 	meshes=vector<Mesh*>();
-	for (auto wmo:root_wmo->groups)
+	for (auto wmo:root_wmo->group)
 	{
 		Mesh * mesh=new Mesh(wmo->name);
-		mesh->index_count=wmo->movi->length/2;
-		mesh->vertice_count=wmo->movt->length/12;
+		mesh->index_count=wmo->index_count;
+		mesh->vertice_count=wmo->vertice_count;
 		mesh->vertices=new Vertice[mesh->vertice_count];
 		mesh->indices=new unsigned short[mesh->index_count];
 		for (unsigned long i=0;i<mesh->vertice_count;i++)
 		{
 			if (i%2==0)
-				mesh->vertices[i]=Vertice(wmo->movt->vetices[i],Color(1.0f,1.0f,0.0f,1.0f));
+				mesh->vertices[i]=Vertice(wmo->vertices[i],Color(1.0f,1.0f,0.0f,1.0f));
 			else 
-				mesh->vertices[i]=Vertice(wmo->movt->vetices[i],Color(0.0f,0.0f,0.0f,1.0f));
+				mesh->vertices[i]=Vertice(wmo->vertices[i],Color(0.0f,0.0f,0.0f,1.0f));
 		}
 		//memcpy(mesh->vertices,wmo->movt->vetices,wmo->movt->length);
-		memcpy(mesh->indices,wmo->movi->indices,wmo->movi->length);
+		memcpy(mesh->indices,wmo->indices,wmo->index_count*2);
 		mesh->position=wmo_info.position;
 		mesh->rotation=wmo_info.rotation;
 		meshes.push_back(mesh);
@@ -60,10 +55,17 @@ MapObject::MapObject(string path,  WmoInfo wmo_info)
 		*/
 
 	}
-
+	
 }
 
 
 MapObject::~MapObject(void)
 {
+	delete root_wmo;
+	for (auto mesh:meshes)
+	{
+		delete mesh;
+	}
+	meshes.clear();
+	
 }

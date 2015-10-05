@@ -6,17 +6,16 @@
 using namespace std;
 Adt::Adt(string path)
 {
-
-	char * root=0;
-	unsigned long root_length;
-	char *obj=0;
-	unsigned long obj_length;
-	char * tex=0;
-	unsigned long tex_length;
+	root=0;
+	root_length=0;
+	obj=0;
+	obj_length=0;
+	tex=0;
+	tex_length=0;
 	char *tmp;
-	root_length=FileParser::Parse((path+".adt").c_str(),&root);
-	obj_length=FileParser::Parse((path+"_obj0.adt").c_str(),&obj);
-	tex_length=FileParser::Parse((path+"_tex0.adt").c_str(),&tex);
+	root_length=FileParser::Parse(path+".adt",&root);
+	obj_length=FileParser::Parse(path+"_obj0.adt",&obj);
+	tex_length=FileParser::Parse(path+"_tex0.adt",&tex);
 	if (!root_length)
 	{
 		is_file_exists=false;
@@ -78,6 +77,7 @@ Adt::Adt(string path)
 				info.name=mwmo->names+mwid->offsets[m[i].mwidEntry];
 				wmo_infos.push_back(info);
 			}
+			delete [] m;
 	
 			
 		}
@@ -103,6 +103,9 @@ bool Adt::IsExist()
 
 Adt::~Adt(void)
 {
+	delete [] root;
+	delete [] obj;
+	delete [] tex;
 	delete [] mwmo->names;
 	delete [] mwmo;
 	delete [] mwid->offsets;

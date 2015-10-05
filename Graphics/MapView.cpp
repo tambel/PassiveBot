@@ -65,62 +65,7 @@ void MapView::InitMap()
 		}
 		tile_pos_x+=TILE_LENGTH;
 	}
-
-
-	/*
-	for (int i=0;i<3;i++)
-	{
-	for (int j=0;j<3;j++)
-	{
-	Ogre::SceneNode * tile_scene = scene->createChildSceneNode("Tile_"+to_string(map->tiles[i][j]->coords.X)+"_"+to_string(map->tiles[i][j]->coords.Y));
-	for (int ti=0;i<16;ti++)
-	{
-	for (int tj=0;tj<16;tj++)
-	{
-	((OgreRenderable*)map->tiles[i][j]->blocks[ti][tj])->CreateScene(tile_scene);
-	}
-	}
-
-	}
-	}
-	*/
-
-	//mSceneMgr->getRootSceneNode()->addChild(((MapRenderable*)map)->CreateScene(mSceneMgr))
-	/*
-	string n="name"+to_string(b);
-	manual[b] = mSceneMgr->createManualObject(n);
-	manual[b]->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_TRIANGLE_LIST);
-	for (int i=0;i<145;i++)
-	{
-	manual[b]->position(map->tile->blocks[b]->vertices[i].position.x,map->tile->blocks[b]->vertices[i].position.y,map->tile->blocks[b]->vertices[i].position.z);
-	manual[b]->colour(Ogre::ColourValue(map->tile->blocks[b]->vertices[i].color.r,map->tile->blocks[b]->vertices[i].color.g,map->tile->blocks[b]->vertices[i].color.b,map->tile->blocks[b]->vertices[i].color.a));
-
-	}
-
-	for (int i=0;i<768;i++)
-	{
-	manual[b]->index(map->tile->blocks[b]->indices[i]);
-	}
-	manual[b]->end();
-	Ogre::MeshPtr mesh= manual[b]->convertToMesh(n+"_mesh");
-
-	Ogre::Entity* m_pGraphicEntity = mSceneMgr->createEntity(n+"_ent", mesh->getName());
-
-	Ogre::SceneNode * node=mSceneMgr->getRootSceneNode()->createChildSceneNode();
-
-
-
-	node->attachObject(m_pGraphicEntity);
-	//node->rotate(Ogre::Vector3(0,1,0),Ogre::Radian(Ogre::Math::PI/2),Ogre::Node::TransformSpace::TS_WORLD);
-	//Ogre::SceneNode * node= (Ogre::SceneNode*)mSceneMgr->getRootSceneNode()->getChild(n+"_ent");
-	*/
-
-
-
-
-
-	//mCamera->setPosition(-9600.0f,-1066.66602f,72.7356796f);
-
+	delete map;
 }
 void MapView::createScene(void)
 {

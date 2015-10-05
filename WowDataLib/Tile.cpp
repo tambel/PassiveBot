@@ -42,12 +42,25 @@ Tile::Tile(int x,int y)
 	{
 		exists=false;
 	}
+	delete adt;
 }
 Tile::Tile(void)
 {
 }
 Tile::~Tile(void)
 {
+	for (auto map_object:map_objects)
+	{
+		delete map_object;
+	}
+	map_objects.clear();
+	for (unsigned i=0;i<16;i++)
+	{
+		for (unsigned j=0;j<16;j++)
+		{
+			delete blocks[i][j];
+		}
+	}
 }
 void Tile::SetPosition(Vector3 position)
 {
