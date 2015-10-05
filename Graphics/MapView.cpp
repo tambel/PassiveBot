@@ -16,7 +16,7 @@ MapView::~MapView(void)
 void MapView::InitMap()
 {
 	OgreRenderable::ClearCouner();
-	map=new WowMap(Vector3(0,0,0));
+	WowMap * map= new WowMap(Vector3(0,0,0));
 	mSceneMgr->getRootSceneNode()->setPosition(0,0,0);
 	Ogre::SceneNode * scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("Map");
 
@@ -65,7 +65,7 @@ void MapView::InitMap()
 		}
 		tile_pos_x+=TILE_LENGTH;
 	}
-	delete map;
+	//delete map;
 }
 void MapView::createScene(void)
 {

@@ -8,6 +8,6 @@ protected:
 	string name;
 public:
 	Mesh(string name);
-	~Mesh(void);
+	~Mesh();
 };
 

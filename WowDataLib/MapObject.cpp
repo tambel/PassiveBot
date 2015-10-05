@@ -64,7 +64,7 @@ MapObject::~MapObject(void)
 	delete root_wmo;
 	for (auto mesh:meshes)
 	{
-		delete mesh;
+		delete ((Renderable*)mesh);
 	}
 	meshes.clear();
 	
