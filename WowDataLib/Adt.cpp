@@ -25,7 +25,11 @@ Adt::Adt(string path)
 	{
 		is_file_exists=true;
 	}
-	MCNK * mcnk;
+	MCNK * mcnk=0;
+	MWMO * mwmo=0;
+	MWID * mwid=0;
+	MMDX * mmdx=0;
+	MMID * mmid=0;
 	for (unsigned long i=0;i<root_length;i++)
 	{
 		tmp=root+i;
@@ -49,17 +53,21 @@ Adt::Adt(string path)
 		tmp=obj+i;
 		if (memcmp(tmp,"OMWM",4)==0)
 		{
+
 			mwmo=new MWMO;
 			*mwmo=*(MWMO*)(tmp+4);
 			mwmo->names=new char[mwmo->length];
 			memcpy(mwmo->names,tmp+8,mwmo->length);
+
 		}
 		if (memcmp(tmp,"DIWM",4)==0)
 		{
+
 			mwid=new MWID;
 			*mwid=*(MWID*)(tmp+4);
 			mwid->offsets=new unsigned long[mwid->length/4];
 			memcpy(mwid->offsets,tmp+8,mwid->length);
+
 		}
 		if (memcmp(tmp,"FDOM",4)==0)
 		{
@@ -78,10 +86,52 @@ Adt::Adt(string path)
 				wmo_infos.push_back(info);
 			}
 			delete [] m;
-	
-			
+		}
+		if (memcmp(tmp,"XDMM",4)==0)
+		{
+
+			mmdx=new MMDX;
+			*mmdx=*(MMDX*)(tmp+4);
+			mmdx->names=new char[mmdx->length];
+			memcpy(mmdx->names,tmp+8,mmdx->length);
+
+		}
+		if (memcmp(tmp,"DIMM",4)==0)
+		{
+
+			mmid=new MMID;
+			*mmid=*(MMID*)(tmp+4);
+			mmid->offsets=new unsigned long[mmid->length/4];
+			memcpy(mmid->offsets,tmp+8,mmid->length);
+
+		}
+		if (memcmp(tmp,"FDDM",4)==0)
+		{
+			unsigned long length=*(unsigned long *)(tmp+4);
+			MODF * m=new MODF[length/sizeof(MODF)];
+			memcpy(m,tmp+8,length);
+			for (unsigned i=0;i<length/sizeof(MODF);i++)
+			{
+				WmoInfo info;
+				m[i].position.x-=17066.6656;
+				m[i].position.z-=17066.6656;
+				info.position=m[i].position;
+				info.rotation=m[i].rotation;
+				info.id=m[i].uniqueId;
+				info.name=mwmo->names+mwid->offsets[m[i].mwidEntry];
+				wmo_infos.push_back(info);
+			}
+			delete [] m;
 		}
 	}
+	delete [] mwmo->names;
+	delete [] mwmo;
+	delete [] mwid->offsets;
+	delete [] mwid;
+	delete [] mmdx->names;
+	delete [] mmdx;
+	delete [] mmid->offsets;
+	delete [] mmid;
 	if (mwmo && mwid)
 	{
 		for (int i=0;i<mwid->length/4;i++)
@@ -93,7 +143,7 @@ Adt::Adt(string path)
 
 		}
 	}
-	
+
 
 }
 bool Adt::IsExist()
@@ -106,10 +156,7 @@ Adt::~Adt(void)
 	delete [] root;
 	delete [] obj;
 	delete [] tex;
-	delete [] mwmo->names;
-	delete [] mwmo;
-	delete [] mwid->offsets;
-	delete [] mwid;
+
 	for (auto mcnk:mcnk_list)
 	{
 		delete mcnk;

@@ -3,6 +3,7 @@
 #include <vector>
 #include "Utils.h"
 #include "WMO.h"
+#include "M2.h"
 using namespace DataUtils;
 using namespace std;
 struct MVER {
@@ -30,6 +31,17 @@ struct MWID
 	unsigned long length;
 	unsigned long * offsets;
 };
+struct MMDX 
+{
+	unsigned long length;
+	//string * names;
+	char * names;
+};
+struct MMID
+{
+	unsigned long length;
+	unsigned long * offsets;
+};
 struct MODF
 {
 	unsigned mwidEntry;           // references an entry in the MWID chunk, specifying the model to use.
@@ -53,10 +65,13 @@ public:
 	unsigned long tex_length;
 	MVER mver;
 	vector<MCNK*> mcnk_list;
+	/*
 	MWMO * mwmo;
 	MWID * mwid;
 	MODF * modf;
+	*/
 	vector<WmoInfo> wmo_infos;
+	vector <M2*> m2_list;
 	Adt(string  path);
 	~Adt(void);
 	unsigned GetVersion();

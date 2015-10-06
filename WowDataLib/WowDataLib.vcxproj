@@ -65,6 +65,7 @@
     <ClInclude Include="Adt.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="FileParser.h" />
+    <ClInclude Include="M2.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="WowMap.h" />
@@ -77,6 +78,7 @@
     <ClCompile Include="Adt.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="FileParser.cpp" />
+    <ClCompile Include="M2.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="WowMap.cpp" />
