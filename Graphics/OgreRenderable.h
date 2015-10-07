@@ -14,4 +14,3 @@ public:
 	Ogre::SceneNode * CreateScene(Ogre::SceneNode * parent_scene);
 	void SetPosition(Vector3 position);
 };
-

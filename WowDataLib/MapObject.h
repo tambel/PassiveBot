@@ -5,9 +5,8 @@
 #include "WMO.h"
 #include "Mesh.h"
 using namespace std;
-class MapObject: public Renderable
+class MapObject
 {
-
 public:
 	string name;
 	RootWMO * root_wmo;

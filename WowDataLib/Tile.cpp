@@ -1,5 +1,4 @@
 #include "Tile.h"
-#include "MapObject.h"
 #include <string>
 #include <algorithm>
 using namespace std;
@@ -9,6 +8,7 @@ Tile::Tile(int x,int y)
 	string path=PATH+ string(TERRAIN_PATH);
 	path+="Kalimdor\\Kalimdor_"+to_string(x)+"_"+to_string(y);
 	map_objects=vector<MapObject*>();
+	doodads=vector<Doodad*>();
 	//Adt * adt=new Adt(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_36_51");
 	coords.X=x;
 	coords.Y=y;
@@ -36,7 +36,16 @@ Tile::Tile(int x,int y)
 			map_object=new MapObject(PATH+info.name,info);
 			map_objects.push_back(map_object);
 		}
+		Doodad * doodad;
+		for (auto info:adt->m2_infos)
+		{
+			doodad=new Doodad(PATH+info.name,info);
+			if (doodad->m2->vert_count>0)
+			doodads.push_back(doodad);
+		}
+
 		exists=true;
+
 	}
 	else
 	{

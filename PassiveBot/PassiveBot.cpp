@@ -63,7 +63,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	*/
 
 	//workerFunc();
-	_CrtDumpMemoryLeaks();
+	//_CrtDumpMemoryLeaks();
 	
 	 boost::thread workerThread(workerFunc);
 	// workerThread.detach();

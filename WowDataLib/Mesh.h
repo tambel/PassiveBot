@@ -5,8 +5,9 @@ using namespace std;
 class Mesh: public Renderable
 {
 protected:
-	string name;
+	
 public:
+	string name;
 	Mesh(string name);
 	~Mesh();
 };

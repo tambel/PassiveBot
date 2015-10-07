@@ -1,6 +1,7 @@
 #pragma once
 #include "Utils.h"
 #include <string>
+
 using namespace DataUtils;
 using namespace std;
 class Renderable
@@ -8,7 +9,8 @@ class Renderable
 protected:
 	string name;
 public:
-	
+	Triangle * triangles;
+	unsigned long triangles_count;
 	Vector3 position;
 	Vector3 rotation;
 	Vertice  * vertices;

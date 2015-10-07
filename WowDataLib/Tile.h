@@ -5,6 +5,7 @@
 #include "Block.h"
 #include "WMO.h"
 #include "MapObject.h"
+#include "Doodad.h"
 using namespace DataUtils;
 #define PATH "E:\\Extracted\\"
 #define TERRAIN_PATH "World\\Maps\\"
@@ -18,6 +19,7 @@ protected:
 public:
 	Point2D coords;
 	vector<MapObject*> map_objects; 
+	vector<Doodad*> doodads;
 	Block * blocks[16][16];
 	Vector3 position;
 	bool exists;

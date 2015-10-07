@@ -13,18 +13,17 @@ FileParser::~FileParser(void)
 }
 unsigned long FileParser::Parse(string path, char ** buff)
 {
+	unsigned long  length=0;
 	ifstream file(path, ios::binary | ios::ate);
 	if (file) {
 		// get length of file:
 		file.seekg (0, file.end);
-		unsigned long  length = file.tellg();
+		length = file.tellg();
 		file.seekg (0, file.beg);
 		*buff = new char [length];
 		file.read (*buff,length);
-
-		return length;
 	}
-	return 0;
+	return length;
 }
 bool FileParser::FileExist(string path)
 {

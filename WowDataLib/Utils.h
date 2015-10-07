@@ -1,6 +1,10 @@
 #pragma once
 namespace DataUtils
 {
+	struct Triangle
+	{
+		unsigned short indices[3];
+	};
 	struct Point2D
 	{
 		int X;

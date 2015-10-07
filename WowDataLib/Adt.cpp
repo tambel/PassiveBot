@@ -16,6 +16,8 @@ Adt::Adt(string path)
 	root_length=FileParser::Parse(path+".adt",&root);
 	obj_length=FileParser::Parse(path+"_obj0.adt",&obj);
 	tex_length=FileParser::Parse(path+"_tex0.adt",&tex);
+	wmo_infos=vector<WmoInfo>();
+	m2_infos=vector<M2Info>();
 	if (!root_length)
 	{
 		is_file_exists=false;
@@ -108,18 +110,18 @@ Adt::Adt(string path)
 		if (memcmp(tmp,"FDDM",4)==0)
 		{
 			unsigned long length=*(unsigned long *)(tmp+4);
-			MODF * m=new MODF[length/sizeof(MODF)];
+			MDDF * m=new MDDF[length/sizeof(MDDF)];
 			memcpy(m,tmp+8,length);
-			for (unsigned i=0;i<length/sizeof(MODF);i++)
+			for (unsigned i=0;i<length/sizeof(MDDF);i++)
 			{
-				WmoInfo info;
+				M2Info info;
 				m[i].position.x-=17066.6656;
 				m[i].position.z-=17066.6656;
 				info.position=m[i].position;
 				info.rotation=m[i].rotation;
 				info.id=m[i].uniqueId;
-				info.name=mwmo->names+mwid->offsets[m[i].mwidEntry];
-				wmo_infos.push_back(info);
+				info.name=mmdx->names+mmid->offsets[m[i].mwidEntry];
+				m2_infos.push_back(info);
 			}
 			delete [] m;
 		}

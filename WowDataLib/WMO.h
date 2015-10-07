@@ -64,6 +64,7 @@ class RootWMO
 {
 public:
 	string name;
+	unsigned long id;
 	//MOGN  * mogn;
 	//MOGI * mogi;
 	vector <WMO*> group;
