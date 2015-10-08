@@ -4,9 +4,15 @@
 using namespace std;
 Tile::Tile(int x,int y)
 {
-
+	for (unsigned i=0;i<16;i++)
+	{
+		for (unsigned j=0;j<16;j++)
+		{
+			blocks[i][j];
+		}
+	}
 	string path=PATH+ string(TERRAIN_PATH);
-	path+="Kalimdor\\Kalimdor_"+to_string(x)+"_"+to_string(y);
+	path+="Northrend\\Northrend_"+to_string(x)+"_"+to_string(y);
 	map_objects=vector<MapObject*>();
 	doodads=vector<Doodad*>();
 	//Adt * adt=new Adt(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_36_51");
@@ -62,6 +68,11 @@ Tile::~Tile(void)
 	{
 		delete map_object;
 	}
+	for (auto doodad:doodads)
+	{
+		delete doodad;
+	}
+	doodads.clear();
 	map_objects.clear();
 	for (unsigned i=0;i<16;i++)
 	{

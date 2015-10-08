@@ -11,9 +11,9 @@
 #include <GameManager.h>
 #include <Utils.h>
 #include <iostream>
-//#define _CRTDBG_MAP_ALLOC
-//#include <stdlib.h>
-//#include <crtdbg.h>
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include <boost\thread\thread.hpp>
 using namespace DataUtils;
 
@@ -22,8 +22,9 @@ using namespace Wow;
 using namespace std;
 void workerFunc()  
 {  
-	MapView view=MapView();
-	view.go();
+	//MapView view=MapView();
+	WowMap map=WowMap(DataUtils::Vector3());
+	//view.go();
 	/*
 	WowMap map(DataUtils::Vector3(0,0,0));
 	WowMap map2(DataUtils::Vector3(0,0,0));
@@ -62,12 +63,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete ObjectManager::GetUnitsList();
 	*/
 
-	//workerFunc();
-	//_CrtDumpMemoryLeaks();
+	workerFunc();
+	_CrtDumpMemoryLeaks();
 	
-	 boost::thread workerThread(workerFunc);
+	 //boost::thread workerThread(workerFunc);
 	// workerThread.detach();
-	workerThread.join();
+	//workerThread.join();
 	 
 
 	return 0;

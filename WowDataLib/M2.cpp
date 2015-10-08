@@ -91,6 +91,8 @@ M2::~M2(void)
 	vertices=0;
 	delete [] indices;
 	indices=0;
+	delete [] triangles;
+	triangles=0;
 	for (auto mesh:meshes)
 	{
 		delete mesh;

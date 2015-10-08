@@ -5,8 +5,8 @@ WowMap::WowMap(Vector3 position)
 {
 	int x=floor((32 - (position.x / TILE_LENGTH)));
 	int y=floor((32 - (position.y / TILE_LENGTH)));
-	x=39;
-	y=29;
+	x=29;
+	y=19;
 
 	tiles[0][0]=new Tile(x-1,y-1);
 	tiles[0][1]=new Tile(x-1,y);
