@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "Utils.h"
-using namespace DataUtils;
+using namespace Utils;
 using namespace std;
 struct MOGN
 {

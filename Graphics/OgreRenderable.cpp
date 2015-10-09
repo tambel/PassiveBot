@@ -4,10 +4,12 @@
 #include <string>
 #include <Mesh.h>
 using namespace std;
+using namespace Utils::Graphics;
 unsigned long OgreRenderable::current_uid=0;
 
 unsigned long OgreRenderable::GetUIDAndIncrement()
 {
+	Ogre::Node * n;
 	return current_uid++;
 }
 void OgreRenderable::ClearCouner()

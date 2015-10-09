@@ -3,6 +3,7 @@
 #include <Renderable.h>
 #include <string>
 using namespace std;
+using namespace Utils::WowTypes;
 class OgreRenderable :public Renderable
 {
 protected:

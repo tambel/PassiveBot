@@ -7,6 +7,7 @@ MapObject::MapObject(string path,  WmoInfo wmo_info)
 	position=wmo_info.position;
 	root_wmo=new RootWMO(path);
 	root_wmo->id=wmo_info.id;
+	id=wmo_info.id;
 	meshes=vector<Mesh*>();
 	for (auto wmo:root_wmo->group)
 	{

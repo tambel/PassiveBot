@@ -1,5 +1,6 @@
 #pragma once
 #include "Utils.h"
+using namespace Utils::WowTypes;
 namespace Wow
 {
 	class Camera

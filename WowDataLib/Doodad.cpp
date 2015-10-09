@@ -1,16 +1,10 @@
 #include "Doodad.h"
-unsigned ii=0;
 #include <iostream>
 using namespace std;
 Doodad::Doodad(string path, M2Info info)
 {
-	
 	name=path;
-	if (name=="E:\\Extracted\\WORLD\\AZEROTH\\DEADWINDPASS\\PASSIVEDOODADS\\ROCKTREES\\DEADWINDPASSROCKTREE04.M2")
-	{
-		int k;
-		k=10;
-	}
+	id=info.id;
 	meshes=vector<Mesh*>();
 	m2=new M2(path);
 	Mesh * mesh=new Mesh(name);
@@ -20,7 +14,6 @@ Doodad::Doodad(string path, M2Info info)
 	mesh->vertices=new Vertice[mesh->vertice_count];
 	mesh->index_count=m2->index_count;
 	mesh->indices=new unsigned short[mesh->index_count];
-	unsigned iia=(unsigned)&ii;
 	//cout<<name;
 	
 	for (unsigned long i=0;i<m2->vert_count;i++)
@@ -29,7 +22,6 @@ Doodad::Doodad(string path, M2Info info)
 			mesh->vertices[i]=Vertice(m2->vertices[i].position,Color(1.0f,1.0f,0.0f,1.0f));
 		else 
 			mesh->vertices[i]=Vertice(m2->vertices[i].position,Color(0.0f,0.0f,0.0f,1.0f));
-		ii++;
 		//cout<<ii<<endl;
 	}
 	memcpy(mesh->indices,m2->indices,mesh->index_count*2);

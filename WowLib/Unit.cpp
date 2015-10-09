@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 using namespace ProcessLib;
+using namespace Utils::WowTypes;
 namespace Wow
 {
 	Unit::Unit(unsigned base):WowObject(base)
@@ -25,7 +26,7 @@ namespace Wow
 	}
 	Position Unit::GetPosition()
 	{
-		Position pos={0};
+		Position pos=Position();
 		Process::ReadRaw(base+WowOffsets::Unit::UnitPosition,&pos,12);
 		pos.rotation=Process::ReadFloat(base+WowOffsets::Unit::UnitRotation);
 		return pos;

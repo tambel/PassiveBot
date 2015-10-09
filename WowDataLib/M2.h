@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include "Mesh.h"
+using namespace Utils::WowTypes; 
+using namespace Utils::Graphics;
 using namespace std;
 
 

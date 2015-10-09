@@ -4,7 +4,7 @@
 #include "Utils.h"
 #include "WMO.h"
 #include "M2.h"
-using namespace DataUtils;
+using namespace Utils::Graphics;
 using namespace std;
 struct MVER {
 	unsigned  version;

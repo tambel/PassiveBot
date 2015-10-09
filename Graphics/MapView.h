@@ -1,6 +1,6 @@
 #pragma once
 #include "Window.h"
-#include <WowMap.h>
+#include "WowDataLib\WowMap.h"
 class MapView: public Window
 {
 	

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iostream>
 using namespace std;
+using namespace Utils::WowTypes;
 MapView::MapView(void)
 {
 
@@ -33,7 +34,7 @@ void MapView::InitMap()
 		{
 			if (map->tiles[i][j]->exists)
 			{
-				Ogre::SceneNode * tile_scene = scene->createChildSceneNode("Tile_"+to_string(map->tiles[i][j]->coords.X)+"_"+to_string(map->tiles[i][j]->coords.Y));
+				Ogre::SceneNode * tile_scene = scene->createChildSceneNode("Tile_"+to_string(map->tiles[i][j]->indexX)+"_"+to_string(map->tiles[i][j]->indexY));
 				tile_scene->setPosition(tile_pos_y,tile_pos_x,0);
 				block_pos_x=0;
 				for (int ti=0;ti<16;ti++)
@@ -52,7 +53,7 @@ void MapView::InitMap()
 					exist=false;
 					for (auto mo:check_list)
 					{
-						if (mo->root_wmo->id==map_object->root_wmo->id)
+						if (mo->id==map_object->id)
 						{
 							exist=true;
 							break;
@@ -65,8 +66,8 @@ void MapView::InitMap()
 					for (auto mesh:map_object->meshes)
 					{
 
-						float t_pos_x= map->tiles[i][j]->coords.Y * 533.33333-17066.6656;
-						float t_pos_y=  map->tiles[i][j]->coords.X * 533.33333-17066.6656;
+						float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
+						float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
 						Vector3 pos;
 						pos.x=mesh->position.z-	t_pos_x;
 						pos.y=mesh->position.x-	t_pos_y;
@@ -85,8 +86,8 @@ void MapView::InitMap()
 					Ogre::SceneNode * map_object_scene= tile_scene->createChildSceneNode(doodad->name+"_"+to_string(OgreRenderable::GetUIDAndIncrement()));
 					for (auto mesh:doodad->meshes)
 					{
-						float t_pos_x= map->tiles[i][j]->coords.Y * 533.33333-17066.6656;
-						float t_pos_y=  map->tiles[i][j]->coords.X * 533.33333-17066.6656;
+						float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
+						float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
 						Vector3 pos;
 						pos.x=mesh->position.z-	t_pos_x;
 						pos.y=mesh->position.x-	t_pos_y;
@@ -200,5 +201,11 @@ void MapView::createScene(void)
 }
 void MapView::UpdateMap()
 {
-
+	for (auto dyn_obj:map->objects)
+	{
+		if (((Renderable*)dyn_obj)->changed)
+		{
+			((OgreRenderable*)dyn_obj)->SetPosition(dyn_obj->position);
+		}
+	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "Utils.h"
 #include "Camera.h"
+using namespace Utils::WowTypes;
 namespace Wow
 {
 	class GameManager

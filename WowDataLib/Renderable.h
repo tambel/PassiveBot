@@ -2,13 +2,15 @@
 #include "Utils.h"
 #include <string>
 
-using namespace DataUtils;
+using namespace Utils::WowTypes; 
+using namespace Utils::Graphics;
 using namespace std;
 class Renderable
 {
 protected:
 	string name;
 public:
+	bool changed;
 	Triangle * triangles;
 	unsigned long triangles_count;
 	Vector3 position;

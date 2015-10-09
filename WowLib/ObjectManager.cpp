@@ -124,7 +124,6 @@ namespace Wow
 		{
 			Guid128 tmp;
 			Guid128 pl=*player->GetGuid();
-			unsigned a;
 			if(player->GetBase()==Process::ReadRelUInt(WowOffsets::ObjectManager::LocalPlayer))
 			{
 				return player;

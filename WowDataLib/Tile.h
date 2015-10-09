@@ -6,7 +6,7 @@
 #include "WMO.h"
 #include "MapObject.h"
 #include "Doodad.h"
-using namespace DataUtils;
+using namespace Utils;
 #define PATH "E:\\Extracted\\"
 #define TERRAIN_PATH "World\\Maps\\"
 //#define TERRAIN_PATH "C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\"
@@ -17,6 +17,8 @@ class Tile
 protected:
 
 public:
+	int indexX;
+	int indexY;
 	Point2D coords;
 	vector<MapObject*> map_objects; 
 	vector<Doodad*> doodads;

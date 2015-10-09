@@ -3,23 +3,23 @@
 #pragma once
 
 #include "stdafx.h"
-#include <MapView.h>
-#include <ObjectManager.h>
-#include <FrameManager.h>
-#include <MemLib.h>
-#include <GameInteractor.h>
-#include <GameManager.h>
-#include <Utils.h>
+#include <Graphics\MapView.h>
+#include "WowLib\Utils.h"
+
+#include "WowLib\ObjectManager.h"
+#include "WowLib\FrameManager.h"
+#include <ProcessLib\MemLib.h>
+#include "WowLib\GameInteractor.h"
+#include "WowLib\GameManager.h"
+
 #include <iostream>
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
 #include <boost\thread\thread.hpp>
-using namespace DataUtils;
+using namespace Wow;
 
 //using namespace ProcessLib;
-using namespace Wow;
-using namespace std;
 void workerFunc(MapView * view)  
 {  
 
@@ -33,6 +33,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	Sleep(5000);
+	
 	GameStartParam  param= GameStartParam();
 	param.char_name=L"Люблюдашу";
 	param.login="lissek7@ya.ru";
@@ -44,7 +45,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Player * player = ObjectManager::GetPlayer();
 	MapView * view=new MapView();
 	Position p = player->GetPosition();
-	view->map=new WowMap(DataUtils::Vector3(p.coords.x,p.coords.y,p.coords.z));
+	view->map=new WowMap(Utils::WowTypes::Vector3(p.coords.x,p.coords.y,p.coords.z));
 	boost::thread thread(workerFunc, view);
 	thread.detach();
 	thread.join();

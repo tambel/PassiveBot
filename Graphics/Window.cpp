@@ -41,6 +41,7 @@ void Window::go()
 	//mRoot->startRendering();
 	while(true)
 	{
+		UpdateMap();
 		Ogre::WindowEventUtilities::messagePump();
 		if(mWindow->isClosed()) break;
 
@@ -278,6 +279,10 @@ void Window::createResourceListener()
 void Window::loadResources()
 {
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+}
+
+void Window::UpdateMap()
+{
 }
 
 

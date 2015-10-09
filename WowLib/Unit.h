@@ -1,6 +1,7 @@
 #pragma once
 #include "WowObject.h"
 #include "Utils.h"
+using namespace Utils::WowTypes; 
 namespace Wow
 {
 	class Unit: public WowObject

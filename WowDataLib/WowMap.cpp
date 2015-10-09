@@ -3,11 +3,12 @@
 
 WowMap::WowMap(Vector3 position)
 {
+	vector<MapObject*> mo_cl=vector<MapObject*>();
+	bool exist=false;
 	int x=floor((32 - (position.y / TILE_LENGTH)));
 	int y=floor((32 - (position.x / TILE_LENGTH)));
 	//x=29;
 	//y=19;
-
 	tiles[0][0]=new Tile(x-1,y-1);
 	tiles[0][1]=new Tile(x-1,y);
 	tiles[0][2]=new Tile(x-1,y+1);
@@ -17,7 +18,30 @@ WowMap::WowMap(Vector3 position)
 	tiles[2][0]=new Tile(x+1,y-1);
 	tiles[2][1]=new Tile(x+1,y);
 	tiles[2][2]=new Tile(x+1,y+1);
-	dyn_objects=vector<DynamicObject*>();
+	
+	for (int i=0;i<3;i++)
+	{
+		for (int j=0;j<3;j++)
+		{
+			for (auto map_object:tiles[i][j]->map_objects)
+			{
+				for (auto mo:mo_cl)
+				{
+					if (mo->id==mo->id)
+					{
+						exist=true;
+						break;
+					}
+				}
+				if (exist)
+				{
+					delete map_object;
+					
+				}
+			}
+		}
+	}
+	objects=vector<Renderable*>();
 }
 WowMap::~WowMap(void)
 {
