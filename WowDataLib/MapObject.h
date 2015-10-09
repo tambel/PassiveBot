@@ -11,7 +11,7 @@ class MapObject:public MapEntity
 public:
 	string name;
 	RootWMO * root_wmo;
-	vector<Mesh*> meshes;
+	//vector<Mesh*> meshes;
 	MapObject(string path, WmoInfo wmo_info);
 	~MapObject(void);
 };

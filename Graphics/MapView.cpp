@@ -104,8 +104,8 @@ void MapView::InitMap()
 		}
 		tile_pos_x+=TILE_LENGTH;
 	}
-	int k;
-	k=10;
+	//mCamera->setPosition(Vector3ToOgreVector(map->position));
+	//scene->setPosition(Vector3ToOgreVector(map->position));
 	//delete map;
 }
 void MapView::createScene(void)

@@ -11,12 +11,13 @@ class WowMap
 {
 	
 protected:
-	Vector3 position;
+	
 	
 	
 public:
+	Vector3 position;
 	Tile * tiles[3][3];
-	vector<Renderable*> objects;
+	vector<MapEntity*> objects;
 	WowMap(Vector3 position);
 	~WowMap(void);
 	void SetPosition(Vector3 position);

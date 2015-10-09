@@ -8,8 +8,7 @@ class Doodad: public MapEntity
 public:
 	string name;
 	M2 * m2;
-	vector<Mesh*> meshes;
+	//vector<Mesh*> meshes;
 	Doodad(string path, M2Info info);
 	~Doodad(void);
 };
-

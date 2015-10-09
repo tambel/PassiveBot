@@ -8,11 +8,11 @@ Tile::Tile(int x,int y)
 	path+="Kalimdor\\Kalimdor_"+to_string(x)+"_"+to_string(y);
 	map_objects=vector<MapObject*>();
 	doodads=vector<Doodad*>();
-	//Adt * adt=new Adt(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_36_51");
 	indexX=x;
 	indexY=y;
+	position.x= indexY * 533.33333-17066.6656;
+	position.y= indexX * 533.33333-17066.6656;
 	Adt * adt=new Adt(path);
-
 	for (unsigned i=0;i<16;i++)
 	{
 		for (unsigned j=0;j<16;j++)

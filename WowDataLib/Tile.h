@@ -19,7 +19,6 @@ protected:
 public:
 	int indexX;
 	int indexY;
-	Point2D coords;
 	vector<MapObject*> map_objects; 
 	vector<Doodad*> doodads;
 	Block * blocks[16][16];
