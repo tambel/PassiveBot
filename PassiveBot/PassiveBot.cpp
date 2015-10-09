@@ -1,7 +1,7 @@
 // PassiveBot.cpp: определяет точку входа для консольного приложения.
 //
 #pragma once
- 
+
 #include "stdafx.h"
 #include <MapView.h>
 #include <ObjectManager.h>
@@ -20,28 +20,18 @@ using namespace DataUtils;
 //using namespace ProcessLib;
 using namespace Wow;
 using namespace std;
-void workerFunc()  
+void workerFunc(MapView * view)  
 {  
-	//MapView view=MapView();
-	WowMap map=WowMap(DataUtils::Vector3());
-	//view.go();
-	/*
-	WowMap map(DataUtils::Vector3(0,0,0));
-	WowMap map2(DataUtils::Vector3(0,0,0));
-	WowMap map3(DataUtils::Vector3(0,0,0));
-	WowMap map4(DataUtils::Vector3(0,0,0));
-	WowMap map5(DataUtils::Vector3(0,0,0));
-	WowMap map6(DataUtils::Vector3(0,0,0));
-	WowMap map7(DataUtils::Vector3(0,0,0));
-	*/
+
+	view->go();
 
 }
 int _tmain(int argc, _TCHAR* argv[])
 {
-	/*
+
 	setlocale( LC_ALL,"Russian" );
-	
-	
+
+
 	Sleep(5000);
 	GameStartParam  param= GameStartParam();
 	param.char_name=L"Люблюдашу";
@@ -51,8 +41,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	bool y=GameInteractor::Start(&param);
 	ObjectManager::Initialize();
 	ObjectManager::EnumAllVisibleObjects();
-	Unit * tak=ObjectManager::FindUnitByName(L"Огромный серый кодо");
 	Player * player = ObjectManager::GetPlayer();
+	MapView * view=new MapView();
+	Position p = player->GetPosition();
+	view->map=new WowMap(DataUtils::Vector3(p.coords.x,p.coords.y,p.coords.z));
+	boost::thread thread(workerFunc, view);
+	thread.detach();
+	thread.join();
+	while(1)
+	{
+		player->DumpPosition();
+	}
+
+
+
 
 	ObjectManager::ClearAllLists();
 	FrameManager::ClearFrames();
@@ -61,15 +63,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete ObjectManager::GetItemsList();
 	delete ObjectManager::GetPlayersList();
 	delete ObjectManager::GetUnitsList();
-	*/
 
-	workerFunc();
-	_CrtDumpMemoryLeaks();
-	
-	 //boost::thread workerThread(workerFunc);
-	// workerThread.detach();
-	//workerThread.join();
-	 
+	//_CrtDumpMemoryLeaks();
+
+
+
 
 	return 0;
 }

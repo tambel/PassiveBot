@@ -3,13 +3,16 @@
 #include <WowMap.h>
 class MapView: public Window
 {
-	WowMap * map;
+	
 protected:
 
 public:
+	WowMap * map;
 	MapView(void);
 	~MapView(void);
 	void InitMap();
 	void createScene(void);
+	void CreateDynamicObject();
+	void UpdateMap();
 };
 

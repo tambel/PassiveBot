@@ -1,6 +1,8 @@
 #include "Unit.h"
 #include "MemLib.h"
 #include "offsets.h"
+#include <iostream>
+using namespace std;
 using namespace ProcessLib;
 namespace Wow
 {
@@ -27,5 +29,10 @@ namespace Wow
 		Process::ReadRaw(base+WowOffsets::Unit::UnitPosition,&pos,12);
 		pos.rotation=Process::ReadFloat(base+WowOffsets::Unit::UnitRotation);
 		return pos;
+	}
+	void Unit::DumpPosition()
+	{
+		Position position = GetPosition();
+		cout<<"X- "<<position.coords.x<<" Y- "<<position.coords.y<<" Z- "<<position.coords.z<<endl;
 	}
 }

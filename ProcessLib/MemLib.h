@@ -41,7 +41,7 @@ namespace ProcessLib
 	{
 	protected:
 #ifdef _WIN32
-		#define WOW_EXECUTABLE_PATH "C:\\Users\\laptop\\Desktop\\World of Warcraft\\Wow.exe"
+		#define WOW_EXECUTABLE_PATH "E:\\World of Warcraft\\Wow.exe"
 		static HANDLE process;
 		static HWND window;
 		static unsigned mouse_x;

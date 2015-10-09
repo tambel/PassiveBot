@@ -18,7 +18,6 @@ MapView::~MapView(void)
 void MapView::InitMap()
 {
 	OgreRenderable::ClearCouner();
-	WowMap * map= new WowMap(Vector3(0,0,0));
 	mSceneMgr->getRootSceneNode()->setPosition(0,0,0);
 	Ogre::SceneNode * scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("Map");
 
@@ -97,7 +96,6 @@ void MapView::InitMap()
 						mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->rotation.y));
 						mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->rotation.z));
 						mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->rotation.x));
-
 					}
 				}
 			}
@@ -107,7 +105,7 @@ void MapView::InitMap()
 	}
 	int k;
 	k=10;
-	delete map;
+	//delete map;
 }
 void MapView::createScene(void)
 {
@@ -199,4 +197,8 @@ void MapView::createScene(void)
 
 	k=10;
 	*/
+}
+void MapView::UpdateMap()
+{
+
 }

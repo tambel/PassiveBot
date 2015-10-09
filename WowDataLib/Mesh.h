@@ -7,7 +7,6 @@ class Mesh: public Renderable
 protected:
 	
 public:
-	string name;
 	Mesh(string name);
 	~Mesh();
 };

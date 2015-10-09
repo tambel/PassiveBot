@@ -10,6 +10,7 @@ namespace Wow
 		GameObject(unsigned base);
 		~GameObject(void);
 		wchar_t *GetName(bool refresh=false);
+		
 	};
 }
 

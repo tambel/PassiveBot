@@ -3,10 +3,10 @@
 
 WowMap::WowMap(Vector3 position)
 {
-	int x=floor((32 - (position.x / TILE_LENGTH)));
-	int y=floor((32 - (position.y / TILE_LENGTH)));
-	x=29;
-	y=19;
+	int x=floor((32 - (position.y / TILE_LENGTH)));
+	int y=floor((32 - (position.x / TILE_LENGTH)));
+	//x=29;
+	//y=19;
 
 	tiles[0][0]=new Tile(x-1,y-1);
 	tiles[0][1]=new Tile(x-1,y);
@@ -17,6 +17,7 @@ WowMap::WowMap(Vector3 position)
 	tiles[2][0]=new Tile(x+1,y-1);
 	tiles[2][1]=new Tile(x+1,y);
 	tiles[2][2]=new Tile(x+1,y+1);
+	dyn_objects=vector<DynamicObject*>();
 }
 WowMap::~WowMap(void)
 {

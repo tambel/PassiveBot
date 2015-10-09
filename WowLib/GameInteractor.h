@@ -3,6 +3,7 @@ namespace Wow
 {
 	struct GameStartParam
 	{
+		bool debug;
 		char * login;
 		char * password;
 		wchar_t * char_name;

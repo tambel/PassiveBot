@@ -10,6 +10,7 @@ namespace Wow
 		~Unit(void);
 		wchar_t * GetName(bool refresh=false);
 		Position GetPosition();
+		void DumpPosition();
 	};
 }
 

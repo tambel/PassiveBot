@@ -78,6 +78,7 @@ public:
 	Guid128 * GetGuid(bool refresh=false);
 	virtual wchar_t *GetName(bool refresh=false)=0;
 	static char GetType_Static(unsigned base);
+	//virtual void DumpPosition(bool refresh=false)=0;
 
 };
 }

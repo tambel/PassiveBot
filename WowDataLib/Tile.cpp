@@ -12,7 +12,7 @@ Tile::Tile(int x,int y)
 		}
 	}
 	string path=PATH+ string(TERRAIN_PATH);
-	path+="Northrend\\Northrend_"+to_string(x)+"_"+to_string(y);
+	path+="Kalimdor\\Kalimdor_"+to_string(x)+"_"+to_string(y);
 	map_objects=vector<MapObject*>();
 	doodads=vector<Doodad*>();
 	//Adt * adt=new Adt(L"C:\\Users\\laptop\\Desktop\\Extracted\\World\\Maps\\Kalimdor\\Kalimdor_36_51");
@@ -47,7 +47,9 @@ Tile::Tile(int x,int y)
 		{
 			doodad=new Doodad(PATH+info.name,info);
 			if (doodad->m2->vert_count>0)
-			doodads.push_back(doodad);
+				doodads.push_back(doodad);
+			else
+				delete doodad;
 		}
 
 		exists=true;
