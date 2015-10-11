@@ -57,10 +57,10 @@ struct MDDF
 	unsigned mwidEntry;           // references an entry in the MWID chunk, specifying the model to use.
     unsigned uniqueId;            // this ID should be unique for all ADTs currently loaded. Best, they are unique for the whole map.
 	Vector3 position;
-	Vector3 rotation;            // same as in MDDF.
-    //float lowerBounds[3];         // these two are position plus the wmo bounding box.
-   // float upperBounds[3];
-	unsigned wtf;
+	Vector3 rotation;     
+	unsigned short scale;
+    
+	unsigned short wtf;
 };
 class Adt
 {

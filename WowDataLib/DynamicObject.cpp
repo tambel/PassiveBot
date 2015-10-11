@@ -9,3 +9,4 @@ DynamicObject::DynamicObject(void)
 DynamicObject::~DynamicObject(void)
 {
 }
+

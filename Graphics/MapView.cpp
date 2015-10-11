@@ -1,7 +1,7 @@
 #include "MapView.h"
-#include <FileParser.h>
-#include <Adt.h>
-#include "Renderable.h"
+#include <WowDataLib\FileParser.h>
+#include <WowDataLib\Adt.h>
+#include <WowDataLib\Renderable.h>
 #include <OgreManualObject.h>
 #include "OgreRenderable.h"
 #include "Utils.h"
@@ -19,9 +19,11 @@ MapView::~MapView(void)
 void MapView::InitMap()
 {
 	OgreRenderable::ClearCouner();
-	mSceneMgr->getRootSceneNode()->setPosition(0,0,0);
-	Ogre::SceneNode * scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("Map");
-
+	//mSceneMgr->getRootSceneNode()->setPosition(0,0,0);
+	Ogre::SceneNode * map_scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
+	Ogre::SceneNode * scene=map_scene->createChildSceneNode("qqqq");
+	//scene->rotate(Ogre::Quaternion(Ogre::Degree(180), Ogre::Vector3(1,0,0)),Ogre::Node::TS_PARENT);
+	//scene->needUpdate();
 	float block_pos_x=0;
 	float block_pos_y=0;
 	float tile_pos_x=0;
@@ -48,6 +50,7 @@ void MapView::InitMap()
 					block_pos_x+=BLOCK_LENGTH;
 				}
 				bool exist;
+				
 				for (auto map_object:map->tiles[i][j]->map_objects)
 				{
 					exist=false;
@@ -69,17 +72,19 @@ void MapView::InitMap()
 						float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
 						float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
 						Vector3 pos;
-						pos.x=mesh->position.z-	t_pos_x;
-						pos.y=mesh->position.x-	t_pos_y;
-						pos.z=mesh->position.y;
+						pos.x=mesh->position.coords.z-	t_pos_x;
+						pos.y=mesh->position.coords.x-	t_pos_y;
+						pos.z=mesh->position.coords.y;
 						Ogre::SceneNode * mesh_scene=((OgreRenderable*)mesh)->CreateScene(map_object_scene);
 						mesh_scene->setPosition(Vector3ToOgreVector(pos));
-						mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->rotation.y));
-						mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->rotation.z));
-						mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->rotation.x));
+						mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->position.rotation.y));
+						mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->position.rotation.z));
+						mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->position.rotation.x));
 
 					}
 				}
+				
+				
 				for (auto doodad:map->tiles[i][j]->doodads)
 				{
 					cout<<doodad->name<<endl;
@@ -89,123 +94,73 @@ void MapView::InitMap()
 						float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
 						float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
 						Vector3 pos;
-						pos.x=mesh->position.z-	t_pos_x;
-						pos.y=mesh->position.x-	t_pos_y;
-						pos.z=mesh->position.y;
+						pos.x=mesh->position.coords.z-	t_pos_x;
+						pos.y=mesh->position.coords.x-	t_pos_y;
+						pos.z=mesh->position.coords.y;
 						Ogre::SceneNode * mesh_scene=((OgreRenderable*)mesh)->CreateScene(map_object_scene);
 						mesh_scene->setPosition(Vector3ToOgreVector(pos));
-						mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->rotation.y));
-						mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->rotation.z));
-						mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->rotation.x));
+						mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->position.rotation.y));
+						mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->position.rotation.z));
+						mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->position.rotation.x));
 					}
 				}
 			}
+			
 			tile_pos_y+=TILE_LENGTH;
 		}
 		tile_pos_x+=TILE_LENGTH;
 	}
-	//mCamera->setPosition(Vector3ToOgreVector(map->position));
+	mCamera->setPosition(Vector3ToOgreVector(map->position));
+	//scene->roll(Ogre::Radian(Ogre::Math::PI/2));
+	scene->rotate(Ogre::Quaternion(Ogre::Degree(180), Ogre::Vector3(0,0,1)),Ogre::Node::TS_WORLD);
+	//scene->setOrientation(Ogre::Quaternion(Ogre::Degree(90), Ogre::Vector3(1,0,0)));
+	scene->setPosition(map->position.x+TILE_LENGTH,map->position.y+TILE_LENGTH,map->position.z);
 	//scene->setPosition(Vector3ToOgreVector(map->position));
+	//mSceneMgr->getRootSceneNode()->needUpdate();
 	//delete map;
 }
 void MapView::createScene(void)
 {
 
 	InitMap();
-	/*
-	unsigned length;
-	char * buff;
-	unsigned length2;
-	char * buff2;
-	ifstream file("E:\\Extracted\\WORLD\\KALIMDOR\\BARRENS\\PASSIVEDOODADS\\wagon\\BarrensWagon01.m2", ios::binary | ios::ate);
-	if (file) {
-	// get length of file:
-	file.seekg (0, file.end);
-	length = file.tellg();
-	file.seekg (0, file.beg);
-	buff = new char [length];
-	file.read (buff,length);
-	}
-	file=ifstream("E:\\Extracted\\WORLD\\KALIMDOR\\BARRENS\\PASSIVEDOODADS\\wagon\\BarrensWagon0100.skin", ios::binary | ios::ate);
-
-	if (file) {
-	// get length of file:
-	file.seekg (0, file.end);
-	length2 = file.tellg();
-	file.seekg (0, file.beg);
-	buff2 = new char [length2];
-	file.read (buff2,length);
-	}
-	unsigned vert_count=*(unsigned*)(buff+0x3C);
-	unsigned vert_offset=*(unsigned*)(buff+0x40);
-	M2Vertice * vertices=new M2Vertice[vert_count];
-	M2Vertice vert[340];
-	memcpy(vertices,buff+vert_offset,vert_count*48);
-	//memcpy(vert,buff+vert_offset,vert_count*48);
-	struct SkinHeader {
-	unsigned ID;
-	unsigned nIndices;
-	unsigned ofsIndices;
-	unsigned nTriangles;
-	unsigned ofsSubmeshes;
-	unsigned nTextureUnits;
-	unsigned ofsTextureUnits;
-	unsigned LOD;
-	};
-	SkinHeader * h=(SkinHeader*)(buff2);
-	unsigned short * indices= new unsigned short[h->nIndices];
-	unsigned short ind[1000];
-	memcpy(indices,buff2+h->ofsIndices,h->nIndices*2);
-	memcpy(ind,buff2+h->ofsIndices,h->nIndices*2);
-	//Triangle tri
-	//memcpy(t,buff2+h->ofsSubmeshes,h->nTriangles*2);
-	//unsigned short tu[564];
-	Triangle * tr = new Triangle[h->nTriangles/3];
-	memcpy(tr,buff2+h->ofsSubmeshes,h->nTriangles*2);
-	//memcpy(t,buff2+h->nIndices*2,h->nTriangles*2);
-	//memcpy(tu,buff2+h->nIndices*2,h->nTriangles*2);
-	Ogre::SceneNode * node= mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	Ogre::ManualObject * manual= mSceneMgr->createManualObject("man");
-	manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_TRIANGLE_LIST);
-
-	for (unsigned i=0;i<vert_count;i++)
-	{
-	vertices[i].position=Vector3(vertices[i].position.x,-vertices[i].position.y,vertices[i].position.z);
-	manual->position(Vector3ToOgreVector(vertices[i].position));
-	if (i%2==0)
-	manual->colour(Ogre::ColourValue::White);
-	else 
-	manual->colour(Ogre::ColourValue::Green);
-
-
-	}
-	for (unsigned i=0;i<h->nTriangles/3;i++)
-	{
-	manual->index(tr[i].indices[0]);
-	manual->index(tr[i].indices[1]);
-	manual->index(tr[i].indices[2]);
-	//manual->index(tr[i].indices[0]);
-	//manual->index(tr[i].indices[1]);
-	//manual->index(tr[i].indices[2]);
-
-	//manual->index(indices[i]);
-
-	}
-
-	manual->end();
-	node->attachObject(manual);
-	int k;
-
-	k=10;
-	*/
 }
 void MapView::UpdateMap()
 {
-	for (auto dyn_obj:map->objects)
+	if (map->new_object)
 	{
-		if (((Renderable*)dyn_obj)->changed)
+		for (auto nmo:map->new_objects)
 		{
-			((OgreRenderable*)dyn_obj)->SetPosition(dyn_obj->position);
+
+			Ogre::SceneNode * nmo_scene=mSceneMgr->getSceneNode("map");
+			for (auto mesh:nmo->meshes)
+			{
+				for (unsigned long i =0;i<mesh->vertice_count;i++ )
+				{
+					//mesh->vertices[i].position.x*=100;
+					//mesh->vertices[i].position.y*=100;
+					//mesh->vertices[i].position.z*=100;
+				}
+
+				Ogre::SceneNode * node= ((OgreRenderable*)mesh)->CreateScene(nmo_scene);
+				string s=node->getParentSceneNode()->getName();
+				//node->rotate(Ogre::Quaternion(Ogre::Degree(-90), Ogre::Vector3(1,0,0)),Ogre::Node::TS_WORLD);
+
+				node->setPosition(Vector3ToOgreVector( nmo->position.coords));
+				node->rotate(Ogre::Vector3(0,0,1),Ogre::Radian(nmo->position.rotation.z));
+			}
+		}
+		map->new_object=false;
+	}
+	for (auto dyn_obj:map->new_objects)
+	{
+		if (dyn_obj->changed)
+		{
+			for (auto mesh:dyn_obj->meshes)
+			{
+				((OgreRenderable*)mesh)->scene->setPosition(Vector3ToOgreVector(dyn_obj->position.coords));
+				((OgreRenderable*)mesh)->scene->setOrientation(Ogre::Quaternion(Ogre::Radian(dyn_obj->position.rotation.z),Ogre::Vector3(0,0,1)));   //(Ogre::Vector3(0,0,1),Ogre::Radian(dyn_obj->position.rotation.z));
+				dyn_obj->changed=false;
+			}
 		}
 	}
 }

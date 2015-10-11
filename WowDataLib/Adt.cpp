@@ -81,8 +81,8 @@ Adt::Adt(string path)
 				WmoInfo info;
 				m[i].position.x-=17066.6656;
 				m[i].position.z-=17066.6656;
-				info.position=m[i].position;
-				info.rotation=m[i].rotation;
+				info.position.coords=m[i].position;
+				info.position.rotation=m[i].rotation;
 				info.id=m[i].uniqueId;
 				info.name=mwmo->names+mwid->offsets[m[i].mwidEntry];
 				wmo_infos.push_back(info);
@@ -117,8 +117,9 @@ Adt::Adt(string path)
 				M2Info info;
 				m[i].position.x-=17066.6656;
 				m[i].position.z-=17066.6656;
-				info.position=m[i].position;
-				info.rotation=m[i].rotation;
+				info.position.coords=m[i].position;
+				info.position.rotation=m[i].rotation;
+				info.scale=(float)m[i].scale/1024;
 				info.id=m[i].uniqueId;
 				info.name=mmdx->names+mmid->offsets[m[i].mwidEntry];
 				m2_infos.push_back(info);

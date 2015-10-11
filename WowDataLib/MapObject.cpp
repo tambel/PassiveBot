@@ -26,7 +26,7 @@ MapObject::MapObject(string path,  WmoInfo wmo_info)
 		//memcpy(mesh->vertices,wmo->movt->vetices,wmo->movt->length);
 		memcpy(mesh->indices,wmo->indices,wmo->index_count*2);
 		mesh->position=wmo_info.position;
-		mesh->rotation=wmo_info.rotation;
+		//mesh->rotation=wmo_info.rotation;
 		meshes.push_back(mesh);
 		/*
 		old_vertices=new Vertice[vertice_count];

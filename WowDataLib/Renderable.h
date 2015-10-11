@@ -13,7 +13,8 @@ public:
 	bool changed;
 	Triangle * triangles;
 	unsigned long triangles_count;
-	Vector3 position;
+	Position position;
+	//Vector3 position;
 	Vector3 rotation;
 	Vertice  * vertices;
 	unsigned long vertice_count;

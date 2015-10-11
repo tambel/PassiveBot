@@ -5,7 +5,7 @@ Block::Block(MCNK * mcnk,bool exist)
 
 	vertices=new Vertice[145];
 	coords=mcnk->coords;
-	position=mcnk->position;
+	position.coords=mcnk->position;
 	int count=0;
 	float sx;
 	int xc=0;
@@ -16,11 +16,11 @@ Block::Block(MCNK * mcnk,bool exist)
 		{
 			if (exist)
 			{
-				vertices[count]=Vertice(Vector3(x,y,position.z+mcnk->mcvt.height[count]),Color(1.0f,1.0f,1.0f,1.0f));
+				vertices[count]=Vertice(Vector3(x,y,position.coords.z+mcnk->mcvt.height[count]),Color(1.0f,1.0f,1.0f,1.0f));
 			}
 			else
 			{
-				vertices[count]=Vertice(Vector3(x,y,position.z),Color(1.0f,1.0f,1.0f,1.0f));
+				vertices[count]=Vertice(Vector3(x,y,0),Color(1.0f,1.0f,1.0f,1.0f));
 			}
 			count++;
 		}
@@ -32,11 +32,11 @@ Block::Block(MCNK * mcnk,bool exist)
 			{
 				if (exist)
 				{
-					vertices[count]=Vertice(Vector3(sx,sy,position.z+mcnk->mcvt.height[count]),Color(0.0f,0.0f,0.0f,1.0f));
+					vertices[count]=Vertice(Vector3(sx,sy,position.coords.z+mcnk->mcvt.height[count]),Color(0.0f,0.0f,0.0f,1.0f));
 				}
 				else
 				{
-					vertices[count]=Vertice(Vector3(sx,sy,position.z),Color(0.0f,0.0f,0.0f,1.0f));
+					vertices[count]=Vertice(Vector3(sx,sy,0),Color(0.0f,0.0f,0.0f,1.0f));
 				}
 
 				count++;

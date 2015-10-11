@@ -8,6 +8,8 @@ Doodad::Doodad(string path, M2Info info)
 	meshes=vector<Mesh*>();
 	m2=new M2(path);
 	Mesh * mesh=new Mesh(name);
+	position=info.position;
+	scale=info.scale;
 	mesh->triangles_count=m2->triangles_count;
 	mesh->triangles=new Triangle[mesh->triangles_count];
 	mesh->vertice_count=m2->vert_count;
@@ -19,9 +21,9 @@ Doodad::Doodad(string path, M2Info info)
 	for (unsigned long i=0;i<m2->vert_count;i++)
 	{
 		if (i%2==0)
-			mesh->vertices[i]=Vertice(m2->vertices[i].position,Color(1.0f,1.0f,0.0f,1.0f));
+			mesh->vertices[i]=Vertice(m2->vertices[i].position*scale,Color(1.0f,1.0f,0.0f,1.0f));
 		else 
-			mesh->vertices[i]=Vertice(m2->vertices[i].position,Color(0.0f,0.0f,0.0f,1.0f));
+			mesh->vertices[i]=Vertice(m2->vertices[i].position*scale,Color(0.0f,0.0f,0.0f,1.0f));
 		//cout<<ii<<endl;
 	}
 	memcpy(mesh->indices,m2->indices,mesh->index_count*2);

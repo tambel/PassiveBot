@@ -8,6 +8,7 @@ protected:
 	
 public:
 	Mesh(string name);
+	Mesh();
 	~Mesh();
 };
 

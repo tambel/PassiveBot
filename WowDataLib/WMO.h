@@ -43,8 +43,9 @@ struct MOVT
 struct WmoInfo
 {
 	string name;
-	Vector3 position;
-	Vector3 rotation;
+	Position position;
+	//Vector3 position;
+	//Vector3 rotation;
 	unsigned long id;
 };
 class WMO

@@ -28,12 +28,12 @@ namespace Wow
 	{
 		Position pos=Position();
 		Process::ReadRaw(base+WowOffsets::Unit::UnitPosition,&pos,12);
-		pos.rotation=Process::ReadFloat(base+WowOffsets::Unit::UnitRotation);
+		pos.rotation.z=Process::ReadFloat(base+WowOffsets::Unit::UnitRotation);
 		return pos;
 	}
 	void Unit::DumpPosition()
 	{
 		Position position = GetPosition();
-		cout<<"X- "<<position.coords.x<<" Y- "<<position.coords.y<<" Z- "<<position.coords.z<<endl;
+		cout<<"X- "<<position.coords.x<<" Y- "<<position.coords.y<<" Z- "<<position.coords.z<<endl<<"Rotation "<<position.rotation.z<<endl;
 	}
 }

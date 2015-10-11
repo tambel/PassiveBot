@@ -7,6 +7,7 @@ class MapView: public Window
 protected:
 
 public:
+	bool ready;
 	WowMap * map;
 	MapView(void);
 	~MapView(void);

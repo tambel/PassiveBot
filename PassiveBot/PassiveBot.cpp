@@ -45,13 +45,24 @@ int _tmain(int argc, _TCHAR* argv[])
 	Player * player = ObjectManager::GetPlayer();
 	MapView * view=new MapView();
 	Position p = player->GetPosition();
-	view->map=new WowMap(Utils::WowTypes::Vector3(p.coords.x,p.coords.y,p.coords.z));
+	view->map=new WowMap(p.coords);
 	boost::thread thread(workerFunc, view);
 	thread.detach();
 	thread.join();
+	M2Info info;
+	info.position=p;
+	info.scale=1.0f;
+	Doodad * player_model=new Doodad("E:\\Extracted\\Character\\Tauren\\Male\\TaurenMale.M2",info);
+	view->map->new_objects.push_back((MapEntity*)player_model);
+	view->map->new_object=true;
+	
 	while(1)
 	{
+		//while(view->map->new_object);
 		player->DumpPosition();
+		player_model->position=player->GetPosition();
+		player_model->changed=true;
+		Sleep(10);
 	}
 
 

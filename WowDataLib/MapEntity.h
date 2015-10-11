@@ -10,12 +10,12 @@ class MapEntity
 protected:
 	
 public:
+	bool changed;
 	vector<Mesh*> meshes;
 	unsigned long id;
-	Vector3 position;
-	Vector3 rotation;
+	Position position;
 	MapEntity(void);
 	~MapEntity(void);
-	void SetPosition();
+	void SetPosition(Position position);
 };
 

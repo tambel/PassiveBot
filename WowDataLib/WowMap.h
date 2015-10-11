@@ -6,7 +6,6 @@
 #include "DynamicObject.h"
 using namespace std;
 //using namespace Utils::;
-
 class WowMap
 {
 	
@@ -15,9 +14,11 @@ protected:
 	
 	
 public:
+	bool new_object;
 	Vector3 position;
 	Tile * tiles[3][3];
 	vector<MapEntity*> objects;
+	vector<MapEntity*> new_objects;
 	WowMap(Vector3 position);
 	~WowMap(void);
 	void SetPosition(Vector3 position);

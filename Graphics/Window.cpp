@@ -39,14 +39,22 @@ void Window::go()
 		return;
 
 	//mRoot->startRendering();
+	
 	while(true)
 	{
+		
 		UpdateMap();
 		Ogre::WindowEventUtilities::messagePump();
 		if(mWindow->isClosed()) break;
-
+		if (!mWindow->isActive())
+		{
+			mWindow->update();
+		}
 		if(!mRoot->renderOneFrame()) break;
+		Sleep(1);
+		
 	}
+	
 	destroyScene();
 }
 
