@@ -16,7 +16,10 @@ Block::Block(MCNK * mcnk,bool exist)
 		{
 			if (exist)
 			{
-				vertices[count]=Vertice(Vector3(x,y,position.coords.z+mcnk->mcvt.height[count]),Color(1.0f,1.0f,1.0f,1.0f));
+				if (mcnk->coords.X==0 && mcnk->coords.Y==0)
+					vertices[count]=Vertice(Vector3(x,y,position.coords.z+mcnk->mcvt.height[count]),Color(0.0f,0.0f,1.0f,1.0f));
+				else
+					vertices[count]=Vertice(Vector3(x,y,position.coords.z+mcnk->mcvt.height[count]),Color(1.0f,1.0f,1.0f,1.0f));
 			}
 			else
 			{

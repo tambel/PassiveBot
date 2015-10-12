@@ -3,6 +3,7 @@
 
 MapEntity::MapEntity(void)
 {
+	visible=true;
 }
 
 

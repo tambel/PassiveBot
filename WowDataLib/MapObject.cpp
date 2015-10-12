@@ -3,9 +3,10 @@
 
 MapObject::MapObject(string path,  WmoInfo wmo_info)
 {
+	visible=true;
 	name=path;
 	position=wmo_info.position;
-	root_wmo=new RootWMO(path);
+	RootWMO * root_wmo=new RootWMO(path);
 	root_wmo->id=wmo_info.id;
 	id=wmo_info.id;
 	meshes=vector<Mesh*>();
@@ -57,13 +58,14 @@ MapObject::MapObject(string path,  WmoInfo wmo_info)
 		*/
 
 	}
+	delete root_wmo;
 	
 }
 
 
 MapObject::~MapObject(void)
 {
-	delete root_wmo;
+	//delete root_wmo;
 	for (auto mesh:meshes)
 	{
 		delete ((Renderable*)mesh);

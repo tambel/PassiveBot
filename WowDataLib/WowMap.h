@@ -15,7 +15,7 @@ protected:
 	
 public:
 	bool new_object;
-	Vector3 position;
+	Position position;
 	Tile * tiles[3][3];
 	vector<MapEntity*> objects;
 	vector<MapEntity*> new_objects;

@@ -39,10 +39,10 @@ Tile::Tile(int x,int y)
 		for (auto info:adt->m2_infos)
 		{
 			doodad=new Doodad(PATH+info.name,info);
-			if (doodad->m2->vert_count>0)
+			//if (doodad->m2->vert_count>0)
 				doodads.push_back(doodad);
-			else
-				delete doodad;
+			//else
+				//delete doodad;
 		}
 
 		exists=true;

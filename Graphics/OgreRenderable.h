@@ -8,11 +8,10 @@ class OgreRenderable :public Renderable
 {
 protected:
 	static unsigned long current_uid;
-	
 public:
-	Ogre::SceneNode * scene;
+	//Ogre::SceneNode * scene;
 	static unsigned long GetUIDAndIncrement();
-	static void ClearCouner();
+	static void ClearCounter(); 
 	Ogre::SceneNode * CreateScene(Ogre::SceneNode * parent_scene);
 	void SetPosition(Vector3 position);
 };

@@ -4,7 +4,6 @@
 #include<vector>
 using namespace std;
 using namespace Utils;
-
 class MapEntity
 {
 protected:
@@ -13,6 +12,7 @@ public:
 	bool changed;
 	vector<Mesh*> meshes;
 	unsigned long id;
+	bool visible;
 	Position position;
 	MapEntity(void);
 	~MapEntity(void);

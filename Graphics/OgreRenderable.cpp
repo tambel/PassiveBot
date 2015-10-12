@@ -12,14 +12,14 @@ unsigned long OgreRenderable::GetUIDAndIncrement()
 	Ogre::Node * n;
 	return current_uid++;
 }
-void OgreRenderable::ClearCouner()
+void OgreRenderable::ClearCounter()
 {
 	current_uid=0;
 }
 Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 {
 	string maual_name=to_string(GetUIDAndIncrement())+"_"+name;
-	scene =parent_scene->createChildSceneNode();
+	Ogre::SceneNode * scene =parent_scene->createChildSceneNode();
 	Ogre::ManualObject * manual=scene->getCreator()->createManualObject(maual_name);
 	manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 	if (triangles==0)
@@ -33,7 +33,6 @@ Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 		{
 			manual->index(indices[i]);
 		}
-		
 	}
 	else
 	{
@@ -48,30 +47,6 @@ Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 			manual->index(triangles[i].indices[1]);
 			manual->index(triangles[i].indices[2]);
 		}
-		/*
-		for (unsigned long i=0;i<triangles_count/2;i++)
-		{
-			manual->position(Vector3ToOgreVector(vertices[indices[triangles[i].indices[0]]].position));
-			manual->colour(ColorToOgreColor(vertices[indices[triangles[i].indices[0]]].color));
-			
-			manual->position(Vector3ToOgreVector(vertices[indices[triangles[i].indices[1]]].position));
-			manual->colour(ColorToOgreColor(vertices[indices[triangles[i].indices[1]]].color));
-			
-			manual->position(Vector3ToOgreVector(vertices[indices[triangles[i].indices[2]]].position));
-			manual->colour(ColorToOgreColor(vertices[indices[triangles[i].indices[2]]].color));
-			
-			
-		}
-		for (unsigned long i=0;i<triangles_count/2;i++)
-		{
-			
-			manual->index(indices[triangles[i].indices[0]]);
-			manual->index(indices[triangles[i].indices[1]]);
-			manual->index(indices[triangles[i].indices[2]]);
-			
-		}
-		*/
-		
 	}
 	manual->end();
 	Ogre::MeshPtr mesh= manual->convertToMesh(maual_name+"_mesh");
@@ -81,5 +56,5 @@ Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 }
 void OgreRenderable::SetPosition(Vector3 position)
 {
-	scene->setPosition(Vector3ToOgreVector(position));
+	//scene->setPosition(Vector3ToOgreVector(position));
 }
