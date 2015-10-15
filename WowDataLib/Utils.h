@@ -5,15 +5,34 @@ namespace Utils
 {
 	namespace Graphics
 	{
+
 		struct Triangle
 		{
 			unsigned short indices[3];
 		};
+		template<class T>
 		struct Point2D
 		{
-			float X;
-			float Y;
+			T X;
+			T Y;
+			Point2D():X(0),Y(0){}
+			Point2D(T x,T y):X(x),Y(y){}
+			bool operator==(const Point2D & right)
+			{
+				return (this->X==right.X && this->Y==right.Y);
+			}
+			Point2D operator -(const Point2D & right)
+			{
+				return Point2D(this->X-right.X,this->Y-right.Y);
+			}
 		};
+		/*
+		struct Point2DI
+		{
+			int X;
+			int Y;
+		};
+		*/
 		struct Color
 		{
 			float r;

@@ -9,6 +9,7 @@ using namespace std;
 class MapObject:public MapEntity
 {
 public:
+	unsigned long id;
 	string name;
 	//RootWMO * root_wmo;
 	//vector<Mesh*> meshes;

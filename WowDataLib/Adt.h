@@ -18,7 +18,7 @@ struct MCNK
 	unsigned offset;
 	Vector3 position;
 	MCVT mcvt;
-	Point2D coords;
+	Point2D<int> coords;
 };
 struct MWMO
 {

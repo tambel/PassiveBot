@@ -2,28 +2,37 @@
 #include <WowDataLib\FileParser.h>
 #include <WowDataLib\Adt.h>
 #include <WowDataLib\Renderable.h>
+
 #include <OgreManualObject.h>
 #include "OgreRenderable.h"
 
 #include "Utils.h"
 #include <iostream>
 #include <iostream>
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+
 using namespace std;
 using namespace Utils::WowTypes;
 MapView::MapView(void)
 {
-
+	world_camera=0;
+	update=false;
 }
 MapView::~MapView(void)
 {
 }
 void MapView::InitMap()
 {
-	MapScene * map_scene=new MapScene();
+	map_scene=new MapScene();
 	OgreRenderable::ClearCounter();
 	//mSceneMgr->getRootSceneNode()->setPosition(0,0,0);
 	Ogre::SceneNode * scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
 	map_scene->SetMap(map,scene);
+
 
 	//Ogre::SceneNode * scene=map_scene->createChildSceneNode("qqqq");
 	//scene->rotate(Ogre::Quaternion(Ogre::Degree(180), Ogre::Vector3(1,0,0)),Ogre::Node::TS_PARENT);
@@ -36,87 +45,87 @@ void MapView::InitMap()
 	vector<MapObject*> check_list=vector<MapObject*>();
 	for (int i=0;i<3;i++)
 	{
-		tile_pos_y=0;
-		for (int j=0;j<3;j++)
-		{
-			if (map->tiles[i][j]->exists)
-			{
-				Ogre::SceneNode * tile_scene = scene->createChildSceneNode("Tile_"+to_string(map->tiles[i][j]->indexX)+"_"+to_string(map->tiles[i][j]->indexY));
-				tile_scene->setPosition(tile_pos_y,tile_pos_x,0);
-				block_pos_x=0;
-				for (int ti=0;ti<16;ti++)
-				{
-					block_pos_y=0;
-					for (int tj=0;tj<16;tj++)
-					{
-						((OgreRenderable*)(map->tiles[i][j]->blocks[ti][tj]))->CreateScene(tile_scene)->setPosition(block_pos_x,block_pos_y,0);
-						block_pos_y+=BLOCK_LENGTH;
-					}
-					block_pos_x+=BLOCK_LENGTH;
-				}
-				bool exist;
+	tile_pos_y=0;
+	for (int j=0;j<3;j++)
+	{
+	if (map->tiles[i][j]->exists)
+	{
+	Ogre::SceneNode * tile_scene = scene->createChildSceneNode("Tile_"+to_string(map->tiles[i][j]->indexX)+"_"+to_string(map->tiles[i][j]->indexY));
+	tile_scene->setPosition(tile_pos_y,tile_pos_x,0);
+	block_pos_x=0;
+	for (int ti=0;ti<16;ti++)
+	{
+	block_pos_y=0;
+	for (int tj=0;tj<16;tj++)
+	{
+	((OgreRenderable*)(map->tiles[i][j]->blocks[ti][tj]))->CreateScene(tile_scene)->setPosition(block_pos_x,block_pos_y,0);
+	block_pos_y+=BLOCK_LENGTH;
+	}
+	block_pos_x+=BLOCK_LENGTH;
+	}
+	bool exist;
 
-				for (auto map_object:map->tiles[i][j]->map_objects)
-				{
-					exist=false;
-					for (auto mo:check_list)
-					{
-						if (mo->id==map_object->id)
-						{
-							exist=true;
-							break;
-						}
-					}
-					if (exist)
-						continue;
-					check_list.push_back(map_object);
-					Ogre::SceneNode * map_object_scene= tile_scene->createChildSceneNode(map_object->name+"_"+to_string(OgreRenderable::GetUIDAndIncrement()));
-					for (auto mesh:map_object->meshes)
-					{
+	for (auto map_object:map->tiles[i][j]->map_objects)
+	{
+	exist=false;
+	for (auto mo:check_list)
+	{
+	if (mo->id==map_object->id)
+	{
+	exist=true;
+	break;
+	}
+	}
+	if (exist)
+	continue;
+	check_list.push_back(map_object);
+	Ogre::SceneNode * map_object_scene= tile_scene->createChildSceneNode(map_object->name+"_"+to_string(OgreRenderable::GetUIDAndIncrement()));
+	for (auto mesh:map_object->meshes)
+	{
 
-						float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
-						float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
-						Vector3 pos;
-						pos.x=mesh->position.coords.z-	t_pos_x;
-						pos.y=mesh->position.coords.x-	t_pos_y;
-						pos.z=mesh->position.coords.y;
-						Ogre::SceneNode * mesh_scene=((OgreRenderable*)mesh)->CreateScene(map_object_scene);
-						mesh_scene->setPosition(Vector3ToOgreVector(pos));
-						mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->position.rotation.y));
-						mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->position.rotation.z));
-						mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->position.rotation.x));
+	float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
+	float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
+	Vector3 pos;
+	pos.x=mesh->position.coords.z-	t_pos_x;
+	pos.y=mesh->position.coords.x-	t_pos_y;
+	pos.z=mesh->position.coords.y;
+	Ogre::SceneNode * mesh_scene=((OgreRenderable*)mesh)->CreateScene(map_object_scene);
+	mesh_scene->setPosition(Vector3ToOgreVector(pos));
+	mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->position.rotation.y));
+	mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->position.rotation.z));
+	mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->position.rotation.x));
 
-					}
-				}
+	}
+	}
 
 
-				for (auto doodad:map->tiles[i][j]->doodads)
-				{
-					cout<<doodad->name<<endl;
-					Ogre::SceneNode * map_object_scene= tile_scene->createChildSceneNode(doodad->name+"_"+to_string(OgreRenderable::GetUIDAndIncrement()));
-					for (auto mesh:doodad->meshes)
-					{
-						if (mesh->vertice_count>0)
-						{
-							float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
-							float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
-							Vector3 pos;
-							pos.x=mesh->position.coords.z-t_pos_x;
-							pos.y=mesh->position.coords.x-t_pos_y;
-							pos.z=mesh->position.coords.y;
-							Ogre::SceneNode * mesh_scene=((OgreRenderable*)mesh)->CreateScene(map_object_scene);
-							mesh_scene->setPosition(Vector3ToOgreVector(pos));
-							mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->position.rotation.y));
-							mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->position.rotation.z));
-							mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->position.rotation.x));
-						}
-					}
-				}
-			}
+	for (auto doodad:map->tiles[i][j]->doodads)
+	{
+	cout<<doodad->name<<endl;
+	Ogre::SceneNode * map_object_scene= tile_scene->createChildSceneNode(doodad->name+"_"+to_string(OgreRenderable::GetUIDAndIncrement()));
+	for (auto mesh:doodad->meshes)
+	{
+	if (mesh->vertice_count>0)
+	{
+	float t_pos_x= map->tiles[i][j]->indexY * 533.33333-17066.6656;
+	float t_pos_y=  map->tiles[i][j]->indexX * 533.33333-17066.6656;
+	Vector3 pos;
+	pos.x=mesh->position.coords.z-t_pos_x;
+	pos.y=mesh->position.coords.x-t_pos_y;
+	pos.z=mesh->position.coords.y;
+	Ogre::SceneNode * mesh_scene=((OgreRenderable*)mesh)->CreateScene(map_object_scene);
+	mesh_scene->setPosition(Vector3ToOgreVector(pos));
+	mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->position.rotation.y));
+	mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->position.rotation.z));
+	mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->position.rotation.x));
+	}
+	}
+	}
+	}
 
-			tile_pos_y+=TILE_LENGTH;
-		}
-		tile_pos_x+=TILE_LENGTH;
+	tile_pos_y+=TILE_LENGTH;
+	}
+	tile_pos_x+=TILE_LENGTH;
 	}
 	*/
 	mCamera->setPosition(Vector3ToOgreVector(map->position.coords));
@@ -131,39 +140,55 @@ void MapView::createScene(void)
 }
 void MapView::UpdateMap()
 {
-	if (map->new_object)
+	if (map->to_redraw)
 	{
-		for (auto nmo:map->new_objects)
+		delete map_scene;
+		mSceneMgr->destroyAllManualObjects();
+		mSceneMgr->destroyAllMovableObjects();
+		Ogre::MeshManager::getSingletonPtr()->removeAll();
+		map_scene=new MapScene();
+		Ogre::SceneNode * scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
+		map_scene->SetMap(map,static_cast<Ogre::SceneNode*>(scene));
+		for  (auto dyn_obj:map->dynamic_objects)
 		{
-
-			Ogre::SceneNode * nmo_scene=mSceneMgr->getSceneNode("map");
-			for (auto mesh:nmo->meshes)
+			dyn_obj->is_new=true;
+		}
+		map->to_update=true;
+		map->to_redraw=false;
+	}
+	
+	if (map->to_update)
+	{
+		for (auto dyn_obj:map->dynamic_objects)
+		{
+			if (dyn_obj->is_new)
 			{
-				for (unsigned long i =0;i<mesh->vertice_count;i++ )
-				{
-					//mesh->vertices[i].position.x*=100;
-					//mesh->vertices[i].position.y*=100;
-					//mesh->vertices[i].position.z*=100;
-				}
-
-				Ogre::SceneNode * node= ((OgreRenderable*)mesh)->CreateScene(nmo_scene);
-				//string s=node->getParentSceneNode()->getName();
-				node->setPosition(Vector3ToOgreVector( nmo->position.coords));
-				node->rotate(Ogre::Vector3(0,0,1),Ogre::Radian(nmo->position.rotation.z));
+				map_scene->AddMapEntityScene(dyn_obj);
+				dyn_obj->is_new=false;
 			}
 		}
-		map->new_object=false;
+		map->to_update=false;
 	}
-	for (auto dyn_obj:map->new_objects)
+	
+	for (auto dyn_obj:map->dynamic_objects)
 	{
-		if (dyn_obj->changed)
+		for (auto dyn_obj_sc:map_scene->dynamic_objects)
 		{
-			for (auto mesh:dyn_obj->meshes)
+			if (dyn_obj->GetEntity()->GetID()==dyn_obj_sc->id)
 			{
-				//((OgreRenderable*)mesh)->->setPosition(Vector3ToOgreVector(dyn_obj->position.coords));
-				//((OgreRenderable*)mesh)->scene->setOrientation(Ogre::Quaternion(Ogre::Radian(dyn_obj->position.rotation.z),Ogre::Vector3(0,0,1)));   //(Ogre::Vector3(0,0,1),Ogre::Radian(dyn_obj->position.rotation.z));
-				dyn_obj->changed=false;
+				dyn_obj_sc->scene_node->setPosition(Vector3ToOgreVector( dyn_obj->object->GetPosition().coords));
+				dyn_obj_sc->scene_node->setOrientation(Ogre::Quaternion(Ogre::Radian(dyn_obj->object->GetPosition().rotation.z),Ogre::Vector3(0,0,1)));
+				break;
 			}
 		}
 	}
+}
+void MapView::CreateDynamicObject(Wow::WowObject * object)
+{
+
+}
+void MapView::SetWorldCamera(Wow::Camera * cam)
+{
+
+	//mCamera->setPosition(Vector3ToOgreVector(cam->GetPosition(true).coords));
 }

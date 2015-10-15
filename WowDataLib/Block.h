@@ -15,7 +15,7 @@ protected:
 
 	
 public:
-	Point2D coords;
+	Point2D<int> coords;
 	Block(MCNK * mcnk, bool exist =true);
 	Block(void);
 	~Block(void);

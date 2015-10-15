@@ -1,5 +1,6 @@
+#include "Utils.h"
 #pragma once
-
+using namespace Utils::WowTypes;
 namespace Wow
 {
 	struct Guid128
@@ -78,6 +79,7 @@ public:
 	Guid128 * GetGuid(bool refresh=false);
 	virtual wchar_t *GetName(bool refresh=false)=0;
 	static char GetType_Static(unsigned base);
+	virtual Position GetPosition();
 	//virtual void DumpPosition(bool refresh=false)=0;
 
 };

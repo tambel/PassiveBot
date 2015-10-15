@@ -23,6 +23,7 @@ namespace Utils
 			{
 				return Vector3(this->x*right,this->y*right,this->z*right);
 			}
+			
 
 		};
 		/*

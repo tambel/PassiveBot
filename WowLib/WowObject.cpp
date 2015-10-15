@@ -59,4 +59,5 @@ namespace Wow
 		}
 		return &guid;
 	}
+	Position WowObject::GetPosition(){return Position();}
 }

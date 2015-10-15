@@ -19,6 +19,7 @@ protected:
 public:
 	int indexX;
 	int indexY;
+	bool is_new;
 	vector<MapObject*> map_objects; 
 	vector<Doodad*> doodads;
 	Block * blocks[16][16];

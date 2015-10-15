@@ -46,22 +46,35 @@ int _tmain(int argc, _TCHAR* argv[])
 	MapView * view=new MapView();
 	Position p = player->GetPosition();
 	view->map=new WowMap(p.coords);
+	view->SetWorldCamera(GameManager::GetCamera());
 	boost::thread thread(workerFunc, view);
 	thread.detach();
 	thread.join();
+
+	view->map->AddDynamicObject(player);
+	view->map->to_update=true;
+	/*
 	M2Info info;
 	info.position=p;
 	info.scale=1.0f;
 	Doodad * player_model=new Doodad("E:\\Extracted\\Character\\Tauren\\Male\\TaurenMale.M2",info);
 	view->map->new_objects.push_back((MapEntity*)player_model);
 	view->map->new_object=true;
+	*/
 	
+	//Sleep(30000);
+//	view->update=true;
 	while(1)
 	{
+		if (view->map->CheckForTileChange(player->GetPosition().coords))
+		{
+			view->map->GoToPlace(player->GetPosition().coords);
+			view->map->to_redraw=true;
+		}
 		//while(view->map->new_object);
 		player->DumpPosition();
-		player_model->position=player->GetPosition();
-		player_model->changed=true;
+		//player_model->position=player->GetPosition();
+		//player_model->changed=true;
 		Sleep(10);
 	}
 

@@ -1,12 +1,18 @@
 #pragma once
 #include "MapEntity.h"
+#include "WowLib\WowObject.h"
 using namespace Utils::WowTypes;
-class DynamicObject: public MapEntity
+class DynamicObject
 {
+	MapEntity * entity;
 	
 public:
-	DynamicObject(void);
+	bool is_new;
+	bool to_delete;
+	Wow::WowObject * object;
+	DynamicObject(Wow::WowObject * obj);
 	~DynamicObject(void);
-	void SetPosition();
+	void SetEntity(Wow::WowObject * obj);
+	MapEntity* GetEntity();
 };
 

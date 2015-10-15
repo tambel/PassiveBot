@@ -6,16 +6,20 @@ using namespace std;
 using namespace Utils;
 class MapEntity
 {
+	unsigned long id;
+	static unsigned long id_counter;
 protected:
 	
 public:
+	MapEntity(void);
+	virtual ~MapEntity(void);
 	bool changed;
 	vector<Mesh*> meshes;
-	unsigned long id;
+	bool dynamic;
 	bool visible;
 	Position position;
-	MapEntity(void);
-	~MapEntity(void);
+	
 	void SetPosition(Position position);
+	unsigned long  GetID();
 };
 

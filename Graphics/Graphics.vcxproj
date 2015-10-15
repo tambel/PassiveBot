@@ -119,19 +119,25 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BlockScene.h" />
+    <ClInclude Include="MapEntityScene.h" />
+    <ClInclude Include="MapMeshScene.h" />
     <ClInclude Include="MapScene.h" />
-    <ClInclude Include="OgreMap.h" />
     <ClInclude Include="OgreRenderable.h" />
-    <ClInclude Include="OgreTile.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="TileScene.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="MapView.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlockScene.cpp" />
+    <ClCompile Include="MapEntityScene.cpp" />
+    <ClCompile Include="MapMeshScene.cpp" />
     <ClCompile Include="MapScene.cpp" />
-    <ClCompile Include="OgreMap.cpp" />
     <ClCompile Include="OgreRenderable.cpp" />
-    <ClCompile Include="OgreTile.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TileScene.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="MapView.cpp" />

@@ -49,9 +49,13 @@ Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 		}
 	}
 	manual->end();
+	//Ogre::MeshManager::
 	Ogre::MeshPtr mesh= manual->convertToMesh(maual_name+"_mesh");
+
 	Ogre::Entity* entity = parent_scene->getCreator()->createEntity(maual_name+"_entity", mesh->getName());
 	scene->attachObject(entity);
+	
+	scene->getCreator()->destroyManualObject(manual);
 	return scene;
 }
 void OgreRenderable::SetPosition(Vector3 position)
