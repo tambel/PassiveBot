@@ -17,7 +17,7 @@ public:
 	Point2D<int> coords_2D;
 	bool new_object;
 	bool to_update;
-
+	bool busy;
 	bool to_redraw;
 	Position position;
 	Tile * tiles[3][3];

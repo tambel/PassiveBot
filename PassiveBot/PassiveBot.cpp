@@ -46,12 +46,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	MapView * view=new MapView();
 	Position p = player->GetPosition();
 	view->map=new WowMap(p.coords);
-	view->SetWorldCamera(GameManager::GetCamera());
+	
 	boost::thread thread(workerFunc, view);
 	thread.detach();
 	thread.join();
 
 	view->map->AddDynamicObject(player);
+	view->SetWorldCamera(GameManager::GetCamera());
 	view->map->to_update=true;
 	/*
 	M2Info info;
@@ -68,8 +69,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		if (view->map->CheckForTileChange(player->GetPosition().coords))
 		{
-			view->map->GoToPlace(player->GetPosition().coords);
-			view->map->to_redraw=true;
+			if (!view->map->busy)
+			{
+				view->map->GoToPlace(player->GetPosition().coords);
+				view->map->to_redraw=true;
+			}
 		}
 		//while(view->map->new_object);
 		player->DumpPosition();

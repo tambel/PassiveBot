@@ -3,6 +3,7 @@
 #include <algorithm>
 WowMap::WowMap(Vector3 position)
 {
+	busy=false;
 	dynamic_objects=vector<DynamicObject*>();
 	to_update=false;
 	to_redraw=false;
@@ -17,8 +18,8 @@ WowMap::WowMap(Vector3 position)
 }
 void WowMap::GoToPlace(Vector3 ppos)
 {
+	busy=true;
 	vector<MapObject*> check_list=vector<MapObject*>();
-
 	bool exist=false;
 	//int x=floor((32 - (ppos.x / (TILE_LENGTH))));
 	//int y=floor((32 - (ppos.y / (TILE_LENGTH))));
@@ -207,6 +208,7 @@ void WowMap::GoToPlace(Vector3 ppos)
 
 
 	new_objects=vector<MapEntity*>();
+	busy=false;
 }
 WowMap::~WowMap(void)
 {
