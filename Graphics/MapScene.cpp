@@ -21,7 +21,7 @@ MapScene::~MapScene(void)
 	{
 		for (int j=0;j<3;j++)
 		{
-			delete tiles[i][j];
+			//delete tiles[i][j];
 		}
 	}
 	for (auto dyn_obj:dynamic_objects)

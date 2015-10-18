@@ -29,9 +29,19 @@ Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 			manual->position(Vector3ToOgreVector(vertices[i].position));
 			manual->colour(ColorToOgreColor(vertices[i].color));
 		}
-		for (unsigned long i=0;i<index_count;i++)
+		if (indices!=0)
 		{
-			manual->index(indices[i]);
+			for (unsigned long i=0;i<index_count;i++)
+			{
+				manual->index(indices[i]);
+			}
+		}
+		else
+		{
+			for (unsigned long i=0;i<index_count;i++)
+			{
+				manual->index(l_indices[i]);
+			}
 		}
 	}
 	else
@@ -43,9 +53,9 @@ Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 		}
 		for (unsigned long i=0;i<triangles_count/3;i++)
 		{
-			manual->index(triangles[i].indices[0]);
-			manual->index(triangles[i].indices[1]);
 			manual->index(triangles[i].indices[2]);
+			manual->index(triangles[i].indices[1]);
+			manual->index(triangles[i].indices[0]);
 		}
 	}
 	manual->end();
@@ -54,7 +64,7 @@ Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 
 	Ogre::Entity* entity = parent_scene->getCreator()->createEntity(maual_name+"_entity", mesh->getName());
 	scene->attachObject(entity);
-	
+
 	scene->getCreator()->destroyManualObject(manual);
 	return scene;
 }

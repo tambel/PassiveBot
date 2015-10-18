@@ -32,7 +32,7 @@ public:
 	void AddDynamicObject(Wow::WowObject* obj);
 	void RemoveDynamicObject(Wow::WowObject* obj);
 	void MoveMapTiles(Point2D<int> vector);
-
+	Mesh * ToOneMesh();
 	void Draw();
 
 };

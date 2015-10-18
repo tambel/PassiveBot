@@ -5,6 +5,7 @@
 using namespace Utils::WowTypes; 
 using namespace Utils::Graphics;
 using namespace std;
+
 class Renderable
 {
 protected:
@@ -20,9 +21,8 @@ public:
 	unsigned long vertice_count;
 	unsigned long index_count;
 	unsigned short * indices;
+	unsigned long * l_indices;
 	Renderable(void);
 	~Renderable(void);
-
-
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "WowMap.h"
 #include <algorithm>
+#include <OGRE\Ogre.h>
 WowMap::WowMap(Vector3 position)
 {
 	busy=false;
@@ -83,18 +84,6 @@ void WowMap::GoToPlace(Vector3 ppos)
 			tmp_tiles[i][j]=0;
 		}
 	}
-	/*
-	tiles[0][0]=new Tile(coords_2D.Y-1,coords_2D.X-1);
-	tiles[0][1]=new Tile(coords_2D.Y-1,coords_2D.X);
-	tiles[0][2]=new Tile(coords_2D.Y-1,coords_2D.X+1);
-	tiles[1][0]=new Tile(coords_2D.Y,coords_2D.X-1);
-	tiles[1][1]=new Tile(coords_2D.Y,coords_2D.X);
-	tiles[1][2]=new Tile(coords_2D.Y,coords_2D.X+1);
-	tiles[2][0]=new Tile(coords_2D.Y+1,coords_2D.X-1);
-	tiles[2][1]=new Tile(coords_2D.Y+1,coords_2D.X);
-	tiles[2][2]=new Tile(coords_2D.Y+1,coords_2D.X+1);
-	*/
-
 	for (int i=0;i<3;i++)
 	{
 		tile_pos_y=0;
@@ -102,8 +91,6 @@ void WowMap::GoToPlace(Vector3 ppos)
 		{
 			if (this->tiles[i][j]->exists)
 			{
-				//Ogre::SceneNode * tile_scene = scene->createChildSceneNode("Tile_"+to_string(map->tiles[i][j]->indexX)+"_"+to_string(map->tiles[i][j]->indexY));
-				//tile_scene->setPosition(tile_pos_y,tile_pos_x,0);
 				tiles[i][j]->position.x=tile_pos_y;
 				tiles[i][j]->position.y=tile_pos_x;
 				tiles[i][j]->position.z=0;
@@ -113,7 +100,6 @@ void WowMap::GoToPlace(Vector3 ppos)
 					block_pos_y=0;
 					for (int tj=0;tj<16;tj++)
 					{
-						//((OgreRenderable*)(map->tiles[i][j]->blocks[ti][tj]))->CreateScene(tile_scene)->setPosition(block_pos_x,block_pos_y,0);
 						tiles[i][j]->blocks[ti][tj]->position.coords.x=block_pos_x;
 						tiles[i][j]->blocks[ti][tj]->position.coords.y=block_pos_y;
 						tiles[i][j]->blocks[ti][tj]->position.coords.z=0;
@@ -150,17 +136,8 @@ void WowMap::GoToPlace(Vector3 ppos)
 
 							t_pos_x=tiles[i][j]->indexY * 533.33333-17066.6656;
 							t_pos_y=tiles[i][j]->indexX * 533.33333-17066.6656;
-							Vector3 pos;
-							//pos.x=mesh->position.coords.z-t_pos_x;
-							//pos.y=mesh->position.coords.x-t_pos_y;
-							//pos.z=mesh->position.coords.y;
 							mesh->position.coords=Vector3(mesh->position.coords.z-t_pos_x,mesh->position.coords.x-t_pos_y,mesh->position.coords.y);
 
-							//Ogre::SceneNode * mesh_scene=((OgreRenderable*)mesh)->CreateScene(map_object_scene);
-							//mesh_scene->setPosition(Vector3ToOgreVector(pos));
-							//mesh_scene->rotate(Ogre::Vector3(0,0,1),Ogre::Degree(mesh->position.rotation.y));
-							//mesh_scene->rotate(Ogre::Vector3(0,1,0),Ogre::Degree(mesh->position.rotation.z));
-							//mesh_scene->rotate(Ogre::Vector3(1,0,0),Ogre::Degree(mesh->position.rotation.x));
 
 						}
 					}
@@ -195,6 +172,7 @@ void WowMap::GoToPlace(Vector3 ppos)
 							}
 						}
 					}
+
 				}
 			}
 
@@ -212,16 +190,14 @@ void WowMap::GoToPlace(Vector3 ppos)
 }
 WowMap::~WowMap(void)
 {
-	tiles[1][1];
-	/*
+
 	for (int i=0;i<3;i++)
 	{
-	for (int j=0;j<3;j++)
-	{
-	delete tiles[i][j];
+		for (int j=0;j<3;j++)
+		{
+			delete tiles[i][j];
+		}
 	}
-	}
-	*/
 }
 void WowMap::SetPosition(Vector3 position)
 {
@@ -313,5 +289,187 @@ void WowMap::MoveMapTiles(Point2D<int> vector)
 	}
 
 }
+Mesh * WowMap::ToOneMesh()
+{
+	Mesh * mesh = new Mesh();
+	for (int i=0;i<3;i++)
+	{
+		for (int j=0;j<3;j++)
+		{
+			if (tiles[i][j]->exists)
+			{
+				for (int bi=0;bi<16;bi++)
+				{
+					for (int bj=0;bj<16;bj++)
+					{
+						mesh->index_count+=tiles[i][j]->blocks[bi][bj]->index_count;
+						mesh->vertice_count+=tiles[i][j]->blocks[bi][bj]->vertice_count;
+					}
+				}
 
+				for (auto mo:tiles[i][j]->map_objects)
+				{
+					if (mo->visible)
+					{
+						for (auto msh:mo->meshes)
+						{
+
+							mesh->index_count+=msh->index_count;
+							mesh->vertice_count+=msh->vertice_count;
+						}
+					}
+				}
+
+
+				for (auto doodad:tiles[i][j]->doodads)
+				{
+					if (doodad->visible)
+					{
+						for (auto msh:doodad->meshes)
+						{
+							mesh->index_count+=msh->triangles_count;
+							mesh->vertice_count+=msh->vertice_count;
+						}
+					}
+				}
+
+			}
+		}
+	}
+	mesh->vertices=new Vertice[mesh->vertice_count];
+	mesh->l_indices=new unsigned long[mesh->index_count];
+	unsigned long vert_ind=0;
+	unsigned long ind_ind=0;
+	unsigned long ind_offset=0;
+	for (int i=0;i<3;i++)
+	{
+		for (int j=0;j<3;j++)
+		{
+			if (tiles[i][j]->exists)
+			{
+				for (int bi=0;bi<16;bi++)
+				{
+					for (int bj=0;bj<16;bj++)
+					{
+						for (unsigned long vi=0;vi<tiles[i][j]->blocks[bi][bj]->vertice_count;vi++)
+						{
+							Vertice v=Vertice();
+							if (vi%2==0)
+								v.color=Color(1.0f,1.0f,1.0f,1.0f);
+							else if (vi%3==0)
+								v.color=Color(0.0f,0.0f,0.0f,1.0f);
+							else
+								v.color=Color(0.0f,1.0f,0.0f,1.0f);
+							v.position=tiles[i][j]->blocks[bi][bj]->vertices[vi].position+tiles[i][j]->blocks[bi][bj]->position.coords+tiles[i][j]->position;
+							mesh->vertices[vert_ind]=v;
+							vert_ind++;
+						}
+
+						for (unsigned long ii=0;ii<tiles[i][j]->blocks[bi][bj]->index_count;ii++)
+						{
+
+							mesh->l_indices[ind_ind]=(unsigned long)tiles[i][j]->blocks[bi][bj]->indices[ii]+ind_offset;
+							ind_ind++;
+						}
+						ind_offset+=tiles[i][j]->blocks[bi][bj]->vertice_count;
+					}
+				}
+
+				for (auto mo:tiles[i][j]->map_objects)
+				{
+					if (mo->visible)
+					{
+						for (auto msh:mo->meshes)
+						{
+
+							for (unsigned long vi=0;vi<msh->vertice_count;vi++)
+							{
+								Vertice v=Vertice();
+								if (vi%2==0)
+									v.color=Color(1.0f,1.0f,1.0f,1.0f);
+								else if (vi%3==0)
+									v.color=Color(0.0f,0.0f,0.0f,1.0f);
+								else
+									v.color=Color(0.0f,0.0f,1.0f,1.0f);
+								v.position=Vector3(msh->vertices[vi].position.x,msh->vertices[vi].position.y,msh->vertices[vi].position.z);
+								Ogre::Vector3 ov=Ogre::Vector3(v.position.x,v.position.y,v.position.z);
+								Ogre::Quaternion q=Ogre::Quaternion(Ogre::Radian(Ogre::Degree(msh->position.rotation.y)),Ogre::Vector3(0,0,1));
+								ov=q*ov;
+								q=Ogre::Quaternion(Ogre::Radian(Ogre::Degree(msh->position.rotation.z)),Ogre::Vector3(0,1,0));
+								ov=q*ov;
+								q=Ogre::Quaternion(Ogre::Radian(Ogre::Degree(msh->position.rotation.x)),Ogre::Vector3(1,0,0));
+								ov=q*ov;
+								v.position=Vector3(ov.x,ov.y,ov.z);
+								v.position=v.position+tiles[i][j]->position+msh->position.coords;
+								mesh->vertices[vert_ind].position=v.position;
+								mesh->vertices[vert_ind].color=v.color;
+								vert_ind++;
+							}
+							for (unsigned long ii=0;ii<msh->index_count;ii++)
+							{
+								mesh->l_indices[ind_ind]=msh->indices[ii]+ind_offset;
+								ind_ind++;
+							}
+							ind_offset+=msh->vertice_count;
+
+						}
+					}
+				}
+
+
+				for (auto doodad:tiles[i][j]->doodads)
+				{
+					if (doodad->visible)
+					{
+						for (auto msh:doodad->meshes)
+						{
+
+							for (unsigned long vi=0;vi<msh->vertice_count;vi++)
+							{
+								Vertice v=Vertice();
+								if (vi%2==0)
+									v.color=Color(1.0f,1.0f,1.0f,1.0f);
+								else if (vi%3==0)
+									v.color=Color(0.0f,0.0f,0.0f,1.0f);
+								else
+									v.color=Color(0.0f,0.0f,1.0f,1.0f);
+								v.position=Vector3(msh->vertices[vi].position.x,msh->vertices[vi].position.y,msh->vertices[vi].position.z);
+								Ogre::Vector3 ov=Ogre::Vector3(v.position.x,v.position.y,v.position.z);
+								Ogre::Quaternion q=Ogre::Quaternion(Ogre::Radian(Ogre::Degree(msh->position.rotation.y)),Ogre::Vector3(0,0,1));
+								ov=q*ov;
+								q=Ogre::Quaternion(Ogre::Radian(Ogre::Degree(msh->position.rotation.z)),Ogre::Vector3(0,1,0));
+								ov=q*ov;
+								q=Ogre::Quaternion(Ogre::Radian(Ogre::Degree(msh->position.rotation.x)),Ogre::Vector3(1,0,0));
+								ov=q*ov;
+								v.position=Vector3(ov.x,ov.y,ov.z);
+								v.position=v.position+tiles[i][j]->position+msh->position.coords;
+								mesh->vertices[vert_ind].position=v.position;
+								mesh->vertices[vert_ind].color=v.color;
+								vert_ind++;
+							}	
+							for (unsigned long ii=0;ii<msh->triangles_count/3;ii++)
+							{
+								mesh->l_indices[ind_ind]=msh->triangles[ii].indices[0]+ind_offset;
+								mesh->l_indices[ind_ind+1]=msh->triangles[ii].indices[1]+ind_offset;
+								mesh->l_indices[ind_ind+2]=msh->triangles[ii].indices[2]+ind_offset;
+								ind_ind+=3;
+							}
+							ind_offset+=msh->vertice_count;
+						}
+					}
+				}
+
+			}
+		}
+	}
+	Ogre::Quaternion q=Ogre::Quaternion(Ogre::Radian(-Ogre::Math::PI/2),Ogre::Vector3(1,0,0));
+	Ogre::Vector3 ov;
+	for (unsigned long i=0;i<mesh->vertice_count;i++)
+	{
+		ov=Ogre::Vector3(mesh->vertices[i].position.x,mesh->vertices[i].position.y,mesh->vertices[i].position.z);
+		ov=q*ov;
+		mesh->vertices[i].position=Vector3(ov.x,ov.y,ov.z);
+	}
+	return mesh;
+}
 

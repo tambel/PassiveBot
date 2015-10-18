@@ -56,7 +56,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\laptop\Documents\Visual Studio 2012\Projects\PassiveBot;$(OGRE_HOME)\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;C:\Users\laptop\Documents\Visual Studio 2012\Projects\PassiveBot;$(OGRE_HOME)\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

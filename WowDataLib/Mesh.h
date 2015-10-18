@@ -10,5 +10,7 @@ public:
 	Mesh(string name);
 	Mesh();
 	~Mesh();
+	void ToFile();
 };
+
 
