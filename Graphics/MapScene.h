@@ -8,11 +8,10 @@ using namespace std;
 class MapScene:public Scene
 {
 	WowMap * map;
-	TileScene * tiles[3][3];
 	
 public:
 	vector<MapEntityScene*> dynamic_objects; 
-	MapScene(void);
+	MapScene(WowMap * map,Ogre::SceneNode * ps);
 	~MapScene(void);
 	void SetMap(WowMap * map,Ogre::SceneNode * ps);
 	void AddMapEntityScene(DynamicObject * dyn_obj);

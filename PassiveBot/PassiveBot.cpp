@@ -51,17 +51,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	boost::thread thread(workerFunc, view);
 	thread.detach();
 	thread.join();
-
-	//map->AddDynamicObject(player);
+	map->central_tile_mesh->ToFile();
+	map->AddDynamicObject(player);
 	for (auto unit:*ObjectManager::GetUnitsList())
 	{
 		//map->AddDynamicObject(unit);
 	}
-	map->to_update=true;
+	//map->to_update=true;
 	view->SetWorldCamera(GameManager::GetCamera());
-	Mesh * mesh=map->ToOneMesh();
+	//Mesh * mesh=map->ToOneMesh();
 	//map->to_redraw=true;
-	mesh->ToFile();
+	//mesh->ToFile();
 	/*
 	M2Info info;
 	info.position=p;

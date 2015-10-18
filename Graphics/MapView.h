@@ -5,11 +5,6 @@
 #include "WowLib\WowObject.h"
 #include "WowLib\Camera.h"
 
-
-struct DynamicObjectContainer
-{
-	MapEntityScene * scene;
-};
 class MapView: public Window
 {
 	Wow::Camera * world_camera;
@@ -18,10 +13,10 @@ protected:
 public:
 	
 	bool update;
-	MapScene * map_scene;
 	bool ready;
 	WowMap * map;
-
+	MapScene * map_scene;
+	Ogre::SceneNode * main_scene;
 	MapView(void);
 	~MapView(void);
 	void InitMap();

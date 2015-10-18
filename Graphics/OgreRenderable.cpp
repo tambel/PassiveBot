@@ -18,7 +18,7 @@ void OgreRenderable::ClearCounter()
 }
 Ogre::SceneNode * OgreRenderable::CreateScene(Ogre::SceneNode * parent_scene)
 {
-	string maual_name=to_string(GetUIDAndIncrement())+"_"+name;
+	string maual_name=to_string(GetUIDAndIncrement());
 	Ogre::SceneNode * scene =parent_scene->createChildSceneNode();
 	Ogre::ManualObject * manual=scene->getCreator()->createManualObject(maual_name);
 	manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_TRIANGLE_LIST);

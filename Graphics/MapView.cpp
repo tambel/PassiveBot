@@ -27,21 +27,13 @@ MapView::~MapView(void)
 }
 void MapView::InitMap()
 {
-
+	main_scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
+	map_scene=new MapScene(map,main_scene);
 	
-	//map_scene=new MapScene();
-	OgreRenderable::ClearCounter();
-	//mSceneMgr->getRootSceneNode()->setPosition(0,0,0);
-	Ogre::SceneNode * scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
-	Mesh * mesh=map->ToOneMesh();
-	Ogre::SceneNode * node=((OgreRenderable*)mesh)->CreateScene(scene);
-	map->position.coords=Vector3();
-	//map_scene->SetMap(map,scene);
+	//Ogre::SceneNode * map_scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
+	//Ogre::SceneNode * node=((OgreRenderable*)map->solid_mesh)->CreateScene(map_scene);
 	mCamera->setPosition(Vector3ToOgreVector(map->position.coords));
-	//mCamera->setPosition(0,0,0);
-	node->rotate(Ogre::Quaternion(Ogre::Degree(180), Ogre::Vector3(0,0,1)),Ogre::Node::TS_WORLD);
-	//scene->setPosition(map->position.x+TILE_LENGTH,map->position.y+TILE_LENGTH,map->position.z);
-	//delete map;
+	//node->rotate(Ogre::Quaternion(Ogre::Degree(180), Ogre::Vector3(0,0,1)),Ogre::Node::TS_WORLD);
 }
 void MapView::createScene(void)
 {
@@ -54,6 +46,17 @@ void MapView::UpdateMap()
 	{
 		if (!map->busy)
 		{
+			map->busy=true;
+			delete map_scene;
+			main_scene->getCreator()->clearScene();
+			mSceneMgr->destroyAllManualObjects();
+			mSceneMgr->destroyAllMovableObjects();
+			Ogre::MeshManager::getSingletonPtr()->unloadAll();
+			Ogre::MeshManager::getSingletonPtr()->removeAll();
+			main_scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
+			map_scene=new MapScene(map,main_scene);
+			//Ogre::SceneNode * node=((OgreRenderable*)map->solid_mesh)->CreateScene(map_scene);
+			//node->rotate(Ogre::Quaternion(Ogre::Degree(180), Ogre::Vector3(0,0,1)),Ogre::Node::TS_WORLD);
 			/*
 			map->busy=true;
 			delete map_scene;
@@ -62,19 +65,19 @@ void MapView::UpdateMap()
 			Ogre::MeshManager::getSingletonPtr()->removeAll();
 			map_scene=new MapScene();
 			Ogre::SceneNode * scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
-			
-			
+
+
 			map_scene->SetMap(map,static_cast<Ogre::SceneNode*>(scene));
-			
+			*/
 			for  (auto dyn_obj:map->dynamic_objects)
 			{
-				dyn_obj->is_new=true;
+			dyn_obj->is_new=true;
 			}
 			
 			map->to_update=true;
 			map->to_redraw=false;
 			map->busy=false;
-			*/
+			
 		}
 	}
 
@@ -97,8 +100,8 @@ void MapView::UpdateMap()
 		{
 			if (dyn_obj->GetEntity()->GetID()==dyn_obj_sc->id)
 			{
-				dyn_obj_sc->scene_node->setPosition(Vector3ToOgreVector( dyn_obj->object->GetPosition().coords));
-				dyn_obj_sc->scene_node->setOrientation(Ogre::Quaternion(Ogre::Radian(dyn_obj->object->GetPosition().rotation.z),Ogre::Vector3(0,0,1)));
+					dyn_obj_sc->scene_node->setPosition(Vector3ToOgreVector( dyn_obj->object->GetPosition().coords));
+					dyn_obj_sc->scene_node->setOrientation(Ogre::Quaternion(Ogre::Radian(dyn_obj->object->GetPosition().rotation.z),Ogre::Vector3(0,0,1)));
 				break;
 			}
 		}

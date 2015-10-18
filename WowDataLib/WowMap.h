@@ -14,6 +14,8 @@ protected:
 	
 	
 public:
+	Mesh * solid_mesh;
+	Mesh * central_tile_mesh;
 	Point2D<int> coords_2D;
 	bool new_object;
 	bool to_update;
@@ -33,6 +35,7 @@ public:
 	void RemoveDynamicObject(Wow::WowObject* obj);
 	void MoveMapTiles(Point2D<int> vector);
 	Mesh * ToOneMesh();
+	Mesh * CentralTileToMesh();
 	void Draw();
 
 };
