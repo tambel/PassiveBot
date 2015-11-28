@@ -2,29 +2,29 @@ namespace WowOffsets
 {
 	enum Client
 	{
-		Loaded=0xD8825C,
-		Unavalible=0xd87120,
-		CharactersNumber=0xD87908,
-		CharactersOffset=0xD8790C,
-		InWorld=0xEAEA4A,
+		Loaded=0xD882DC, //CGlueMgr__CanLogIn
+		Unavalible=0xD871A0,//CGlueMgr__CanLogIn
+		CharactersNumber=0xD87988, //Script_GetNumCharacters
+		CharactersOffset=0xD8798C,
+		InWorld=0xEAEACA,
 
 
 	};
 	enum Camera
 	{
-		CameraPointer=0xEAF1F0,
+		CameraPointer=0xEAF270,
 		CameraOffset=0x7610,
 		CameraPosition=0x8,
 		CameraMatrix=0x14,
 		CameraFOV=0x38,
-		FarClip=0xF84A0C,
-		NearClip=0xCD35C8
+		FarClip=0xF8421C, //World__GetFarClip
+		NearClip=0xCD3660 //World__GetNearClip
 	};
 	enum FrameManager
 	{
 		ScrWidth = 0xC5ADC8, // + 0xB000
 		ScrHeight = 0xC5ADCC, // + 0xB000
-		FrameBase = 0xD1A25C, // + 0xC1C8
+		FrameBase = 0xD1A2DC, // + 0xC1C8 //variable -  CSimpleTop__s_instance
 		CurrentFramePtr = 0xD1A25C, // + 0xC1C8
 
 		FirstFrame = 0x12F4,            
@@ -51,11 +51,11 @@ namespace WowOffsets
 	};
 	enum ObjectManager
 	{
-		ObjectPanagerPtr=0xFF0248,
+		ObjectPanagerPtr=0xFEFA58,
 		ObjectManagerOffset=0x62C,
 		FirstObject=0xD8,
 		NextObject=0x3C,
-		LocalPlayer=0xE37930
+		LocalPlayer=0xE379B0
 
 
 	};
@@ -74,7 +74,7 @@ namespace WowOffsets
 	};
 	enum Item
 	{
-		CachePtr=0xD701D0,
+		CachePtr=0xD70250,//WowClientDB2__ItemRecSparse_C__GetRecord+25
 		ItemNameoffset=0x198
 	};
 	enum Unit
