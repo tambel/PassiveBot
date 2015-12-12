@@ -4,6 +4,14 @@
 
 
 using namespace std;
+
+ADT::ADT(Continent continent,Point2D<int> coordinates)
+{
+
+}
+
+
+/*
 Adt::Adt(string path)
 {
 	root=0;
@@ -170,3 +178,4 @@ unsigned Adt::GetVersion()
 {
 	return mver.version;
 }
+*/

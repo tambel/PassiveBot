@@ -4,6 +4,7 @@
 #include <OGRE\Ogre.h>
 WowMap::WowMap(Vector3 position)
 {
+	/*
 	solid_mesh=0;
 	central_tile_mesh=0;
 	busy=false;
@@ -204,6 +205,7 @@ WowMap::~WowMap(void)
 			delete tiles[i][j];
 		}
 	}
+	*/
 }
 void WowMap::SetPosition(Vector3 position)
 {
@@ -211,7 +213,8 @@ void WowMap::SetPosition(Vector3 position)
 }
 Point2D<int> WowMap::WorldPositionToMapCoords(Vector3 position)
 {
-	return Point2D<int>(floor((32 - (position.x / (TILE_LENGTH)))),floor((32 - (position.y / (TILE_LENGTH)))));
+	return Point2D<int>();
+	//return Point2D<int>(floor((32 - (position.x / (TILE_LENGTH)))),floor((32 - (position.y / (TILE_LENGTH)))));
 }
 bool  WowMap::CheckForTileChange(Vector3 position)
 {

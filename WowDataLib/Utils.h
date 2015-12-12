@@ -3,6 +3,9 @@
 using namespace Utils::WowTypes;
 namespace Utils
 {
+	const float MapSize=34133.33312;
+	const float BlockSize=MapSize/64;
+	const float ChunkSize=BlockSize/16;
 	namespace Graphics
 	{
 
@@ -29,8 +32,8 @@ namespace Utils
 		/*
 		struct Point2DI
 		{
-			int X;
-			int Y;
+		int X;
+		int Y;
 		};
 		*/
 		struct Color

@@ -91,11 +91,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Adt.h" />
+    <ClInclude Include="ADT_ROOT.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Chunk.h" />
     <ClInclude Include="Doodad.h" />
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="FileParser.h" />
     <ClInclude Include="M2.h" />
+    <ClInclude Include="MapArea.h" />
     <ClInclude Include="MapEntity.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Mesh.h" />
@@ -107,11 +110,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Adt.cpp" />
+    <ClCompile Include="ADT_ROOT.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Doodad.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="FileParser.cpp" />
     <ClCompile Include="M2.cpp" />
+    <ClCompile Include="MapArea.cpp" />
     <ClCompile Include="MapEntity.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Mesh.cpp" />

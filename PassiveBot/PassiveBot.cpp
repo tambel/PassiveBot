@@ -12,6 +12,10 @@
 #include "WowLib\GameInteractor.h"
 #include "WowLib\GameManager.h"
 
+
+#include "WowDataLib\MapArea.h"
+
+
 #include <iostream>
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -43,52 +47,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	ObjectManager::Initialize();
 	ObjectManager::EnumAllVisibleObjects();
 	Player * player = ObjectManager::GetPlayer();
-	MapView * view=new MapView();
-	Position p = player->GetPosition();
-	WowMap * map=new WowMap(p.coords);
-	view->map=map;
 	
-	boost::thread thread(workerFunc, view);
-	thread.detach();
-	thread.join();
-	map->central_tile_mesh->ToFile();
-	map->AddDynamicObject(player);
-	for (auto unit:*ObjectManager::GetUnitsList())
+	MapArea * area=new MapArea();
+	///boost::thread thread(workerFunc, view);
+	//thread.detach();
+	//thread.join();
+	while (1)
 	{
-		//map->AddDynamicObject(unit);
-	}
-	//map->to_update=true;
-	view->SetWorldCamera(GameManager::GetCamera());
-	//Mesh * mesh=map->ToOneMesh();
-	//map->to_redraw=true;
-	//mesh->ToFile();
-	/*
-	M2Info info;
-	info.position=p;
-	info.scale=1.0f;
-	Doodad * player_model=new Doodad("E:\\Extracted\\Character\\Tauren\\Male\\TaurenMale.M2",info);
-	view->map->new_objects.push_back((MapEntity*)player_model);
-	view->map->new_object=true;
-	*/
-	
-	//Sleep(30000);
-//	view->update=true;
-	while(1)
-	{
-		if (map->CheckForTileChange(player->GetPosition().coords))
-		{
-			if (!map->busy)
-			{
-				map->GoToPlace(player->GetPosition().coords);
-				map->to_redraw=true;
-			}
-		}
-		//while(view->map->new_object);
 		player->DumpPosition();
-		//player_model->position=player->GetPosition();
-		//player_model->changed=true;
-		Sleep(10);
+		Sleep(50);
 	}
+
 
 
 

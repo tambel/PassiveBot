@@ -6,6 +6,18 @@
 #include "M2.h"
 using namespace Utils::Graphics;
 using namespace std;
+
+enum Continent
+{
+	Kamlimdor,
+	Eastern_Kindoms
+};
+class ADT
+{
+	ADT(Continent continent,Point2D<int> coordinates);
+};
+
+/*
 struct MVER {
 	unsigned  version;
 };
@@ -79,7 +91,7 @@ public:
 	MWMO * mwmo;
 	MWID * mwid;
 	MODF * modf;
-	*/
+	
 	vector<WmoInfo> wmo_infos;
 	vector <M2Info> m2_infos;
 	Adt(string  path);
@@ -89,3 +101,4 @@ public:
 
 };
 
+*/
