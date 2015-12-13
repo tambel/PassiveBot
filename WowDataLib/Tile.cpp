@@ -1,3 +1,4 @@
+/*
 #include "Tile.h"
 #include <string>
 #include <algorithm>
@@ -5,7 +6,7 @@ using namespace std;
 Tile::Tile(int x,int y)
 {
 	string path=PATH+ string(TERRAIN_PATH);
-	path+="Kalimdor\\Kalimdor_"+to_string(x)+"_"+to_string(y);
+	path+="Azeroth\\Azeroth_"+to_string(x)+"_"+to_string(y);
 	is_new=true;
 	map_objects=vector<MapObject*>();
 	doodads=vector<Doodad*>();
@@ -92,3 +93,4 @@ void Tile::Draw()
 		}
 	}
 }
+*/

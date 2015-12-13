@@ -3,7 +3,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include <Graphics\MapView.h>
+//#include <Graphics\MapView.h>
 #include "WowLib\Utils.h"
 
 #include "WowLib\ObjectManager.h"
@@ -24,12 +24,14 @@
 using namespace Wow;
 
 //using namespace ProcessLib;
+/*
 void workerFunc(MapView * view)  
 {  
 
 	view->go();
 
 }
+*/
 int _tmain(int argc, _TCHAR* argv[])
 {
 
@@ -47,8 +49,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	ObjectManager::Initialize();
 	ObjectManager::EnumAllVisibleObjects();
 	Player * player = ObjectManager::GetPlayer();
-	
-	MapArea * area=new MapArea();
+	player->DumpPosition();
+	ADT * a=new ADT(Location::Kamlimdor,Utils::WorldPositionToMapBlockCoords(player->GetPosition().coords));
+
 	///boost::thread thread(workerFunc, view);
 	//thread.detach();
 	//thread.join();

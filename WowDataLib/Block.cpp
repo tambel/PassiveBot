@@ -1,8 +1,8 @@
 #include "Block.h"
-
+/*
 Block::Block(MCNK * mcnk,bool exist)
 {
-	/*
+	
 	vertices=new Vertice[145];
 	coords=mcnk->coords;
 	position.coords=mcnk->position;
@@ -77,8 +77,9 @@ Block::Block(MCNK * mcnk,bool exist)
 		ind_count+=12;
 	}
 	index_count=ind_count;
-	*/
+	
 }
+*/
 Block::Block(Point2D<int> coords)
 {
 	centralized_position.X=-(coords.X*BlockSize-MapSize/2);

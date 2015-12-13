@@ -25,6 +25,7 @@ MapView::MapView(void)
 MapView::~MapView(void)
 {
 }
+/*
 void MapView::InitMap()
 {
 	main_scene= mSceneMgr->getRootSceneNode()->createChildSceneNode("map");
@@ -122,3 +123,4 @@ void MapView::SetWorldCamera(Wow::Camera * cam)
 	world_camera=cam;
 
 }
+*/

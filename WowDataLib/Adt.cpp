@@ -1,12 +1,37 @@
 #include <string>
 #include "Adt.h"
 #include "FileParser.h"
-
+#include "MCNK.h"
 
 using namespace std;
+using namespace ChunkSignatures;
 
-ADT::ADT(Continent continent,Point2D<int> coordinates)
+ADT::ADT(Location location,Point2D<int> coordinates)
 {
+	string loc="Kalimdor";
+	string data_path="E:\\Extracted\\";
+	string terrian_path="World\\Maps\\";
+	string path=data_path+terrian_path+loc+"\\"+loc+"_"+std::to_string(coordinates.Y)+"_"+std::to_string(coordinates.X);
+	root_reader=new BinaryReader(path+".adt");
+	for (int i=0;i<256;i++)
+	{
+		int x=i%16;
+		int y=i/16;
+		SeekChunk(root_reader,ChunkSignatures::ADTSignature::Mcnk);
+		chunk_stream_infos[i/16][i%16]=ChunkStreamInfo(root_reader->GetPosition(),root_reader->ReadUInt(),root_reader);
+		root_reader->MoveForward(chunk_stream_infos[i/16][i%16].size);
+	}
+	for (int i=0;i<16;i++)
+	{
+		for (int j=0;j<16;j++)
+		{
+			//root_reader->ReadBytes(buff,chunk_stream_infos[i][j].start,chunk_stream_infos[i][j].size);
+			Chunk * C = new Chunk(chunk_stream_infos[i][j]);
+		}
+	}
+	int k;
+	k=sizeof(MCNK_Header);
+	k=10;
 
 }
 

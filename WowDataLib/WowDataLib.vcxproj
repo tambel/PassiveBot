@@ -61,6 +61,12 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>IOTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\Users\laptop\Documents\Visual Studio 2012\Projects\PassiveBot\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='rel|Win32'">
     <ClCompile>
@@ -94,6 +100,7 @@
     <ClInclude Include="ADT_ROOT.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Chunk.h" />
+    <ClInclude Include="ChunkedData.h" />
     <ClInclude Include="Doodad.h" />
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="FileParser.h" />
@@ -101,8 +108,9 @@
     <ClInclude Include="MapArea.h" />
     <ClInclude Include="MapEntity.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="MCNK.h" />
+    <ClInclude Include="MCNK_header.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="WowMap.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Utils.h" />
@@ -113,6 +121,7 @@
     <ClCompile Include="ADT_ROOT.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Chunk.cpp" />
+    <ClCompile Include="ChunkedData.cpp" />
     <ClCompile Include="Doodad.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="FileParser.cpp" />
@@ -121,9 +130,9 @@
     <ClCompile Include="MapEntity.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="WowMap.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WMO.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

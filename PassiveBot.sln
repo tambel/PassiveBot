@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PassiveBot", "PassiveBot\PassiveBot.vcxproj", "{FDC9CED7-A947-4C22-9513-7A04EF11A4D4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93E2803A-8F81-4F85-96D4-4444213AE4C3} = {93E2803A-8F81-4F85-96D4-4444213AE4C3}
+		{4503A86D-F422-48FE-B9B8-DC82E1F983D7} = {4503A86D-F422-48FE-B9B8-DC82E1F983D7}
 		{9D118187-84FD-4E92-8733-C365310B311F} = {9D118187-84FD-4E92-8733-C365310B311F}
 	EndProjectSection
 EndProject
@@ -22,7 +23,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WowDataLib", "WowDataLib\WowDataLib.vcxproj", "{4503A86D-F422-48FE-B9B8-DC82E1F983D7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93E2803A-8F81-4F85-96D4-4444213AE4C3} = {93E2803A-8F81-4F85-96D4-4444213AE4C3}
+		{DCDC7D5B-032B-4253-B037-7DE95C6B258D} = {DCDC7D5B-032B-4253-B037-7DE95C6B258D}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IOTools", "IOTools\IOTools.vcxproj", "{DCDC7D5B-032B-4253-B037-7DE95C6B258D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +54,10 @@ Global
 		{4503A86D-F422-48FE-B9B8-DC82E1F983D7}.Debug|Win32.Build.0 = Debug|Win32
 		{4503A86D-F422-48FE-B9B8-DC82E1F983D7}.Release|Win32.ActiveCfg = Release|Win32
 		{4503A86D-F422-48FE-B9B8-DC82E1F983D7}.Release|Win32.Build.0 = Release|Win32
+		{DCDC7D5B-032B-4253-B037-7DE95C6B258D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DCDC7D5B-032B-4253-B037-7DE95C6B258D}.Debug|Win32.Build.0 = Debug|Win32
+		{DCDC7D5B-032B-4253-B037-7DE95C6B258D}.Release|Win32.ActiveCfg = Release|Win32
+		{DCDC7D5B-032B-4253-B037-7DE95C6B258D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

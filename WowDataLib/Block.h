@@ -17,10 +17,8 @@ protected:
 public:
 
 	Point2D<int> coords;
-	Block(MCNK * mcnk, bool exist =true);
 	Block(Point2D<int> coords);
 	Block(void);
 	~Block(void);
-	//virtual void CreateEntity();
 	Point2D<float> centralized_position;
 };

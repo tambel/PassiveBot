@@ -1,34 +1,39 @@
 #pragma once
 #include "WowLib\Utils.h"
+#include <math.h>
 using namespace Utils::WowTypes;
 namespace Utils
 {
 	const float MapSize=34133.33312;
 	const float BlockSize=MapSize/64;
 	const float ChunkSize=BlockSize/16;
+	template<class T>
+	struct Point2D
+	{
+		T X;
+		T Y;
+		Point2D():X(0),Y(0){}
+		Point2D(T x,T y):X(x),Y(y){}
+		bool operator==(const Point2D & right)
+		{
+			return (this->X==right.X && this->Y==right.Y);
+		}
+		Point2D operator -(const Point2D & right)
+		{
+			return Point2D(this->X-right.X,this->Y-right.Y);
+		}
+	};
+	Point2D<int> WorldPositionToMapBlockCoords(Vector3 position);
+
 	namespace Graphics
 	{
-
 		struct Triangle
 		{
 			unsigned short indices[3];
 		};
-		template<class T>
-		struct Point2D
-		{
-			T X;
-			T Y;
-			Point2D():X(0),Y(0){}
-			Point2D(T x,T y):X(x),Y(y){}
-			bool operator==(const Point2D & right)
-			{
-				return (this->X==right.X && this->Y==right.Y);
-			}
-			Point2D operator -(const Point2D & right)
-			{
-				return Point2D(this->X-right.X,this->Y-right.Y);
-			}
-		};
+		
+
+
 		/*
 		struct Point2DI
 		{

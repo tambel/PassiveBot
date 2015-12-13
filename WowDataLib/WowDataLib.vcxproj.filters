@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="structures">
+      <UniqueIdentifier>{e2e8aa93-b1c9-436a-8d26-d9ec7ffc952e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structures\ADT">
+      <UniqueIdentifier>{d60f5f22-1f59-421e-ae8a-c8313e959ec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structures\ADT\MCNK">
+      <UniqueIdentifier>{4b13f1ac-cecb-4a74-9f2c-d68066fe7c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{dc4637d6-a2fe-4f4f-adb8-961185f758ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileParser.h">
@@ -31,9 +43,6 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="WMO.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="WowMap.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="MapObject.h">
@@ -60,11 +69,20 @@
     <ClInclude Include="Chunk.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Adt.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="ADT_ROOT.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="MCNK_header.h">
+      <Filter>structures\ADT\MCNK</Filter>
+    </ClInclude>
+    <ClInclude Include="MCNK.h">
+      <Filter>structures\ADT\MCNK</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkedData.h">
+      <Filter>structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Adt.h">
+      <Filter>Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -81,9 +99,6 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="WMO.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="WowMap.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="MapObject.cpp">
@@ -110,11 +125,17 @@
     <ClCompile Include="Chunk.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Adt.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="ADT_ROOT.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkedData.cpp">
+      <Filter>structures</Filter>
+    </ClCompile>
+    <ClCompile Include="Adt.cpp">
+      <Filter>Terrain</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

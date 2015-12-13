@@ -1,4 +1,4 @@
-#pragma once 
+/*#pragma once 
 #include "FileParser.h"
 #include "Utils.h"
 #include "Adt.h"
@@ -32,3 +32,4 @@ public:
 	void SetPosition(Vector3 position);
 	void Draw();
 };
+*/
