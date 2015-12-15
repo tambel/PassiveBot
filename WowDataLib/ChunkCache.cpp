@@ -1,5 +1,5 @@
 #include "ChunkCache.h"
-
+unsigned long ChunkCache::list_size_limit=2304;
 Chunk * ChunkCache::Find(Location * location, Point2D<int> block_coordinates, Point2D<int>coordinates)
 {
 	for (auto chunk:item_list)
