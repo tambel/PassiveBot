@@ -1,5 +1,5 @@
 #pragma once
-struct MCNK_Header
+struct MCNK
 {
 	char unk1[4];//0
 	unsigned int IndexX;

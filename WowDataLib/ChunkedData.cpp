@@ -23,7 +23,8 @@ bool ChunkedData::SeekChunk(BinaryReader * reader,unsigned int signature,bool be
 	while (!reader->GetStream()->eof() && sig!=signature)
 	{
 		unsigned int size=reader->ReadUInt();
-		reader->GetStream()->seekg(size,ios::cur);
+		reader->MoveForward(size);
+		//reader->GetStream()->seekg(size,ios::cur);
 		sig=reader->ReadUInt();
 	}
 	return 0;

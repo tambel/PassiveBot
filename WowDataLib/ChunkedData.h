@@ -1,5 +1,4 @@
 #pragma once
-#include <fstream>
 #include <IOTools\BinaryReader.h>
 using namespace std;
 struct ChunkStreamInfo

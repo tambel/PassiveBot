@@ -1,81 +1,36 @@
 #pragma once
-#include <stdint.h>
-#include <vector>
 #include "Utils.h"
-#include "WMO.h"
-#include "M2.h"
-#include "Chunk.h"
-#include <fstream>
 #include "ChunkedData.h"
-using namespace Utils::Graphics;
+#include "Chunk.h"
+//#include <string>
+using namespace Utils;
 using namespace std;
-namespace ChunkSignatures
-{
-	namespace ADTSignature
-	{
-		static const unsigned int Mver = 0x4D564552;
-		static const unsigned int Mhdr = 0x4D484452;
-		static const unsigned int Mcin = 0x4D43494E;
-		static const unsigned int Mtex = 0x4D544558;
-		static const unsigned int Mmdx = 0x4D4D4458;
-		static const unsigned int Mmid = 0x4D4D4944;
-		static const unsigned int Mwmo = 0x4D574D4F;
-		static const unsigned int Mwid = 0x4D574944;
-		static const unsigned int Mddf = 0x4D444446;
-		static const unsigned int Modf = 0x4D4F4446;
-		// ReSharper disable once InconsistentNaming
-		static const unsigned int Mh2o = 0x4D48324F;
-		static const unsigned int Mfbo = 0x4D46414F;
-		static const unsigned int Mtxf = 0x4D545846;
-		static const unsigned int Mtxp = 0x4D545850;
-		static const unsigned int Mcnk = 0x4D434E4B;
-		namespace MCNKSignatures
-		{
-			static const unsigned int Mcvt = 0x4D435654;
-		};
-	}
-	
-	/*
-	static class Chunks
-	{
-	public:
-	static const unsigned int Mver = 0x4D564552;
-	static const unsigned int Mhdr = 0x4D484452;
-	static const unsigned int Mcin = 0x4D43494E;
-	static const unsigned int Mtex = 0x4D544558;
-	static const unsigned int Mmdx = 0x4D4D4458;
-	static const unsigned int Mmid = 0x4D4D4944;
-	static const unsigned int Mwmo = 0x4D574D4F;
-	static const unsigned int Mwid = 0x4D574944;
-	static const unsigned int Mddf = 0x4D444446;
-	static const unsigned int Modf = 0x4D4F4446;
-	// ReSharper disable once InconsistentNaming
-	static const unsigned int Mh2o = 0x4D48324F;
-	static const unsigned int Mfbo = 0x4D46414F;
-	static const unsigned int Mtxf = 0x4D545846;
-	static const unsigned int Mtxp = 0x4D545850;
-	static const unsigned int Mcnk = 0x4D434E4B;
-	};
-	*/
-}
+using namespace Game;
 
-enum Location
-{
-	Kamlimdor,
-	Eastern_Kindoms
-};
-class ADT:ChunkedData
+
+
+class ADT:public ChunkedData
 {
 private:
+
+	Location * location;
+	Point2D<int> coordinates;
 	BinaryReader * root_reader;
-	BinaryReader * tex;
-	BinaryReader * obj;
+	//BinaryReader * tex;
+	//BinaryReader * obj;
 	ChunkStreamInfo chunk_stream_infos[16][16];
 public:
-	ADT(Location location,Point2D<int> coordinates);
+	ADT(Location * location,  Point2D<int> coordinates);
+	~ADT(void);
+	Chunk * GetChunk(Point2D<int> coordinates);
+	Location * GetLocation() {return location;}
+	Point2D<int> GetCoordinates(){return coordinates;}
+	bool IsExist() {return root_reader->IsFileExist();}
+	bool operator==(const ADT & right);
 
-	//Chunk * GetChunk(Point2D<int> coordinates);
+
 };
+
 
 /*
 struct MVER {

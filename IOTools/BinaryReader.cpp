@@ -36,6 +36,8 @@ void BinaryReader::ReadBytes(char * buff,unsigned long abs_position,unsigned lon
 	stream->read(buff,length);
 	stream->seekg(old_position,ios::beg);
 }
+
+
 void BinaryReader::MoveToBegining()
 {
 	stream->seekg(0,stream->beg);
@@ -48,8 +50,23 @@ ifstream * BinaryReader::GetStream()
 {
 	return stream;
 }
+void BinaryReader::SetPosition(unsigned long position)
+{
+	stream->seekg(position,ios::beg);
+}
 unsigned long BinaryReader::GetPosition()
 { 
 
 	return stream->tellg();
+}
+bool BinaryReader::IsFileExist()
+{
+	if (stream)
+	{
+		if (stream->good())
+		{
+			return true;
+		}
+	}
+	return false;
 }

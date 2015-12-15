@@ -82,8 +82,8 @@ Block::Block(MCNK * mcnk,bool exist)
 */
 Block::Block(Point2D<int> coords)
 {
-	centralized_position.X=-(coords.X*BlockSize-MapSize/2);
-	centralized_position.Y=-(coords.Y*BlockSize-MapSize/2); 
+	centralized_position.X=-(coords.X*Metrics::BlockSize-Metrics::MapSize/2);
+	centralized_position.Y=-(coords.Y*Metrics::BlockSize-Metrics::MapSize/2); 
 
 }
 Block::~Block()

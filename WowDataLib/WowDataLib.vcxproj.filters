@@ -13,129 +13,77 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="structures">
-      <UniqueIdentifier>{e2e8aa93-b1c9-436a-8d26-d9ec7ffc952e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\ADT">
-      <UniqueIdentifier>{d60f5f22-1f59-421e-ae8a-c8313e959ec8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\ADT\MCNK">
-      <UniqueIdentifier>{4b13f1ac-cecb-4a74-9f2c-d68066fe7c9a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Terrain">
       <UniqueIdentifier>{dc4637d6-a2fe-4f4f-adb8-961185f758ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Terrain\Cache">
+      <UniqueIdentifier>{c09c7976-3edc-43d4-8a9e-f1ae0293a8d6}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="Terrain\Structures">
+      <UniqueIdentifier>{e2e8aa93-b1c9-436a-8d26-d9ec7ffc952e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain\Structures\ADT">
+      <UniqueIdentifier>{d60f5f22-1f59-421e-ae8a-c8313e959ec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain\Structures\ADT\MCNK">
+      <UniqueIdentifier>{4b13f1ac-cecb-4a74-9f2c-d68066fe7c9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileParser.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderable.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="WMO.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="M2.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Doodad.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicObject.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEntity.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MapArea.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunk.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT_ROOT.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MCNK_header.h">
-      <Filter>structures\ADT\MCNK</Filter>
-    </ClInclude>
     <ClInclude Include="MCNK.h">
-      <Filter>structures\ADT\MCNK</Filter>
-    </ClInclude>
-    <ClInclude Include="ChunkedData.h">
-      <Filter>structures</Filter>
+      <Filter>Terrain\Structures\ADT\MCNK</Filter>
     </ClInclude>
     <ClInclude Include="Adt.h">
       <Filter>Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="ChunkedData.h">
+      <Filter>Terrain\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="ADTWorker.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="ADTCache.h">
+      <Filter>Terrain\Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkCache.h">
+      <Filter>Terrain\Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache.h">
+      <Filter>Terrain\Cache</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileParser.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderable.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="WMO.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="M2.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Doodad.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicObject.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEntity.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MapArea.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunk.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="ADT_ROOT.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ChunkedData.cpp">
-      <Filter>structures</Filter>
-    </ClCompile>
     <ClCompile Include="Adt.cpp">
       <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkedData.cpp">
+      <Filter>Terrain\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="ADTCache.cpp">
+      <Filter>Terrain\Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="ADTWorker.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkCache.cpp">
+      <Filter>Terrain\Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="Cache.cpp">
+      <Filter>Terrain\Cache</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
