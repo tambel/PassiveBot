@@ -32,7 +32,7 @@ Chunk * ADT::GetChunk(Point2D<int> coordinates)
 
 bool ADT::operator==(const ADT & right)
 {
-	return this->coordinates==right.coordinates && this->location==right.location;
+	return this->location->id==right.location->id && this->coordinates==right.coordinates && this->location==right.location;
 }
 
 /*

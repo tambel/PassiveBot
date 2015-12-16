@@ -3,11 +3,19 @@
 
 Chunk * ADTWorker::GetChunk(Location * location, Point2D<int> block_coordinates, Point2D<int>coordinates)
 {
+	Chunk * chunk=ChunkCache::Find(location,block_coordinates,coordinates);
+	if (chunk)
+		return chunk;
 	ADT * adt=0;
 	adt=GetADT(location, block_coordinates);
 	if (!adt->IsExist())
 		return 0;
-	return adt->GetChunk(coordinates);
+	chunk= adt->GetChunk(coordinates);
+	if (chunk)
+	{
+		ChunkCache::Add(chunk);
+		return chunk;
+	}
 }
 ADT * ADTWorker::GetADT(Location * location, Point2D<int> coordinates)
 {

@@ -38,9 +38,6 @@
     <ClInclude Include="MCNK.h">
       <Filter>Terrain\Structures\ADT\MCNK</Filter>
     </ClInclude>
-    <ClInclude Include="Adt.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="ChunkedData.h">
       <Filter>Terrain\Structures</Filter>
     </ClInclude>
@@ -59,13 +56,19 @@
     <ClInclude Include="Cache.h">
       <Filter>Terrain\Cache</Filter>
     </ClInclude>
+    <ClInclude Include="MapArea.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Adt.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareArea.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
       <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Adt.cpp">
-      <Filter>Terrain</Filter>
     </ClCompile>
     <ClCompile Include="ChunkedData.cpp">
       <Filter>Terrain\Structures</Filter>
@@ -84,6 +87,15 @@
     </ClCompile>
     <ClCompile Include="Cache.cpp">
       <Filter>Terrain\Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="MapArea.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Adt.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="SquareArea.cpp">
+      <Filter>Terrain</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

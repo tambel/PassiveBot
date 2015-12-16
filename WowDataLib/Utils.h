@@ -85,6 +85,18 @@ namespace Utils
 		{
 			return Point2D(this->X-right.X,this->Y-right.Y);
 		}
+		Point2D operator +(const Point2D & right)
+		{
+			return Point2D(this->X+right.X,this->Y+right.Y);
+		}
+		Point2D operator -=(const Point2D & right)
+		{
+			return Point2D(this->X-right.X,this->Y-right.Y);
+		}
+		Point2D operator +=(const Point2D & right)
+		{
+			return Point2D(this->X+right.X,this->Y+right.Y);
+		}
 	};
 	Point2D<int> WorldPositionToMapBlockCoords(Vector3 position);
 

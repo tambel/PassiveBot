@@ -1,5 +1,6 @@
 #pragma once
 #include "ADTCache.h"
+#include "ChunkCache.h"
 class ADTWorker
 {
 

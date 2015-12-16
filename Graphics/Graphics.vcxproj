@@ -119,9 +119,19 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ChunkLink.h" />
+    <ClInclude Include="Link.h" />
+    <ClInclude Include="MapFrame.h" />
+    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChunkLink.cpp" />
+    <ClCompile Include="Link.cpp" />
+    <ClCompile Include="MapFrame.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

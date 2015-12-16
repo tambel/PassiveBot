@@ -13,6 +13,7 @@ Chunk::Chunk(ChunkStreamInfo info, Location * location, Point2D<int> block_coord
 	//root_reader->GetStream()->seekg(root_info.start,ios::beg);
 	root_reader->SetPosition(root_info.start);
 	header =root_reader->Read<MCNK>();
+	game_position=header.position;
 	//root_reader->GetStream()->read((char*)&header,sizeof(MCNK));
 	unsigned sig;
 	unsigned size;
@@ -47,8 +48,11 @@ void Chunk::LoadMcvt()
 	float posx = Metrics::MapMidPoint - header.position.y;
 	float posy = Metrics::MapMidPoint + header.position.x;
 	float posz = header.position.z;
+
+	posx=0;
+	posy=0;
 	int counter = 0;
-	vertices=new Vector3[145];
+	vertices=new Utils::Graphics::Vertice[145];
 	for(int i = 0; i < 17; ++i)
 	{
 		for(int j = 0; j < (((i % 2) != 0) ? 8 : 9); ++j)
@@ -59,10 +63,30 @@ void Chunk::LoadMcvt()
 				x += 0.5f * Metrics::UnitSize;
 			float y = posy - i * Metrics::UnitSize * 0.5f;
 
-			vertices[counter] =Vector3(x, y, height);
+			vertices[counter].position =Vector3(x, y, heights[counter]);
+			if ((i % 2) != 0)
+			{
+				vertices[counter].color=Graphics::Color(1.0f,1.0f,1.0f,1.0f);
+				
+			}
+			else
+			{
+				vertices[counter].color=Graphics::Color(0.0f,0.0f,0.0f,0.0f);
+				if (i==0)
+				{
+					if (j<3)
+					vertices[counter].color=Graphics::Color(0.0f,0.0f,1.0f,0.0f);
+					if (j>4)
+					vertices[counter].color=Graphics::Color(0.0f,1.0f,1.0f,0.0f);
+				}
+			}
 			++counter;
 		}
 	}
 
 	delete [] heights;
+}
+bool Chunk::operator==(const Chunk & right)
+{
+	return this->location->id==right.location->id && this->block_coordinates==right.block_coordinates && this->coordinates==right.coordinates;
 }
