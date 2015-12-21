@@ -1,13 +1,17 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Mesh.h"
+#include "M2Header.h"
+#include "IOTools\BinaryReader.h"
+#include "Utils.h"
+#include "M2Structs.h"
+/*
 using namespace Utils::WowTypes; 
 using namespace Utils::Graphics;
 using namespace std;
 
 
-struct M2Vertice
+struct M2Vertex
 {
 	Vector3 position;
 	unsigned char bone_weights[4];
@@ -73,7 +77,7 @@ class M2
 public:
 	bool exist;
 	unsigned long vert_count;
-	M2Vertice * vertices;
+	M2Vertex * vertices;
 	unsigned short * indices;
 	unsigned long index_count;
 	Triangle * triangles;
@@ -85,5 +89,26 @@ public:
 	vector<Mesh*> meshes;
 	M2(string path);
 	~M2(void);
+};
+*/
+
+class M2
+{
+	string filename;
+	M2Header header;
+	//BinaryReader * reader;
+	//BinaryReader * skin_reader;
+	M2Vertex * vertices;
+	unsigned long vertex_count;
+	void LoadSkinFile(int index);
+	unsigned short * indices;
+	unsigned index_count;
+public:
+	M2(string filename);
+	~M2();
+	M2Vertex * GetVertices() {return vertices;}
+	unsigned long GetVertexCount() {return vertex_count;}
+	unsigned short * GetIndices(){return indices;}
+	unsigned GetIndexCount() {return index_count;}
 };
 

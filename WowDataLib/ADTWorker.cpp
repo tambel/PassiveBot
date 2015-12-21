@@ -1,7 +1,7 @@
 #include "ADTWorker.h"
 
 
-Chunk * ADTWorker::GetChunk(Location * location, Point2D<int> block_coordinates, Point2D<int>coordinates)
+Chunk * ADTWorker::GetChunk(Location * location, Point2D<int> block_coordinates, Point2D<int>coordinates,bool save)
 {
 	Chunk * chunk=ChunkCache::Find(location,block_coordinates,coordinates);
 	if (chunk)
@@ -13,7 +13,8 @@ Chunk * ADTWorker::GetChunk(Location * location, Point2D<int> block_coordinates,
 	chunk= adt->GetChunk(coordinates);
 	if (chunk)
 	{
-		ChunkCache::Add(chunk);
+		if (save)
+			ChunkCache::Add(chunk);
 		return chunk;
 	}
 }

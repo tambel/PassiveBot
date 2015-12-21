@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Заголовочные файлы\Linking">
-      <UniqueIdentifier>{5550a201-1858-4535-b7e6-62ca675be7c2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -30,12 +27,6 @@
     <ClInclude Include="Renderable.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Link.h">
-      <Filter>Заголовочные файлы\Linking</Filter>
-    </ClInclude>
-    <ClInclude Include="ChunkLink.h">
-      <Filter>Заголовочные файлы\Linking</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -49,12 +40,6 @@
     </ClCompile>
     <ClCompile Include="Renderable.cpp">
       <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Link.cpp">
-      <Filter>Заголовочные файлы\Linking</Filter>
-    </ClCompile>
-    <ClCompile Include="ChunkLink.cpp">
-      <Filter>Заголовочные файлы\Linking</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

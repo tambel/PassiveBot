@@ -1,16 +1,20 @@
 #pragma once
 #include <string>
 #include "M2.h"
-#include "MapEntity.h"
+#include "Model.h"
+#include "Utils.h"
 using namespace std;
-class Doodad: public MapEntity
+class Doodad:public Model
 {
+	unsigned long uuid;
 public:
-	unsigned long id;
-	string name;
-	//M2 * m2;
+	Vector3 game_position;
 	float scale;
-	//vector<Mesh*> meshes;
-	Doodad(string path, M2Info info);
+	//Vector3 position;
+	Vector3 orientation;
+	Doodad(void){};
+	Doodad(M2 * m2, unsigned uuid, Position position, short scale );
 	~Doodad(void);
+	unsigned long GetUUID() {return uuid;}
+	Vector3 GetGamePosition() {return game_position;}
 };

@@ -21,25 +21,34 @@
       <Extensions>
       </Extensions>
     </Filter>
-    <Filter Include="Terrain\Structures">
+    <Filter Include="Models">
+      <UniqueIdentifier>{006f1b8b-b3fb-4a1d-9dfd-f8a9f9043d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cache">
+      <UniqueIdentifier>{646ce722-7e35-480b-9fe7-d31301ffef19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Structures">
+      <UniqueIdentifier>{e33fb268-c175-4547-b1ce-945389fc3718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Structures">
       <UniqueIdentifier>{e2e8aa93-b1c9-436a-8d26-d9ec7ffc952e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Terrain\Structures\ADT">
+    <Filter Include="Structures\ADT">
       <UniqueIdentifier>{d60f5f22-1f59-421e-ae8a-c8313e959ec8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Terrain\Structures\ADT\MCNK">
+    <Filter Include="Structures\ADT\MCNK">
       <UniqueIdentifier>{4b13f1ac-cecb-4a74-9f2c-d68066fe7c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Structures\M2">
+      <UniqueIdentifier>{fdb4db16-cc22-4c76-b57a-21a760632f1b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="MCNK.h">
-      <Filter>Terrain\Structures\ADT\MCNK</Filter>
+      <Filter>Structures\ADT\MCNK</Filter>
     </ClInclude>
     <ClInclude Include="ChunkedData.h">
-      <Filter>Terrain\Structures</Filter>
+      <Filter>Structures</Filter>
     </ClInclude>
     <ClInclude Include="Chunk.h">
       <Filter>Terrain</Filter>
@@ -53,9 +62,6 @@
     <ClInclude Include="ChunkCache.h">
       <Filter>Terrain\Cache</Filter>
     </ClInclude>
-    <ClInclude Include="Cache.h">
-      <Filter>Terrain\Cache</Filter>
-    </ClInclude>
     <ClInclude Include="MapArea.h">
       <Filter>Terrain</Filter>
     </ClInclude>
@@ -65,13 +71,43 @@
     <ClInclude Include="SquareArea.h">
       <Filter>Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="M2.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="M2Cache.h">
+      <Filter>Models\Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="M2Header.h">
+      <Filter>Structures\M2</Filter>
+    </ClInclude>
+    <ClInclude Include="ADTStructs.h">
+      <Filter>Structures\ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="M2Structs.h">
+      <Filter>Models\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Doodad.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="WowObjectAvatar.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="ChunkedData.cpp">
-      <Filter>Terrain\Structures</Filter>
+      <Filter>Structures</Filter>
     </ClCompile>
     <ClCompile Include="Chunk.cpp">
       <Filter>Terrain</Filter>
@@ -85,9 +121,6 @@
     <ClCompile Include="ChunkCache.cpp">
       <Filter>Terrain\Cache</Filter>
     </ClCompile>
-    <ClCompile Include="Cache.cpp">
-      <Filter>Terrain\Cache</Filter>
-    </ClCompile>
     <ClCompile Include="MapArea.cpp">
       <Filter>Terrain</Filter>
     </ClCompile>
@@ -96,6 +129,24 @@
     </ClCompile>
     <ClCompile Include="SquareArea.cpp">
       <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="M2.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Cache.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="M2Cache.cpp">
+      <Filter>Models\Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="Doodad.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="WowObjectAvatar.cpp">
+      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -55,7 +55,7 @@ protected:
   void setupResources();
   void createResourceListener();
   void loadResources();
-  virtual void UpdateMap();
+  virtual void OnUpdate();
  
   bool mShutdown;
  

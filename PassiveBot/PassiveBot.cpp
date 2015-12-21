@@ -28,10 +28,11 @@ using namespace Utils;
 
 //using namespace ProcessLib;
 
-void workerFunc()  
+void workerFunc(MapFrame * frame, Position pos)  
 {  
-	MapFrame * frame=new MapFrame();
+	
 	frame->go();
+	frame->SetCamera(pos);
 
 }
 
@@ -47,28 +48,41 @@ int _tmain(int argc, _TCHAR* argv[])
 	param.login="lissek7@ya.ru";
 	param.password="lebmat2762066";
 
-	//bool y=GameInteractor::Start(&param);
-	/*
+	bool y=GameInteractor::Start(&param);
+	
 	ObjectManager::Initialize();
 	ObjectManager::EnumAllVisibleObjects();
 	Player * player = ObjectManager::GetPlayer();
 	Vector3 pos=player->GetPosition().coords;
 	player->DumpPosition();
-	*/
 	if (!Game::LocationBase::IsInitialized())
-		Game::LocationBase::Init();
+		Game::LocationBase::Init(); 
+	
+	MapFrame * frame=new MapFrame();
+	SquareArea * area=new SquareArea(Game::LocationBase::Get("Kalimdor"),Utils::WorldPositionToBlockCoords(player->GetPosition().coords),Utils::WorldPositionToChunkCoords(player->GetPosition().coords),5);//Point2D<int>(0,1),10);
+	area->AddWowObjectAvatar(player);
+	frame->SetArea(area);
+	
+
 	//ADT * a=new ADT(Game::LocationBase::Get("Kalimdor"),Utils::WorldPositionToMapBlockCoords(player->GetPosition().coords));
 	//ADT * b=new ADT(Game::LocationBase::Get("Kalimdor"),Utils::WorldPositionToMapBlockCoords(player->GetPosition().coords));
 	//Chunk * c=ADTWorker::GetChunk(Game::LocationBase::Get("Kalimdor"),Utils::WorldPositionToMapBlockCoords(player->GetPosition().coords),Point2D<int>(0,0));
 	//c=ADTWorker::GetChunk(Game::LocationBase::Get("Kalimdor"),Utils::WorldPositionToMapBlockCoords(player->GetPosition().coords),Point2D<int>(0,1));
 	
-	boost::thread thread(workerFunc);
+
+
+	boost::thread thread(workerFunc,frame,player->GetPosition());
 	thread.detach();
 	thread.join();
+
 	while (1)
 	{
-		//player->DumpPosition();
-		Sleep(50);
+
+		area->Move(Game::LocationBase::Get("Kalimdor"),Utils::WorldPositionToBlockCoords(player->GetPosition().coords),Utils::WorldPositionToChunkCoords(player->GetPosition().coords));
+
+		// area=new SquareArea(Game::LocationBase::Get("Kalimdor"),Utils::WorldPositionToBlockCoords(player->GetPosition().coords),Utils::WorldPositionToChunkCoords(player->GetPosition().coords),10);//Point2D<int>(0,1),10);
+	
+		Sleep(500);
 	}
 
 

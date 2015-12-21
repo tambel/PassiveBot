@@ -3,17 +3,21 @@
 #include "ChunkedData.h"
 #include "Utils.h"
 #include "MCNK.h"
+#include "Link.h"
+#include "Model.h"
+#include "Doodad.h"
 using namespace Utils;
 using namespace Game;
 
-class StaticFields
+class ChunkModel
 {
 public:
 	static const unsigned long index_count=768;
-	unsigned long * indices;
-	StaticFields()
+	static unsigned * indices;
+	static const unsigned long vertex_count=145;
+	static unsigned * Init()
 	{
-		indices=new unsigned long[index_count];
+		static unsigned *indices=new unsigned[index_count];
 		for (unsigned y = 0; y < 8; ++y)
 		{
 			for (unsigned x = 0; x < 8; ++x)
@@ -36,36 +40,45 @@ public:
 				indices[i + 10] = y * 17 + x + 9;
 			}
 		}
+		return indices;
 	}
 };
-class Chunk
+class Chunk:public Model
 {
 private:
+
 	Location * location;
 	Point2D<int> block_coordinates;
 	Point2D<int> coordinates;
 	Vector3 game_position;
-	Vector3 rel_position;
+	//Vector3 position;
+	Vector3 real_position;
+	vector<Doodad*> doodads;
+
 	BinaryReader * root_reader;
 	ChunkStreamInfo root_info;
 	MCNK header;
-	Utils::Graphics::Vertice * vertices;
+	//Utils::Graphics::Vertice * vertices;
 	//static unsigned * indices;
-	static StaticFields s_fileds;
 	void LoadMcvt();
 
 public:
+	bool is_active;
+	bool is_new;
 	Chunk(void);
+	~Chunk(void);
 	Chunk(ChunkStreamInfo info, Location * loc,Point2D<int> block_coordinates,Point2D<int> coordinates);
 	Location * GetLocation() {return location;}
 	Point2D<int> GetBlockCoordinates() {return block_coordinates;}
 	Point2D<int> GetCoordinates() {return coordinates;}
-	Utils::Graphics::Vertice * GetVertices() {return vertices;}
+	//Utils::Graphics::Vertice * GetVertices() {return vertices;}
 	bool operator==(const Chunk & right);
-	static unsigned long* GetIndices() {return s_fileds.indices;}
+	//static unsigned long* GetIndices() {return s_fileds.indices;}
 	Vector3 GetGamePosition() {return game_position;}
-	Vector3 GetRelativePosition() {return rel_position;}
-	void  SetRelativePosition(Vector3 pos) {rel_position=pos;}
-	~Chunk(void);
+	void SetGamePosition(Vector3 position) {game_position=position;}
+	Vector3 GetRealPosition() {return real_position;}
+	void  SetRealPosition(Vector3 pos) {real_position=pos;}
+	void SearchForObjects();
+
 };
 

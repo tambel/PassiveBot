@@ -43,7 +43,7 @@ void Window::go()
 	while(true)
 	{
 		
-		UpdateMap();
+		OnUpdate();
 		Ogre::WindowEventUtilities::messagePump();
 		if(mWindow->isClosed()) break;
 		if (!mWindow->isActive())
@@ -289,7 +289,7 @@ void Window::loadResources()
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-void Window::UpdateMap()
+void Window::OnUpdate()
 {
 }
 

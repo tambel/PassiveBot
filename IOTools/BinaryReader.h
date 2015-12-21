@@ -19,6 +19,13 @@ public:
 		stream->read((char*)buff,count*sizeof(T));
 	}
 	template <class T>
+	void ReadArrayAbs(void * buff, unsigned long offset, unsigned long count=1)
+	{
+
+		stream->seekg(offset,stream->beg);
+		stream->read((char*)buff,count*sizeof(T));
+	}
+	template <class T>
 	T Read()
 	{
 		T result;

@@ -6,11 +6,12 @@ class MapArea
 {
 protected:
 	//Chunk ** chunks;
-	vector<Chunk*> chunks;
+	Chunk *** chunks;
 public:
+	bool busy;
 	MapArea(void);
 	~MapArea(void);
-	vector<Chunk *>* GetChunks();
+	Chunk *** GetChunks();
 
 
 };

@@ -3,13 +3,14 @@
 
 MapArea::MapArea(void)
 {
+	busy=false;
 }
 
 
 MapArea::~MapArea(void)
 {
 }
-vector <Chunk *>* MapArea::GetChunks()
+Chunk *** MapArea::GetChunks()
 {
-	return &chunks;
+	return chunks;
 }

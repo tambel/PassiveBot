@@ -39,6 +39,8 @@ namespace Utils
 		{
 			Vector3 coords;
 			Vector3 rotation;
+			Position(){};
+			Position(Vector3 coords,Vector3 rotation): coords(coords),rotation(rotation){}
 		};
 	}
 }

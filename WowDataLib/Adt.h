@@ -2,23 +2,31 @@
 #include "Utils.h"
 #include "ChunkedData.h"
 #include "Chunk.h"
+#include "ADTStructs.h"
 //#include <string>
 using namespace Utils;
 using namespace std;
 using namespace Game;
-
+struct M2Info
+{
+	string file;
+	MDDF mddf;
+	M2Info(string file,MDDF mddf):file(file),mddf(mddf){}
+};
 
 
 class ADT:public ChunkedData
 {
 private:
-
+	string path;
 	Location * location;
 	Point2D<int> coordinates;
 	BinaryReader * root_reader;
 	//BinaryReader * tex;
-	//BinaryReader * obj;
+	BinaryReader * obj_reader;
 	ChunkStreamInfo chunk_stream_infos[16][16];
+	vector<M2Info> m2_infos;
+	void ReadM2Models(bool hight_detalization=false);
 public:
 	ADT(Location * location,  Point2D<int> coordinates);
 	~ADT(void);
@@ -27,6 +35,8 @@ public:
 	Point2D<int> GetCoordinates(){return coordinates;}
 	bool IsExist() {return root_reader->IsFileExist();}
 	bool operator==(const ADT & right);
+	void ReadObjects(bool hight_detalization=false);
+	vector<M2Info> * GetM2Infos() {return &m2_infos;}
 
 
 };

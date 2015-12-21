@@ -81,6 +81,10 @@ namespace Utils
 		{
 			return (this->X==right.X && this->Y==right.Y);
 		}
+		bool operator!=(const Point2D & right)
+		{
+			return (this->X!=right.X || this->Y!=right.Y);
+		}
 		Point2D operator -(const Point2D & right)
 		{
 			return Point2D(this->X-right.X,this->Y-right.Y);
@@ -97,8 +101,11 @@ namespace Utils
 		{
 			return Point2D(this->X+right.X,this->Y+right.Y);
 		}
+		
 	};
-	Point2D<int> WorldPositionToMapBlockCoords(Vector3 position);
+	Point2D<int> WorldPositionToBlockCoords(Vector3 position);
+	Point2D<float> BlockCoordsToWorldPosition(Point2D<int> coords);
+	Point2D<int> WorldPositionToChunkCoords(Vector3 position);
 
 	namespace Graphics
 	{
@@ -126,12 +133,18 @@ namespace Utils
 			Color(float r,float g, float b, float a) :r(r),a(a),g(g),b(b){}
 		};
 
-		struct Vertice
+		struct Vertex
 		{
 			Vector3 position;
 			Color color;
-			Vertice(){};
-			Vertice(Vector3 pos,Color color): position(pos), color(color){}
+			Vertex(){};
+			Vertex(Vector3 pos,Color color): position(pos), color(color){}
+		};
+		struct BoundingBox
+		{
+			Vector3 up;
+			Vector3 down;
+			bool IsInside2D(Vector3 point);
 		};
 	}
 }
